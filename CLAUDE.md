@@ -35,12 +35,23 @@ LinguaFlow — Chrome 浏览器 AI 翻译插件（Manifest V3）。基于 DeepSe
 - **持久化**：`chrome.storage.local`，2000 条，1 小时 TTL，30 秒刷盘 + `beforeunload` 立即刷
 - **语言切换**：检测 `last_target_lang` 变化 → 自动清除缓存
 
-### 右下角 UI（Open Design v9）
+### 右下角 UI（Open Design v2）
 
-三层结构：Toast 栈 → 进度条 → 连续卡片（`.lf-card` 包裹详情面板 + 悬浮球）
-- 悬浮球：iOS 开关 + pill 按钮 + SVG chevron + token 尾栏
-- 拖拽：始终 `right/bottom` 定位
-- 详情面板：`max-height` 动画向上展开
+`#lf-wrapper` 固定容器（260px↔56px 宽度过渡）包含：收折按钮 + widget + 迷你球
+- **收折按钮**：玻璃态渐变圆钮（28px），紫色边框+光晕，左右弹跳动画，位于卡片左侧外
+- **悬浮球**：flexbox 布局（`justify-content:space-between`），iOS 开关 + pill 按钮 + chevron + token 尾栏
+- **迷你球**：56px 圆形，译/T 文字，翻译中绿色旋转光效。收折时 wrapper 缩至 56px，widget 缩小消失
+- **详情面板**：`max-height` 动画向上展开，进度条绝对定位不占布局流
+- **拖拽**：wrapper 级别拖拽，始终 `right/bottom` 定位
+- **折叠持久化**：`chrome.storage.local.lf_collapsed`，刷新不闪（先 await 读再 buildUI）
+
+### 三种语言逻辑
+
+| 变量 | 存储 | 用途 |
+|------|------|------|
+| `uiLang` | `chrome.storage.sync` | 插件界面文字 + 迷你球文字（中文=译，其他=T） |
+| `targetLang` | `chrome.storage.sync` | 翻译输出语言 + 解释输出语言 |
+| `sourceLang` | `chrome.storage.sync` | 翻译源语言（默认 auto） |
 
 ### 关键设计决策
 
@@ -48,7 +59,8 @@ LinguaFlow — Chrome 浏览器 AI 翻译插件（Manifest V3）。基于 DeepSe
 - **[N] 格式输出**：AI 返回 `[0] 译文\n[1] 译文`，自然换行分隔，零额外 token 开销
 - **视野优先**：初始只翻译 `viewport + 200px`，滚动时扩展至 `1.5x viewport`
 - **本地去重**：CJK 字符占比 > 30% 或 CJK > 0 且无英文词 → 跳过（已是目标语言）
-- **词汇解释**：Ctrl+悬停未翻译词汇 → 发 `EXPLAIN_WORD` → AI 返回目标语言解释
+- **Ctrl+解释（独立模块）**：不依赖翻译状态，任何页面可用。检测光标下词组→立即 `splitText` 插入 `（…）`→异步 API 解释→更新。Esc 清除所有解释。解释语言跟随 `targetLang`
+- **API 日志**：Service Worker 每次调用记录 `lf_api_log`（prompt/response/tokens），悬浮球双击导出到 Console
 
 ## 调试
 
