@@ -1,0 +1,67 @@
+/* LinguaFlow Popup */
+:root {
+  --bg: #0f0f1a; --card: #1c1c38; --input: #12122a; --border: #2a2a48;
+  --accent: #7c5cfc; --cyan: #5ce0fc; --text: #f0f0f5; --text2: #9090a8; --text3: #606078;
+  --green: #4ade80; --red: #f87171;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  width:320px; font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--bg); color:var(--text); font-size:13px; line-height:1.5;
+}
+.container{padding:16px; display:flex; flex-direction:column; gap:12px}
+
+/* Header */
+.header{display:flex; align-items:center; gap:10px}
+.title{font-size:17px; font-weight:700; background:linear-gradient(135deg,var(--accent),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+
+/* Section */
+.section{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:10px}
+.section-title{font-size:11px; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:0.5px; padding-left:2px}
+
+/* Form */
+.form-group{display:flex; flex-direction:column; gap:3px}
+.form-group label{font-size:10px; font-weight:600; color:var(--text3); text-transform:uppercase; letter-spacing:0.3px; padding-left:2px}
+input[type="text"],input[type="password"]{
+  width:100%; padding:8px 10px; background:var(--input); border:1px solid var(--border);
+  border-radius:8px; color:var(--text); font-size:12px; font-family:'SF Mono',Consolas,monospace;
+  outline:none; transition:border-color 0.2s
+}
+input:focus{border-color:var(--accent)}
+.input-wrap{position:relative}
+.input-wrap input{padding-right:36px}
+.eye-btn{
+  position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  background:none; border:none; color:var(--text3); cursor:pointer; padding:4px;
+  line-height:1; opacity:0.6; transition:opacity 0.2s
+}
+.eye-btn:hover{opacity:1}
+select{
+  width:100%; padding:8px 10px; background:var(--input); border:1px solid var(--border);
+  border-radius:8px; color:var(--text); font-size:12px; font-family:inherit;
+  cursor:pointer; outline:none; appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3l3 3 3-3' stroke='%239090a8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center; padding-right:28px
+}
+
+/* Actions */
+.form-actions{display:flex; align-items:center; gap:8px; padding-top:2px; padding-left:2px}
+.btn{border:none; border-radius:8px; font-family:inherit; font-weight:600; cursor:pointer; transition:all 0.2s; font-size:11px}
+.btn-test{background:rgba(124,92,252,0.12); color:var(--accent); padding:6px 14px}
+.btn-test:hover{background:rgba(124,92,252,0.2)}
+.btn-test:disabled{opacity:0.5; cursor:default}
+.test-result{font-size:10px; font-weight:500}
+.test-result.success{color:var(--green)}
+.test-result.error{color:var(--red)}
+
+/* Token */
+.token-section{padding:10px 14px; font-size:11px; color:var(--text2); text-align:center}
+
+/* Footer */
+.footer{display:flex; justify-content:space-between; font-size:10px; color:var(--text3)}
+.footer kbd{padding:1px 4px; background:var(--input); border:1px solid var(--border); border-radius:3px; font-size:9px; color:var(--text2)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:var(--border); border-radius:2px}
