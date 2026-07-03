@@ -9,17 +9,45 @@
 <div class="container">
   <header class="header">
     <div class="logo">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="11" fill="url(#g)"/>
-        <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c5cfc"/><stop offset="100%" stop-color="#5ce0fc"/></linearGradient></defs>
-        <text x="12" y="17" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="system-ui">文</text>
-      </svg>
-      <span class="title">LinguaFlow</span>
+      <img src="../icons/logo.png" width="44" height="44" style="border-radius:6px" alt="">
+      <span class="title" style="font-size:19px">Faluber Translate</span>
     </div>
   </header>
 
   <section class="section">
     <div class="section-title" data-i18n="apiSettings">API 设置</div>
+
+    <!-- API 选择器 -->
+    <div class="api-select-row">
+      <select id="api-selector" class="api-selector"></select>
+      <button class="icon-btn" id="btn-add-api" title="添加 API" data-i18n-title="addApi">＋</button>
+      <button class="icon-btn danger" id="btn-del-api" title="删除" data-i18n-title="deleteApi">🗑</button>
+    </div>
+
+    <!-- API 名称 -->
+    <div class="form-group">
+      <label data-i18n="apiName">名称</label>
+      <input type="text" id="api-name" placeholder="My API" autocomplete="off">
+    </div>
+
+    <!-- 提供商 -->
+    <div class="form-group">
+      <label data-i18n="provider">提供商</label>
+      <select id="provider">
+        <option value="deepseek">DeepSeek</option>
+        <option value="openai">OpenAI</option>
+        <option value="groq">Groq</option>
+        <option value="together">Together AI</option>
+        <option value="openrouter">OpenRouter</option>
+        <option value="siliconflow">SiliconFlow (硅基流动)</option>
+        <option value="moonshot">Moonshot (月之暗面)</option>
+        <option value="zhipu">Zhipu (智谱)</option>
+        <option value="dashscope">DashScope (阿里百炼)</option>
+        <option value="custom">Custom</option>
+      </select>
+    </div>
+
+    <!-- API Key -->
     <div class="form-group">
       <label data-i18n="apiKey">API Key</label>
       <div class="input-wrap">
@@ -29,46 +57,49 @@
         </button>
       </div>
     </div>
+
+    <!-- API 地址 -->
     <div class="form-group">
       <label data-i18n="apiUrl">API 地址</label>
-      <input type="text" id="api-url" placeholder="https://api.deepseek.com/v1">
+      <input type="text" id="api-url" placeholder="https://api.deepseek.com/v1" autocomplete="off">
     </div>
+
+    <!-- 模型 -->
     <div class="form-group">
       <label data-i18n="model">模型</label>
-      <input type="text" id="model" placeholder="deepseek-chat">
+      <div class="model-row">
+        <input type="text" id="model" list="model-list" placeholder="deepseek-chat" autocomplete="off">
+        <datalist id="model-list"></datalist>
+        <button class="icon-btn" id="btn-fetch-models" title="拉取可用模型" data-i18n-title="fetchModels">🔄</button>
+      </div>
     </div>
+
+    <!-- 操作按钮 -->
     <div class="form-actions">
-      <button class="btn btn-test" id="test-api" data-i18n="testConn">测试连接</button>
+      <button class="btn btn-test" id="btn-test" data-i18n="testConn">测试连接</button>
+      <button class="btn btn-save" id="btn-save">💾 <span data-i18n="save">保存</span></button>
       <span class="test-result" id="test-result"></span>
     </div>
+    <div class="fetch-status" id="fetch-status"></div>
   </section>
 
-  <section class="section">
-    <div class="section-title">Language</div>
-    <select id="ui-lang">
-      <option value="zh-CN">🇨🇳 简体中文</option><option value="zh-TW">🇹🇼 繁體中文</option>
-      <option value="en">🇺🇸 English</option><option value="ja">🇯🇵 日本語</option>
-      <option value="ko">🇰🇷 한국어</option><option value="fr">🇫🇷 Français</option>
-      <option value="de">🇩🇪 Deutsch</option><option value="es">🇪🇸 Español</option>
-      <option value="pt">🇧🇷 Português</option><option value="ru">🇷🇺 Русский</option>
-      <option value="ar">🇸🇦 العربية</option><option value="hi">🇮🇳 हिन्दी</option>
-      <option value="th">🇹🇭 ไทย</option><option value="vi">🇻🇳 Tiếng Việt</option>
-      <option value="it">🇮🇹 Italiano</option>
-      <option value="nl">🇳🇱 Nederlands</option>
-      <option value="pl">🇵🇱 Polski</option>
-      <option value="tr">🇹🇷 Türkçe</option>
-      <option value="id">🇮🇩 Indonesia</option>
-      <option value="sv">🇸🇪 Svenska</option>
-    </select>
-  </section>
-
-  <section class="section token-section" id="token-usage">
-    📊 加载中...
-  </section>
+  <div class="token-bar" id="token-usage">📊 加载中...</div>
 
   <footer class="footer">
-    <span><span data-i18n="shortcut">快捷键</span> <kbd>Alt+T</kbd></span>
-    <span>v1.0.0</span>
+    <span style="display:flex;align-items:center;gap:6px"><span data-i18n="shortcut">快捷键</span> <kbd>Alt+T</kbd></span>
+    <span style="display:flex;align-items:center;gap:4px">🌐 <select id="ui-lang" style="width:auto;min-width:110px;padding:2px 20px 2px 4px;background:transparent;border:1px solid var(--border);border-radius:4px;color:var(--text2);font-size:10px;font-family:inherit;cursor:pointer;outline:none;appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%278%27 height=%278%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 2l3 3 3-3%27 stroke=%27%239090a8%27 stroke-width=%271.2%27 fill=%27none%27/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 3px center">
+      <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option>
+      <option value="en">English</option><option value="ja">日本語</option>
+      <option value="ko">한국어</option><option value="fr">Français</option>
+      <option value="de">Deutsch</option><option value="es">Español</option>
+      <option value="pt">Português</option><option value="ru">Русский</option>
+      <option value="ar">العربية</option><option value="hi">हिन्दी</option>
+      <option value="th">ไทย</option><option value="vi">Tiếng Việt</option>
+      <option value="it">Italiano</option><option value="nl">Nederlands</option>
+      <option value="pl">Polski</option>
+      <option value="tr">Türkçe</option><option value="id">Indonesia</option>
+      <option value="sv">Svenska</option>
+    </select></span>
   </footer>
 </div>
 <script src="popup.js"></script>

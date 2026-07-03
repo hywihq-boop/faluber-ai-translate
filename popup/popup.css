@@ -9,11 +9,13 @@
 body{
   width:320px; font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;
   background:var(--bg); color:var(--text); font-size:13px; line-height:1.5;
+  max-height:600px; overflow-y:auto;
 }
 .container{padding:16px; display:flex; flex-direction:column; gap:12px}
 
 /* Header */
-.header{display:flex; align-items:center; gap:10px}
+.header{display:flex; align-items:center; gap:12px; padding:2px 0}
+.logo{display:flex; align-items:center; gap:12px}
 .title{font-size:17px; font-weight:700; background:linear-gradient(135deg,var(--accent),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
 
 /* Section */
@@ -45,18 +47,45 @@ select{
   background-repeat:no-repeat; background-position:right 10px center; padding-right:28px
 }
 
+/* API Selector Row */
+.api-select-row{display:flex; gap:4px; align-items:center}
+.api-selector{flex:1; padding:6px 8px; background:var(--input); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:11px; font-family:inherit; cursor:pointer; outline:none; min-width:0; appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3l3 3 3-3' stroke='%239090a8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; padding-right:26px}
+.api-selector:focus{border-color:var(--accent)}
+.icon-btn{width:28px; height:28px; display:flex; align-items:center; justify-content:center; background:rgba(124,92,252,0.1); border:1px solid rgba(124,92,252,0.15); border-radius:6px; color:var(--accent); font-size:14px; font-family:inherit; cursor:pointer; transition:all 0.15s; flex-shrink:0; padding:0}
+.icon-btn:hover{background:rgba(124,92,252,0.2); border-color:rgba(124,92,252,0.3)}
+.icon-btn.danger{background:rgba(248,113,133,0.1); border-color:rgba(248,113,133,0.15); color:var(--red)}
+.icon-btn.danger:hover{background:rgba(248,113,133,0.2)}
+.icon-btn:disabled{opacity:0.35; cursor:default}
+
+/* Model Row */
+.model-row{display:flex; gap:4px}
+.model-row input{flex:1; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3l3 3 3-3' stroke='%239090a8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; padding-right:26px}
+.model-row input::-webkit-calendar-picker-indicator{display:none!important}
+.model-row .icon-btn{height:auto; min-height:32px}
+
+/* Checkbox */
+.checkbox-label{display:flex; align-items:flex-start; gap:6px; cursor:pointer; font-size:10px; color:var(--text2); line-height:1.4}
+.checkbox-label input[type="checkbox"]{width:14px; height:14px; accent-color:var(--accent); cursor:pointer; flex-shrink:0; margin-top:1px}
+
+/* Fetch Status */
+.fetch-status{font-size:10px; color:var(--text3); min-height:14px; padding-left:2px}
+.fetch-status.success{color:var(--green)}
+.fetch-status.error{color:var(--red)}
+
 /* Actions */
-.form-actions{display:flex; align-items:center; gap:8px; padding-top:2px; padding-left:2px}
+.form-actions{display:flex; align-items:center; gap:8px; padding-top:2px; padding-left:2px; flex-wrap:wrap}
 .btn{border:none; border-radius:8px; font-family:inherit; font-weight:600; cursor:pointer; transition:all 0.2s; font-size:11px}
 .btn-test{background:rgba(124,92,252,0.12); color:var(--accent); padding:6px 14px}
 .btn-test:hover{background:rgba(124,92,252,0.2)}
 .btn-test:disabled{opacity:0.5; cursor:default}
+.btn-save{background:rgba(74,222,128,0.12); color:var(--green); padding:6px 14px}
+.btn-save:hover{background:rgba(74,222,128,0.2)}
 .test-result{font-size:10px; font-weight:500}
 .test-result.success{color:var(--green)}
 .test-result.error{color:var(--red)}
 
 /* Token */
-.token-section{padding:10px 14px; font-size:11px; color:var(--text2); text-align:center}
+.token-bar{padding:6px 4px; font-size:10px; color:var(--text2); text-align:center}
 
 /* Footer */
 .footer{display:flex; justify-content:space-between; font-size:10px; color:var(--text3)}

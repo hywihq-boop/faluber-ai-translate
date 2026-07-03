@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "LinguaFlow - AI 智能翻译",
-  "version": "1.0.0",
-  "description": "基于 DeepSeek AI 的网页翻译插件，支持全球语言互译，一键翻译整页",
+  "name": "Faluber Translate",
+  "version": "2.0.0",
+  "description": "基于 AI 的网页翻译插件，支持全球语言互译，一键翻译整页",
 
   "icons": {
     "16": "icons/icon16.png",
@@ -12,7 +12,7 @@
 
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "LinguaFlow - AI 翻译",
+    "default_title": "Faluber Translate",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",

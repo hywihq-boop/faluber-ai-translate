@@ -16,16 +16,19 @@
   let pendingNodes = [], pendingTimer = null;
   let switchIntent = false, showTranslation = false;
   let pageTokens = { input: 0, output: 0, total: 0, cacheHits: 0, apiCalls: 0 };
+  let mode = 'medium'; // medium | high
+  const MODES = { medium:{ concurrency:3, viewportMargin:200, fullPage:false, scroll:true, hover:true, mutation:true, batchLimit:400 }, high:{ concurrency:8, viewportMargin:0, fullPage:true, scroll:false, hover:false, mutation:true, batchLimit:250 } };
   let tabId = null;
   let expanded = false, dragState = null, dragMoved = false;
   let uiLang = 'zh-CN';
   let untranslatedNodes = new Set();
   let explainCache = new Map();
-  let insertedExplanations = [];
+  let inFlightWords = new Set();
+  let explainBubble = null;
 
   // ===== 多语言 =====
   function T(z,t,e,j,k,f,d,s,p,r,a,h,T,v,i,n,l,u,b,c){return{'zh-CN':z,'zh-TW':t||z,en:e,ja:j,ko:k,fr:f||e,de:d||e,es:s||e,pt:p||e,ru:r||e,ar:a||e,hi:h||e,th:T||e,vi:v||e,it:i||e,nl:n||e,pl:l||e,tr:u||e,id:b||e,sv:c||e}}
-  const I18N={autoTranslate:T('自动翻译','自動翻譯','Auto Translate','自動翻訳','자동 번역','Auto Traduire','Auto-Übersetzung','Auto Traducir','Auto Traduzir','Автоперевод','ترجمة تلقائية','स्वतः अनुवाद','แปลอัตโนมัติ','Tự động dịch','Auto Traduci','Auto Vertalen','Auto tłumacz','Otomatik Çeviri','Terjemahan Otomatis','Autoöversätt'),translatePage:T('翻译本页','翻譯本頁','Translate','翻訳','번역','Traduire','Übersetzen','Traducir','Traduzir','Перевести','ترجمة','अनुवाद','แปล','Dịch','Traduci','Vertalen','Tłumacz','Çevir','Terjemahkan','Översätt'),translated:T('已翻译','已翻譯','Translated','翻訳済','번역됨','Traduit','Übersetzt','Traducido','Traduzido','Переведено','مترجم','अनुवादित','แปลแล้ว','Đã dịch','Tradotto','Vertaald','Przetłumaczono','Çevrildi','Diterjemahkan','Översatt'),translating:T('翻译中…','翻譯中…','Translating…','翻訳中…','번역 중…','Traduction…','Übersetze…','Traduciendo…','Traduzindo…','Перевод…','جارٍ الترجمة…','अनुवाद हो रहा…','กำลังแปล…','Đang dịch…','Traduzione…','Bezig met vertalen…','Tłumaczenie…','Çevriliyor…','Menerjemahkan…','Översätter…'),canceled:T('翻译已取消','翻譯已取消','Translation canceled','翻訳キャンセル','번역 취소됨','Traduction annulée','Übersetzung abgebrochen','Traducción cancelada','Tradução cancelada','Перевод отменен','تم إلغاء الترجمة','अनुवाद रद्द','ยกเลิกการแปล','Đã hủy dịch','Traduzione annullata','Vertaling geannuleerd','Anulowano tłum.','Çeviri iptal edildi','Terjemahan dibatalkan','Översättning avbruten'),noText:T('未找到可翻译文本','未找到可翻譯文本','No translatable text','翻訳可能なテキストなし','번역 가능한 텍스트 없음','Aucun texte traduisible','Kein übersetzbarer Text','Sin texto traducible','Sem texto traduzível','Нет текста','لا يوجد نص قابل للترجمة','अनुवाद योग्य पाठ नहीं','ไม่มีข้อความที่แปลได้','Không có văn bản','Nessun testo traducibile','Geen vertaalbare tekst','Brak tekstu','Çevrilecek metin yok','Tidak ada teks','Ingen översättbar text'),noKey:T('请先配置 API Key','請先配置 API Key','Configure API Key','APIキーを設定してください','API 키 설정 필요','Configurer clé API','API-Schlüssel konfigurieren','Configurar API Key','Configurar Chave API','Настроить API','تكوين مفتاح API','API कुंजी कॉन्फ़िगर करें','ตั้งค่า API Key','Cấu hình API Key','Configura chiave API','API-sleutel configureren','Skonfiguruj klucz API','API Anahtarını Yapılandır','Konfigurasi API Key','Konfigurera API-nyckel'),completed:T('翻译完成','翻譯完成','Translation complete','翻訳完了','번역 완료','Traduction terminée','Übersetzung abgeschlossen','Traducción completa','Tradução concluída','Перевод завершен','اكتملت الترجمة','अनुवाद पूर्ण','แปลเสร็จ','Dịch xong','Traduzione completata','Vertaling voltooid','Tłumaczenie gotowe','Çeviri tamamlandı','Terjemahan selesai','Översättning klar'),failed:T('失败','失敗','failed','失敗','실패','échec','fehlgeschlagen','falló','falhou','Ошибка','فشل','विफल','ล้มเหลว','thất bại','fallito','mislukt','niepowodzenie','başarısız','gagal','misslyckades'),segments:T('段','段','segments','件','개','segments','Segmente','segmentos','segmentos','сегментов','مقاطع','खंड','ส่วน','đoạn','segmenti','segmenten','segmenty','bölüm','segmen','segment'),settings:T('翻译设置','翻譯設定','Settings','設定','설정','Paramètres','Einstellungen','Ajustes','Configurações','Настройки','الإعدادات','सेटिंग्स','ตั้งค่า','Cài đặt','Impostazioni','Instellingen','Ustawienia','Ayarlar','Pengaturan','Inställningar'),history:T('历史token用量','歷史token用量','Token History','トークン履歴','토큰 기록','Historique des jetons','Token-Verlauf','Historial de Tokens','Histórico de Tokens','История токенов','سجل الرموز','टोकन इतिहास','ประวัติโทเค็น','Lịch sử Token','Cronologia token','Token Geschiedenis','Historia tokenów','Token Geçmişi','Riwayat Token','Tokenhistorik'),clearCache:T('清除缓存','清除快取','Clear Cache','キャッシュ削除','캐시 삭제','Vider le cache','Cache leeren','Limpiar Caché','Limpar Cache','Очистить кэш','مسح الذاكرة المؤقتة','कैश साफ़ करें','ล้างแคช','Xóa Cache','Cancella cache','Cache wissen','Wyczyść pamięć','Önbelleği Temizle','Hapus Cache','Rensa cache'),cacheCleared:T('缓存已清除','快取已清除','Cache cleared','キャッシュ削除済','캐시 삭제됨','Cache vidé','Cache geleert','Caché limpiada','Cache limpo','Кэш очищен','تم المسح','कैश साफ़ हुआ','ล้างแคชแล้ว','Đã xóa Cache','Cache cancellata','Cache gewist','Pamięć wyczyszczona','Önbellek temizlendi','Cache dihapus','Cache rensad'),pageTokens:T('本页token消耗','本頁token消耗','Page tokens','ページトークン','페이지 토큰','Jetons de page','Seiten-Token','Tokens de página','Tokens da página','Токены страницы','رموز الصفحة','पृष्ठ टोकन','โทเค็นหน้า','Token trang','Token pagina','Paginatokens','Tokeny strony','Sayfa tokenları','Token halaman','Sidtoken'),hitRate:T('缓存命中率','快取命中率','Cache hit rate','キャッシュヒット率','캐시 적중률','Taux de succès du cache','Cache-Trefferquote','Tasa de aciertos','Taxa de acerto do cache','Попадания в кэш','معدل الوصول للذاكرة','कैश हिट दर','อัตราแคชฮิต','Tỉ lệ cache','Tasso di hit cache','Cache hitratio','Trafność pamięci','Önbellek isabet oranı','Rasio cache','Cacheträffar'),langSwitch:T('语言切换至','語言切換至','Language:','言語変更:','언어 변경:','Langue :','Sprache:','Idioma:','Idioma:','Язык:','اللغة:','भाषा:','ภาษา:','Ngôn ngữ:','Lingua:','Taal:','Język:','Dil:','Bahasa:','Språk:'),cacheClearedSwitch:T('，缓存已清除','，快取已清除',', cache cleared','、キャッシュ削除済',', 캐시 삭제됨','cache vidé','Cache geleert','caché limpiada','cache limpo','кэш очищен','تم مسح الذاكرة المؤقتة','कैश साफ़ हुआ','ล้างแคชแล้ว','đã xóa cache','cache cancellata','cache gewist','pamięć wyczyszczona','önbellek temizlendi','cache dihapus','cache rensad'),input:T('输入','輸入','Input','入力','입력','Entrée','Eingabe','Entrada','Entrada','Ввод','الإدخال','इनपुट','อินพุต','Đầu vào','Input','Invoer','Wejście','Giriş','Masukan','Indata'),output:T('输出','輸出','Output','出力','출력','Sortie','Ausgabe','Salida','Saída','Вывод','الإخراج','आउटपुट','เอาต์พุต','Đầu ra','Output','Uitvoer','Wyjście','Çıkış','Keluaran','Utdata'),total:T('总计','總計','Total','合計','합계','Total','Gesamt','Total','Total','Всего','المجموع','कुल','รวม','Tổng','Totale','Totaal','Razem','Toplam','Total','Totalt'),estCost:T('预估费用','預估費用','Est. cost','推定費用','예상 비용','Coût estimé','Geschätzte Kosten','Costo est.','Custo estimado','Ориент. стоимость','التكلفة التقريبية','अनुमानित लागत','ค่าใช้จ่ายโดยประมาณ','Chi phí ước tính','Costo stimato','Geschatte kosten','Szac. koszt','Tah. maliyet','Perkiraan biaya','Beräknad kostnad'),cacheEntries:T('缓存条目','快取條目','Cache entries','キャッシュ項目','캐시 항목','Entrées du cache','Cache-Einträge','Entradas de caché','Entradas de cache','Записей в кэше','إدخالات الذاكرة','कैश प्रविष्टियाँ','รายการแคช','Mục cache','Voci cache','Cache-items','Wpisy pamięci','Önbellek girişleri','Entri cache','Cacheposter'),restored:T('已还原原文','已還原原文','Original restored','原文に戻した','원문 복원됨','Original restauré','Original wiederhergestellt','Original restaurado','Original restaurado','Оригинал восстановлен','تمت استعادة الأصل','मूल पुनर्स्थापित','คืนค่าต้นฉบับแล้ว','Đã khôi phục gốc','Originale ripristinato','Origineel hersteld','Przywrócono oryginał','Orijinal geri yüklendi','Asli dipulihkan','Original återställt'),autoDetect:T('自动检测','自動檢測','Auto Detect','自動検出','자동 감지','Détection auto','Automatisch erkennen','Detectar auto.','Detecção Automática','Автоопределение','كشف تلقائي','स्वतः पहचान','ตรวจจับอัตโนมัติ','Tự động phát hiện','Rilevamento automatico','Automatisch detecteren','Auto wykrywanie','Otomatik Algıla','Deteksi Otomatis','Autodetektera'),source:T('源语种','源語種','Source','ソース','소스','Source','Quelle','Origen','Origem','Исходный','المصدر','स्रोत','ต้นทาง','Nguồn','Sorgente','Bron','Źródło','Kaynak','Sumber','Källa'),target:T('目标语种','目標語種','Target','ターゲット','타겟','Cible','Ziel','Destino','Destino','Целевой','الهدف','लक्ष्य','ปลายทาง','Đích','Destinazione','Doel','Cel','Hedef','Target','Mål'),autoShort:T('自动','自動','Auto','自動','자동','Auto','Auto','Auto','Auto','Авто','تلقائي','स्वतः','อัตโนมัติ','Tự động','Auto','Auto','Auto','Otomatik','Otomatis','Auto')};
+  const I18N={autoTranslate:T('自动翻译','自動翻譯','Auto Translate','自動翻訳','자동 번역','Auto Traduire','Auto-Übersetzung','Auto Traducir','Auto Traduzir','Автоперевод','ترجمة تلقائية','स्वतः अनुवाद','แปลอัตโนมัติ','Tự động dịch','Auto Traduci','Auto Vertalen','Auto tłumacz','Otomatik Çeviri','Terjemahan Otomatis','Autoöversätt'),translatePage:T('翻译本页','翻譯本頁','Translate','翻訳','번역','Traduire','Übersetzen','Traducir','Traduzir','Перевести','ترجمة','अनुवाद','แปล','Dịch','Traduci','Vertalen','Tłumacz','Çevir','Terjemahkan','Översätt'),translated:T('已翻译','已翻譯','Translated','翻訳済','번역됨','Traduit','Übersetzt','Traducido','Traduzido','Переведено','مترجم','अनुवादित','แปลแล้ว','Đã dịch','Tradotto','Vertaald','Przetłumaczono','Çevrildi','Diterjemahkan','Översatt'),translating:T('翻译中…','翻譯中…','Translating…','翻訳中…','번역 중…','Traduction…','Übersetze…','Traduciendo…','Traduzindo…','Перевод…','جارٍ الترجمة…','अनुवाद हो रहा…','กำลังแปล…','Đang dịch…','Traduzione…','Bezig met vertalen…','Tłumaczenie…','Çevriliyor…','Menerjemahkan…','Översätter…'),canceled:T('翻译已取消','翻譯已取消','Translation canceled','翻訳キャンセル','번역 취소됨','Traduction annulée','Übersetzung abgebrochen','Traducción cancelada','Tradução cancelada','Перевод отменен','تم إلغاء الترجمة','अनुवाद रद्द','ยกเลิกการแปล','Đã hủy dịch','Traduzione annullata','Vertaling geannuleerd','Anulowano tłum.','Çeviri iptal edildi','Terjemahan dibatalkan','Översättning avbruten'),noText:T('未找到可翻译文本','未找到可翻譯文本','No translatable text','翻訳可能なテキストなし','번역 가능한 텍스트 없음','Aucun texte traduisible','Kein übersetzbarer Text','Sin texto traducible','Sem texto traduzível','Нет текста','لا يوجد نص قابل للترجمة','अनुवाद योग्य पाठ नहीं','ไม่มีข้อความที่แปลได้','Không có văn bản','Nessun testo traducibile','Geen vertaalbare tekst','Brak tekstu','Çevrilecek metin yok','Tidak ada teks','Ingen översättbar text'),noKey:T('请先配置 API Key','請先配置 API Key','Configure API Key','APIキーを設定してください','API 키 설정 필요','Configurer clé API','API-Schlüssel konfigurieren','Configurar API Key','Configurar Chave API','Настроить API','تكوين مفتاح API','API कुंजी कॉन्फ़िगर करें','ตั้งค่า API Key','Cấu hình API Key','Configura chiave API','API-sleutel configureren','Skonfiguruj klucz API','API Anahtarını Yapılandır','Konfigurasi API Key','Konfigurera API-nyckel'),completed:T('翻译完成','翻譯完成','Translation complete','翻訳完了','번역 완료','Traduction terminée','Übersetzung abgeschlossen','Traducción completa','Tradução concluída','Перевод завершен','اكتملت الترجمة','अनुवाद पूर्ण','แปลเสร็จ','Dịch xong','Traduzione completata','Vertaling voltooid','Tłumaczenie gotowe','Çeviri tamamlandı','Terjemahan selesai','Översättning klar'),failed:T('失败','失敗','failed','失敗','실패','échec','fehlgeschlagen','falló','falhou','Ошибка','فشل','विफल','ล้มเหลว','thất bại','fallito','mislukt','niepowodzenie','başarısız','gagal','misslyckades'),segments:T('段','段','segments','件','개','segments','Segmente','segmentos','segmentos','сегментов','مقاطع','खंड','ส่วน','đoạn','segmenti','segmenten','segmenty','bölüm','segmen','segment'),settings:T('翻译设置','翻譯設定','Settings','設定','설정','Paramètres','Einstellungen','Ajustes','Configurações','Настройки','الإعدادات','सेटिंग्स','ตั้งค่า','Cài đặt','Impostazioni','Instellingen','Ustawienia','Ayarlar','Pengaturan','Inställningar'),history:T('历史token用量','歷史token用量','Token History','トークン履歴','토큰 기록','Historique des jetons','Token-Verlauf','Historial de Tokens','Histórico de Tokens','История токенов','سجل الرموز','टोकन इतिहास','ประวัติโทเค็น','Lịch sử Token','Cronologia token','Token Geschiedenis','Historia tokenów','Token Geçmişi','Riwayat Token','Tokenhistorik'),clearCache:T('清除缓存','清除快取','Clear Cache','キャッシュ削除','캐시 삭제','Vider le cache','Cache leeren','Limpiar Caché','Limpar Cache','Очистить кэш','مسح الذاكرة المؤقتة','कैश साफ़ करें','ล้างแคช','Xóa Cache','Cancella cache','Cache wissen','Wyczyść pamięć','Önbelleği Temizle','Hapus Cache','Rensa cache'),cacheCleared:T('缓存已清除','快取已清除','Cache cleared','キャッシュ削除済','캐시 삭제됨','Cache vidé','Cache geleert','Caché limpiada','Cache limpo','Кэш очищен','تم المسح','कैश साफ़ हुआ','ล้างแคชแล้ว','Đã xóa Cache','Cache cancellata','Cache gewist','Pamięć wyczyszczona','Önbellek temizlendi','Cache dihapus','Cache rensad'),pageTokens:T('本页token消耗','本頁token消耗','Page tokens','ページトークン','페이지 토큰','Jetons de page','Seiten-Token','Tokens de página','Tokens da página','Токены страницы','رموز الصفحة','पृष्ठ टोकन','โทเค็นหน้า','Token trang','Token pagina','Paginatokens','Tokeny strony','Sayfa tokenları','Token halaman','Sidtoken'),hitRate:T('缓存命中率','快取命中率','Cache hit rate','キャッシュヒット率','캐시 적중률','Taux de succès du cache','Cache-Trefferquote','Tasa de aciertos','Taxa de acerto do cache','Попадания в кэш','معدل الوصول للذاكرة','कैश हिट दर','อัตราแคชฮิต','Tỉ lệ cache','Tasso di hit cache','Cache hitratio','Trafność pamięci','Önbellek isabet oranı','Rasio cache','Cacheträffar'),langSwitch:T('语言切换至','語言切換至','Language:','言語変更:','언어 변경:','Langue :','Sprache:','Idioma:','Idioma:','Язык:','اللغة:','भाषा:','ภาษา:','Ngôn ngữ:','Lingua:','Taal:','Język:','Dil:','Bahasa:','Språk:'),cacheClearedSwitch:T('，缓存已清除','，快取已清除',', cache cleared','、キャッシュ削除済',', 캐시 삭제됨','cache vidé','Cache geleert','caché limpiada','cache limpo','кэш очищен','تم مسح الذاكرة المؤقتة','कैश साफ़ हुआ','ล้างแคชแล้ว','đã xóa cache','cache cancellata','cache gewist','pamięć wyczyszczona','önbellek temizlendi','cache dihapus','cache rensad'),input:T('输入','輸入','Input','入力','입력','Entrée','Eingabe','Entrada','Entrada','Ввод','الإدخال','इनपुट','อินพุต','Đầu vào','Input','Invoer','Wejście','Giriş','Masukan','Indata'),output:T('输出','輸出','Output','出力','출력','Sortie','Ausgabe','Salida','Saída','Вывод','الإخراج','आउटपुट','เอาต์พุต','Đầu ra','Output','Uitvoer','Wyjście','Çıkış','Keluaran','Utdata'),total:T('总计','總計','Total','合計','합계','Total','Gesamt','Total','Total','Всего','المجموع','कुल','รวม','Tổng','Totale','Totaal','Razem','Toplam','Total','Totalt'),estCost:T('预估费用','預估費用','Est. cost','推定費用','예상 비용','Coût estimé','Geschätzte Kosten','Costo est.','Custo estimado','Ориент. стоимость','التكلفة التقريبية','अनुमानित लागत','ค่าใช้จ่ายโดยประมาณ','Chi phí ước tính','Costo stimato','Geschatte kosten','Szac. koszt','Tah. maliyet','Perkiraan biaya','Beräknad kostnad'),cacheEntries:T('缓存条目','快取條目','Cache entries','キャッシュ項目','캐시 항목','Entrées du cache','Cache-Einträge','Entradas de caché','Entradas de cache','Записей в кэше','إدخالات الذاكرة','कैश प्रविष्टियाँ','รายการแคช','Mục cache','Voci cache','Cache-items','Wpisy pamięci','Önbellek girişleri','Entri cache','Cacheposter'),restored:T('已还原原文','已還原原文','Original restored','原文に戻した','원문 복원됨','Original restauré','Original wiederhergestellt','Original restaurado','Original restaurado','Оригинал восстановлен','تمت استعادة الأصل','मूल पुनर्स्थापित','คืนค่าต้นฉบับแล้ว','Đã khôi phục gốc','Originale ripristinato','Origineel hersteld','Przywrócono oryginał','Orijinal geri yüklendi','Asli dipulihkan','Original återställt'),autoDetect:T('自动检测','自動檢測','Auto Detect','自動検出','자동 감지','Détection auto','Automatisch erkennen','Detectar auto.','Detecção Automática','Автоопределение','كشف تلقائي','स्वतः पहचान','ตรวจจับอัตโนมัติ','Tự động phát hiện','Rilevamento automatico','Automatisch detecteren','Auto wykrywanie','Otomatik Algıla','Deteksi Otomatis','Autodetektera'),source:T('源语种','源語種','Source','ソース','소스','Source','Quelle','Origen','Origem','Исходный','المصدر','स्रोत','ต้นทาง','Nguồn','Sorgente','Bron','Źródło','Kaynak','Sumber','Källa'),target:T('目标语种','目標語種','Target','ターゲット','타겟','Cible','Ziel','Destino','Destino','Целевой','الهدف','लक्ष्य','ปลายทาง','Đích','Destinazione','Doel','Cel','Hedef','Target','Mål'),autoShort:T('自动','自動','Auto','自動','자동','Auto','Auto','Auto','Auto','Авто','تلقائي','स्वतः','อัตโนมัติ','Tự động','Auto','Auto','Auto','Otomatik','Otomatis','Auto'),apiError:T('⚠️ API 错误','⚠️ API 錯誤','⚠️ API Error','⚠️ APIエラー','⚠️ API 오류','⚠️ Erreur API','⚠️ API-Fehler','⚠️ Error de API','⚠️ Erro da API','⚠️ Ошибка API','⚠️ خطأ API','⚠️ API त्रुटि','⚠️ ข้อผิดพลาด API','⚠️ Lỗi API','⚠️ Errore API','⚠️ API-fout','⚠️ Błąd API','⚠️ API Hatası','⚠️ Kesalahan API','⚠️ API-fel'),modeLabel:T('翻译模式','翻譯模式','Mode','翻訳モード','번역 모드','Mode','Modus','Modo','Modo','Режим','الوضع','मोड','โหมด','Chế độ','Modalità','Modus','Tryb','Mod','Mode','Läge'),modeLow:T('🛡️ 低并发（省 token）','🛡️ 低並發（省 token）','🛡️ Eco (save tokens)','🛡️ エコ（トークン節約）','🛡️ 절약 (토큰 절약)','🛡️ Éco (économiser)','🛡️ Sparsam (Token sparen)','🛡️ Eco (ahorrar)','🛡️ Eco (poupar)','🛡️ Эконом','🛡️ اقتصاد','🛡️ इको','🛡️ ประหยัด','🛡️ Tiết kiệm','🛡️ Eco','🛡️ Zuinig','🛡️ Oszczędny','🛡️ Tasarruf','🛡️ Hemat','🛡️ Snål'),modeMedium:T('⚡ 标准模式','⚡ 標準模式','⚡ Standard','⚡ 標準','⚡ 표준','⚡ Standard','⚡ Standard','⚡ Estándar','⚡ Padrão','⚡ Стандарт','⚡ قياسي','⚡ मानक','⚡ มาตรฐาน','⚡ Tiêu chuẩn','⚡ Standard','⚡ Standaard','⚡ Standardowy','⚡ Standart','⚡ Standar','⚡ Standard'),modeHigh:T('🚀 极速模式','🚀 極速模式','🚀 Turbo','🚀 高速','🚀 터보','🚀 Turbo','🚀 Turbo','🚀 Turbo','🚀 Turbo','🚀 Турбо','🚀 توربو','🚀 टर्बो','🚀 เทอร์โบ','🚀 Turbo','🚀 Turbo','🚀 Turbo','🚀 Turbo','🚀 Turbo','🚀 Turbo','🚀 Turbo'),modeLowDesc:T('单线程全页翻译，不监听滚动悬停，适合API限制严格','單線程全頁翻譯，不監聽滾動懸停，適合API限制嚴格','1 worker, full page. No scroll/hover detection. For strict API rate limits','シングルスレッド全ページ翻訳。スクロール/ホバー検出なし。API制限が厳しい場合に','단일 스레드 전체 페이지 번역. 스크롤/호버 감지 없음. API 제한이 엄격한 경우','1 thread, page entière. Sans détection scroll/survol. Pour limites API strictes','1 Thread, ganze Seite. Keine Scroll/Hover-Erkennung. Für strikte API-Limits','1 hilo, página completa. Sin detección scroll/hover. Para límites de API estrictos','1 thread, página inteira. Sem detecção scroll/hover. Para limites de API rígidos','1 поток, вся страница. Без отслеживания прокрутки/наведения. Для строгих лимитов API','مؤشر واحد، صفحة كاملة. لا كشف تمرير/تحويم. لقيود API الصارمة','1 वर्कर, पूरा पेज। कोई स्क्रॉल/होवर नहीं। सख्त API सीमाओं के लिए','1 เทรด ทั้งหน้า ไม่ตรวจจับการเลื่อน/ชี้ สำหรับข้อจำกัด API ที่เข้มงวด','1 luồng, toàn trang. Không phát hiện cuộn/di chuột. Cho giới hạn API nghiêm ngặt','1 thread, pagina intera. Nessun rilevamento scroll/hover. Per limiti API rigidi','1 thread, hele pagina. Geen scroll/hover detectie. Voor strikte API limieten','1 wątek, cała strona. Bez wykrywania przewijania/najechania. Dla ścisłych limitów API','1 iş parçacığı, tam sayfa. Kaydırma/gezinme algılama yok. Katı API sınırları için','1 thread, seluruh halaman. Tanpa deteksi scroll/hover. Untuk batasan API ketat','1 tråd, hel sida. Ingen scroll/hover-detektering. För strikta API-gränser'),modeMediumDesc:T('3路并发+视野优先，滚动悬停自动翻译，平衡速度与消耗','3路並發+視野優先，滾動懸停自動翻譯，平衡速度與消耗','3 workers, viewport-first. Auto-translate on scroll/hover. Balanced speed & cost','3スレッド、ビューポート優先。スクロール/ホバーで自動翻訳。速度とコストのバランス','3스레드, 뷰포트 우선. 스크롤/호버 시 자동 번역. 속도와 비용 균형','3 threads, priorité viewport. Traduction auto au scroll/survol. Vitesse/coût équilibrés','3 Threads, Viewport-Priorität. Auto-Translate bei Scroll/Hover. Ausgewogen','3 hilos, prioridad viewport. Auto al desplazar/sobrevolar. Velocidad/coste equilibrados','3 threads, prioridade viewport. Auto ao rolar/sobrevoar. Velocidade/custo equilibrados','3 потока, приоритет области просмотра. Автоперевод при прокрутке/наведении. Баланс','3 مؤشرات، أولوية العرض. ترجمة تلقائية بالتمرير/التحويم. توازن السرعة والتكلفة','3 वर्कर, व्यूपोर्ट प्राथमिकता। स्क्रॉल/होवर पर ऑटो अनुवाद। गति और लागत संतुलित','3 เทรด แปลตามวิวพอร์ตก่อน แปลอัตโนมัติเมื่อเลื่อน/ชี้ สมดุลความเร็วและค่าใช้จ่าย','3 luồng, ưu tiên viewport. Tự động dịch khi cuộn/di chuột. Cân bằng tốc độ & chi phí','3 thread, priorità viewport. Auto traduzione su scroll/hover. Velocità/costo bilanciati','3 threads, viewport-prioriteit. Auto-vertalen bij scroll/hover. Gebalanceerd','3 wątki, priorytet viewport. Auto-tłumaczenie przy scroll/hover. Zrównoważona prędkość/koszt','3 iş parçacığı, görünüm öncelikli. Kaydırma/gezinmede otomatik çeviri. Dengeli','3 thread, prioritas viewport. Terjemahan otomatis saat scroll/hover. Seimbang','3 trådar, viewport-först. Auto-översätt vid scroll/hover. Balanserat'),modeHighDesc:T('8路并发+极速全页翻译，首批秒出，不在意token消耗','8路並發+極速全頁翻譯，首批秒出，不在意token消耗','8 workers, full page turbo. Near-instant first results. Max token usage','8スレッド、全ページ高速翻訳。最初の結果が即表示。最大トークン消費','8스레드, 전체 페이지 터보. 첫 결과 즉시 표시. 최대 토큰 소비','8 threads, turbo pleine page. Premiers résultats quasi instantanés. Usage max de jetons','8 Threads, Turbo ganze Seite. Erste Ergebnisse fast sofort. Maximaler Token-Verbrauch','8 hilos, turbo página completa. Primeros resultados casi instantáneos. Máximo uso de tokens','8 threads, turbo página inteira. Primeiros resultados quase instantâneos. Uso máximo de tokens','8 потоков, турбо вся страница. Первые результаты мгновенно. Макс. расход токенов','8 مؤشرات، توربو الصفحة الكاملة. نتائج فورية تقريبًا. أقصى استخدام للرموز','8 वर्कर, फुल पेज टर्बो। पहला परिणाम लगभग तुरंत। अधिकतम टोकन','8 เทรด เทอร์โบทั้งหน้า แสดงผลแรกแทบจะทันที ใช้โทเค็นสูงสุด','8 luồng, turbo toàn trang. Kết quả đầu gần như ngay lập tức. Dùng token tối đa','8 thread, turbo pagina intera. Primi risultati quasi immediati. Massimo uso token','8 threads, turbo hele pagina. Eerste resultaten bijna direct. Maximaal token gebruik','8 wątków, turbo cała strona. Pierwsze wyniki niemal natychmiast. Maks. zużycie tokenów','8 iş parçacığı, tam sayfa turbo. İlk sonuçlar neredeyse anında. Maks. token kullanımı','8 thread, turbo seluruh halaman. Hasil pertama hampir instan. Penggunaan token maksimal','8 trådar, helsida turbo. Första resultat nästan direkt. Max token')};
 
   function t(key) { const e = I18N[key]; return e ? (e[uiLang] || e['en'] || e['zh-CN'] || key) : key; }
 
@@ -55,13 +58,13 @@
 .lf-card{border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:margin-top 0.3s cubic-bezier(0.4,0,0.2,1)}
 #lf-widget:has(#lf-progress.show) #lf-card{margin-top:80px}
 .lf-detail{max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.25s ease}
-.lf-detail.open{max-height:360px;opacity:1}
-.lf-detail-inner{padding:14px}
+.lf-detail.open{max-height:400px;opacity:1}
+.lf-detail-inner{padding:14px;min-width:0}
 .lf-detail-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .lf-detail-title{font-size:12px;font-weight:600;color:var(--lf-text-strong)}
-.lf-detail-grid{display:grid;grid-template-columns:1fr auto;gap:7px 20px}
-.lf-detail-label{font-size:11px;color:var(--lf-text-weak)}
-.lf-detail-value{font-size:11px;font-weight:500;color:var(--lf-text-strong);text-align:right;font-variant-numeric:tabular-nums}
+.lf-detail-grid{display:grid;grid-template-columns:1fr auto;gap:7px 20px;min-width:0}
+.lf-detail-label{font-size:11px;color:var(--lf-text-weak);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lf-detail-value{font-size:11px;font-weight:500;color:var(--lf-text-strong);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px}
 .lf-clear-btn{background:rgba(248,113,133,0.10);color:var(--lf-red);border:none;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s}
 .lf-clear-btn:hover{background:rgba(248,113,133,0.18)}
 .lf-orb{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:grab;min-height:48px}
@@ -111,7 +114,30 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
 .lf-toast.success{background:rgba(74,222,128,0.10);border:1px solid rgba(74,222,128,0.16);color:var(--lf-green)}
 .lf-toast.warning{background:rgba(250,204,21,0.10);border:1px solid rgba(250,204,21,0.16);color:var(--lf-yellow)}
 .lf-toast.error{background:rgba(248,113,133,0.10);border:1px solid rgba(248,113,133,0.16);color:var(--lf-red)}
-[data-linguaflow-translated="true"]:hover{background-color:rgba(124,92,252,0.08)!important;border-radius:2px}`;
+[data-linguaflow-translated="true"]:hover{background-color:rgba(124,92,252,0.08)!important;border-radius:2px}
+.lf-custom-select{position:relative;user-select:none}
+.lf-custom-select-trigger{display:flex;align-items:center;justify-content:space-between;width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 6px;color:var(--lf-text);font-size:11px;font-family:inherit;cursor:pointer;gap:4px}
+.lf-custom-select-trigger span{flex:1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lf-custom-select-trigger svg{flex-shrink:0;width:10px;height:10px;transition:transform 0.2s ease;opacity:0.5}
+.lf-custom-select.open .lf-custom-select-trigger svg{transform:rotate(180deg);opacity:0.8}
+.lf-custom-select-dropdown{position:absolute;top:calc(100% + 2px);left:0;right:0;background:rgba(20,20,38,0.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;z-index:100;display:none;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.lf-custom-select.open .lf-custom-select-dropdown{display:block}
+.lf-custom-select-option{padding:6px 8px;font-size:11px;color:var(--lf-text);cursor:pointer;transition:background 0.12s}
+.lf-custom-select-option:hover{background:rgba(124,92,252,0.15);color:var(--lf-text-strong)}
+.lf-custom-select-option.selected{color:var(--lf-purple-soft);font-weight:600}
+.lf-error-bar{position:absolute;top:0;left:0;right:0;z-index:3;border-radius:12px;padding:0 12px;max-height:0;opacity:0;overflow:hidden;transition:max-height 0.3s ease,opacity 0.25s ease,padding 0.3s ease;display:flex;justify-content:space-between;align-items:center;gap:8px;border-color:rgba(248,113,133,0.25)}
+.lf-error-bar.show{max-height:64px;opacity:1;padding:10px 12px}
+.lf-error-bar span{font-size:11px;color:var(--lf-red);flex:1;line-height:1.4}
+.lf-error-dismiss{width:22px;height:22px;display:grid;place-items:center;background:transparent;border:none;color:var(--lf-text-weak);font-size:12px;cursor:pointer;border-radius:4px;flex-shrink:0;padding:0}
+.lf-error-dismiss:hover{color:var(--lf-text);background:rgba(255,255,255,0.06)}
+#lf-explain-bubble{position:fixed;z-index:2147483646;max-width:300px;background:rgba(18,16,36,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(124,92,252,0.22);border-radius:12px;padding:10px 13px;font-family:system-ui;font-size:12px;line-height:1.6;color:#c0c0d0;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 20px rgba(124,92,252,0.08);pointer-events:auto;opacity:0;transform:translateY(6px);transition:opacity 0.2s ease,transform 0.2s ease}
+#lf-explain-bubble.show{opacity:1;transform:translateY(0)}
+.lf-explain-header{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin-bottom:5px}
+.lf-explain-word{font-weight:600;color:var(--lf-purple-soft);font-size:13px;word-break:break-all}
+.lf-explain-close{width:20px;height:20px;display:grid;place-items:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:4px;font-size:13px;flex-shrink:0;padding:0;line-height:1}
+.lf-explain-close:hover{color:var(--lf-text);background:rgba(255,255,255,0.06)}
+.lf-explain-body{word-break:break-word}
+.lf-explain-loading{color:var(--lf-text-weak);font-style:italic}`;
     document.head.appendChild(s);
   }
 
@@ -130,6 +156,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
       </span>
       <div id="lf-widget">
         <div id="lf-toast-stack"></div>
+        <div id="lf-error-bar" class="lf-glass lf-error-bar"><span id="lf-error-text"></span><button class="lf-error-dismiss" id="lf-error-dismiss">✕</button></div>
         <div id="lf-progress" class="lf-glass lf-progress">
           <div class="lf-progress-header">
             <span class="lf-progress-text"><span id="prog-label">${t('translating')}</span> <span id="prog-cur">0</span>/<span id="prog-total">0</span></span>
@@ -157,6 +184,19 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
                   <select id="lf-lang-to" translate="no" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 6px;color:var(--lf-text);font-size:11px;font-family:inherit;outline:none;cursor:pointer;">
                     <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="es">Español</option><option value="pt">Português</option><option value="ru">Русский</option><option value="ar">العربية</option><option value="hi">हिन्दी</option><option value="th">ไทย</option><option value="vi">Tiếng Việt</option><option value="it">Italiano</option><option value="nl">Nederlands</option><option value="pl">Polski</option><option value="tr">Türkçe</option><option value="id">Bahasa Indonesia</option><option value="sv">Svenska</option><option value="da">Dansk</option><option value="fi">Suomi</option><option value="no">Norsk</option><option value="cs">Čeština</option><option value="ro">Română</option><option value="hu">Magyar</option><option value="el">Ελληνικά</option><option value="he">עברית</option><option value="uk">Українська</option><option value="ms">Bahasa Melayu</option><option value="fil">Filipino</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="fa">فارسی</option><option value="sw">Kiswahili</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option><option value="gu">ગુજરાતી</option><option value="kn">ಕನ್ನಡ</option><option value="ml">മലയാളം</option><option value="pa">ਪੰਜਾਬੀ</option><option value="bg">Български</option><option value="sk">Slovenčina</option><option value="lt">Lietuvių</option><option value="lv">Latviešu</option><option value="et">Eesti</option><option value="sl">Slovenščina</option><option value="hr">Hrvatski</option><option value="sr">Српски</option>
                   </select>
+                </div>
+              </div>
+              <div style="margin-bottom:10px;">
+                <div style="font-size:10px;color:var(--lf-text-weak);margin-bottom:3px;" id="lf-mode-label">${t('modeLabel')}</div>
+                <div class="lf-custom-select" id="lf-mode-wrap">
+                  <div class="lf-custom-select-trigger" id="lf-mode-trigger">
+                    <span id="lf-mode-text">${t('modeMedium')}</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                  <div class="lf-custom-select-dropdown" id="lf-mode-dropdown">
+                    <div class="lf-custom-select-option selected" data-value="medium" title="${t('modeMediumDesc')}">${t('modeMedium')}</div>
+                    <div class="lf-custom-select-option" data-value="high" title="${t('modeHighDesc')}">${t('modeHigh')}</div>
+                  </div>
                 </div>
               </div>
               <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:12px;"></div>
@@ -237,8 +277,30 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     // 翻译按钮
     btnTranslate.addEventListener('click', async e => {
       e.stopPropagation();
-      if (showTranslation) { restoreOriginal(); if (mutationObserver) { mutationObserver.disconnect(); mutationObserver = null; } isTranslating = false; progress.classList.remove('show'); showTranslation = false; updateUsageBall(); }
-      else { if (abortController) abortController.abort(); btnTranslate.classList.add('translating'); btnTranslate.innerHTML = '<span class="lf-btn-spinner"></span>' + t('translating'); mini.classList.add('translating','translated'); await loadAndTranslate({ continuous: true }); showTranslation = true; btnTranslate.classList.remove('translating'); btnTranslate.classList.add('done'); btnTranslate.textContent = t('translated'); }
+      if (isTranslating) {
+        // 翻译中点击 → 立即停止并还原
+        if (abortController) abortController.abort();
+        restoreOriginal();
+        if (mutationObserver) { mutationObserver.disconnect(); mutationObserver = null; }
+        isTranslating = false; showTranslation = false;
+        progress.classList.remove('show');
+        btnTranslate.classList.remove('translating');
+        btnTranslate.textContent = t('translatePage');
+        mini.classList.remove('translating','translated');
+        updateUsageBall();
+        showToast('warning', '⚠️ ' + t('canceled'));
+      } else if (showTranslation) {
+        restoreOriginal();
+        if (mutationObserver) { mutationObserver.disconnect(); mutationObserver = null; }
+        isTranslating = false; progress.classList.remove('show'); showTranslation = false; updateUsageBall();
+      } else {
+        if (abortController) abortController.abort();
+        btnTranslate.classList.add('translating'); btnTranslate.innerHTML = '<span class="lf-btn-spinner"></span>' + t('translating'); mini.classList.add('translating','translated');
+        await loadAndTranslate({ continuous: true });
+        if (abortController && abortController.signal.aborted) { updateUsageBall(); return; }
+        showTranslation = true;
+        btnTranslate.classList.remove('translating'); btnTranslate.classList.add('done'); btnTranslate.textContent = t('translated');
+      }
     });
     // 取消
     btnCancel.addEventListener('click', e => { e.stopPropagation(); if (!isTranslating) return; if (abortController) abortController.abort(); isTranslating = false; progress.classList.remove('show'); btnTranslate.classList.remove('translating'); btnTranslate.textContent = t('translatePage'); showToast('warning', '⚠️ ' + t('canceled')); });
@@ -251,6 +313,30 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
       lastSavedTo = newTo; await chrome.storage.sync.set({ sourceLang: langFrom.value, targetLang: newTo }); updateAllUIText();
     }
     langFrom.addEventListener('change', onLangChange); langTo.addEventListener('change', onLangChange);
+    // 翻译模式 — 自定义下拉
+    const modeWrap = document.getElementById('lf-mode-wrap');
+    const modeTrigger = document.getElementById('lf-mode-trigger');
+    const modeDropdown = document.getElementById('lf-mode-dropdown');
+    const modeText = document.getElementById('lf-mode-text');
+    chrome.storage.sync.get('mode', s => { if (s.mode) { mode = s.mode; updateModeUI(); } });
+    modeTrigger.addEventListener('click', e => { e.stopPropagation(); modeWrap.classList.toggle('open'); });
+    modeDropdown.querySelectorAll('.lf-custom-select-option').forEach(opt => {
+      opt.addEventListener('click', e => {
+        e.stopPropagation();
+        mode = opt.dataset.value;
+        updateModeUI();
+        chrome.storage.sync.set({ mode });
+        modeWrap.classList.remove('open');
+      });
+    });
+    document.addEventListener('click', e => {
+      modeWrap.classList.remove('open');
+      if (explainBubble && !e.target.closest('#lf-explain-bubble') && !e.ctrlKey && !e.metaKey) hideBubble();
+    });
+
+    // 错误条
+    document.getElementById('lf-error-dismiss').addEventListener('click', () => document.getElementById('lf-error-bar').classList.remove('show'));
+
     // UI 语言
     const uiLangSel = document.getElementById('lf-ui-lang');
     function syncUILangSelect() { if (uiLangSel) uiLangSel.value = uiLang; }
@@ -274,6 +360,21 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
   }
 
   function updateMiniText() { const mt = document.querySelector('#lf-mini span'); if (mt) mt.textContent = (uiLang==='zh-CN'||uiLang==='zh-TW')?'译':'T'; }
+  function updateModeUI() {
+    const label=document.getElementById('lf-mode-label'); if (label) label.textContent=t('modeLabel');
+    const text=document.getElementById('lf-mode-text');
+    const labelKey={ medium:'modeMedium', high:'modeHigh' }[mode];
+    if (text&&labelKey) text.textContent=t(labelKey);
+    const dd=document.getElementById('lf-mode-dropdown'); if (dd) {
+      dd.querySelectorAll('.lf-custom-select-option').forEach(opt=>{
+        opt.classList.toggle('selected', opt.dataset.value===mode);
+        const optKey={ medium:'modeMedium', high:'modeHigh' }[opt.dataset.value];
+        if (optKey) opt.textContent=t(optKey);
+        const descKey={ medium:'modeMediumDesc', high:'modeHighDesc' }[opt.dataset.value];
+        if (descKey) opt.title=t(descKey);
+      });
+    }
+  }
   function updateAllUIText() {
     const orbLabel = document.querySelector('.lf-orb-label'); if (orbLabel) orbLabel.textContent = t('autoShort');
     const btnT = document.getElementById('btn-translate'); if (btnT && !isTranslating) btnT.textContent = showTranslation ? t('translated') : t('translatePage');
@@ -287,6 +388,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     const hr = document.getElementById('txt-hit-rate'); if (hr) hr.textContent = t('hitRate');
     const pl = document.getElementById('prog-label'); if (pl) pl.textContent = t('translating');
     updateDetailNumbers();
+    updateModeUI();
     updateMiniText();
   }
 
@@ -313,20 +415,22 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
   }
 
   function showToast(type, msg) { const stack = document.getElementById('lf-toast-stack'); if (!stack) return; const el = document.createElement('div'); el.className = 'lf-glass lf-toast ' + type; el.innerHTML = '<span>' + msg + '</span>'; stack.appendChild(el); void el.offsetWidth; el.classList.add('show'); setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 260); }, 3000); }
+  function showApiError(msg) { const bar=document.getElementById('lf-error-bar'); const text=document.getElementById('lf-error-text'); if (!bar||!text) return; text.textContent=msg; bar.classList.add('show'); }
+  async function readApiSettings() { const s=await chrome.storage.sync.get({ apis:null, activeApiId:null, apiKey:'', apiUrl:'https://api.deepseek.com/v1', model:'deepseek-chat', targetLang:'zh-CN' }); if (s.apis&&s.activeApiId) { const active=s.apis.find(a=>a.id===s.activeApiId)||s.apis[0]; if (active) return { apiKey:active.apiKey, apiUrl:active.apiUrl, model:active.model, targetLang:s.targetLang, supportsConcurrency:active.supportsConcurrency!==false }; } return { apiKey:s.apiKey, apiUrl:s.apiUrl, model:s.model, targetLang:s.targetLang, supportsConcurrency:true }; }
 
   // ===== 文本收集/翻译/缓存/观察器/Ctrl解释（保持原有逻辑，省略） =====
   function isVisible(el) { if (!el?.isConnected) return false; const s = window.getComputedStyle(el); if (s.display==='none'||s.visibility==='hidden') return false; return !(el.getBoundingClientRect().width===0&&el.getBoundingClientRect().height===0); }
   function isInViewport(el, m) { if (!el?.isConnected) return false; const r = el.getBoundingClientRect(); if (r.width===0&&r.height===0) return false; const margin = m ?? window.innerHeight; return r.bottom >= -margin && r.top <= window.innerHeight + margin; }
   function shouldSkip(el) { if (EXCLUDE_TAGS.has(el.tagName)) return true; if (el.closest('[id^="lf-"],[id^="linguaflow"]')) return true; if (el.isContentEditable||el.closest('[contenteditable="true"]')) return true; return false; }
   function isTranslatable(text) { const t = text.trim(); if (!t||t.length<3) return false; if (RE_SYMBOLS.test(t)) return false; if (RE_URL.test(t)) return false; if (/^Test[: ]/i.test(t)) return false; if (/^[a-z]+-[a-z]+-[a-z]+$/.test(t)&&t.length>15) return false; const targetLang = settings.targetLang||'zh-CN'; if (['zh-CN','zh-TW','ja','ko'].includes(targetLang)&&/[一-鿿]/.test(t)) { let cjk=0; for (const ch of t) { if (ch>='一'&&ch<='鿿') cjk++; } if (cjk/t.length>0.3) return false; if (cjk>0&&!/[a-zA-Z]{3,}/.test(t)) return false; } return RE_LETTER.test(t); }
-  function collectTextNodes(root, opts={}) { const { minLen=3, viewportOnly=false, viewportMargin } = opts; const result=[]; const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT); const rectCache=new Map(), styleCache=new Map(); while (w.nextNode()) { const node=w.currentNode, parent=node.parentElement; if (!parent) continue; if (shouldSkip(parent)) continue; let vis=styleCache.get(parent); if (vis===undefined) { vis=isVisible(parent); styleCache.set(parent,vis); } if (!vis) continue; const text=node.textContent.trim(); if (text.length<minLen) continue; if (!isTranslatable(text)) continue; if (translationMap.has(node)||inFlightNodes.has(node)) continue; let rect=rectCache.get(parent); if (!rect) { rect=parent.getBoundingClientRect(); rectCache.set(parent,rect); } if (viewportOnly) { if (rect.width===0&&rect.height===0) continue; const m=viewportMargin??window.innerHeight; if (rect.bottom<-m||rect.top>window.innerHeight+m) continue; } result.push({ node, text, y:rect.top, parent }); } result.sort((a,b)=>a.y-b.y); const merged=[]; for (let i=0;i<result.length;i++) { const cur=result[i]; const group=[cur]; let j=i+1; while (j<result.length&&result[j].parent===cur.parent) { group.push(result[j]); j++; } if (group.length>1) { const nodes=group.map(g=>g.node); const text=group.map(g=>g.text).join(' | '); merged.push({ node:nodes[0], text, y:cur.y, subNodes:nodes }); i=j-1; } else { merged.push({ node:cur.node, text:cur.text, y:cur.y }); } } return merged; }
+  function collectTextNodes(root, opts={}) { const { minLen=3, viewportOnly=false, viewportMargin } = opts; const result=[]; const w=document.createTreeWalker(root, NodeFilter.SHOW_TEXT); const rectCache=new Map(), styleCache=new Map(); while (w.nextNode()) { const node=w.currentNode, parent=node.parentElement; if (!parent) continue; if (shouldSkip(parent)) continue; let vis=styleCache.get(parent); if (vis===undefined) { vis=isVisible(parent); styleCache.set(parent,vis); } if (!vis) continue; const text=node.textContent.trim(); if (text.length<minLen) continue; if (!isTranslatable(text)) continue; if (translationMap.has(node)||inFlightNodes.has(node)) continue; let rect=rectCache.get(parent); if (!rect) { rect=parent.getBoundingClientRect(); rectCache.set(parent,rect); } if (viewportOnly) { if (rect.width===0&&rect.height===0) continue; const m=viewportMargin??window.innerHeight; if (rect.bottom<-m||rect.top>window.innerHeight+m) continue; } result.push({ node, text, y:rect.top, parent }); } result.sort((a,b)=>a.y-b.y); const merged=[]; for(let i=0;i<result.length;i++){ const cur=result[i]; let txt=cur.text, nodes=[cur.node], j=i+1; while(j<result.length){ const nxt=result[j]; const sameParent=nxt.parent===cur.parent; const siblingParents=nxt.parent&&cur.parent&&nxt.parent.parentElement===cur.parent.parentElement&&cur.parent.nextElementSibling===nxt.parent; if(sameParent||siblingParents){ txt+=' '+nxt.text; nodes.push(nxt.node); j++; } else break; } merged.push({node:nodes[0],text:txt,y:cur.y,subNodes:nodes.length>1?nodes:null}); i=j-1; } return merged; }
   function getTabId() { return new Promise(r => { if (tabId!=null) { r(tabId); return; } chrome.runtime.sendMessage({ type:'GET_TAB_ID' }, resp => { tabId = resp?.tabId ?? 'unknown'; r(tabId); }); }); }
 
   // ===== 翻译 =====
-  async function startTranslation(transSettings, opts={}) { const { continuous=true } = opts; if (isTranslated) restoreOriginal(); settings=transSettings; abortController=new AbortController(); pageTokens={ input:0,output:0,total:0,cacheHits:0,apiCalls:0 }; const textNodes=collectTextNodes(document.body,{ viewportOnly:true, viewportMargin:200 }); const inputEls=document.body.querySelectorAll('input[type="submit"],input[type="button"],button:not(:empty),[role="button"]'); for (const el of inputEls) { if (shouldSkip(el)) continue; const v=(el.value||'').trim(); if (v.length<3||!isTranslatable(v)) continue; if (!isInViewport(el,200)) continue; textNodes.push({ node:el, text:v, y:el.getBoundingClientRect().top, isInput:true }); } textNodes.sort((a,b)=>a.y-b.y); if (!textNodes.length) { showToast('warning','⚠️ '+t('noText')); return; } const stats=await translateAndApply(textNodes, textNodes.length); if (abortController.signal.aborted) return; isTranslated=true; isTranslating=false; if (continuous) { startScrollObserver(); startMutationObserver(); } updateUsageBall(); if (!stats.allCached) { const ok=stats.completed-stats.failed; showToast('success',stats.failed?`✅ ${ok}/${stats.completed} ${t('segments')} (${stats.failed} ${t('failed')})`:`✅ ${t('completed')} (${stats.completed} ${t('segments')})`); } }
-  async function translateAndApply(textNodes, totalForProgress) { let apiTime=0,cacheHits=0,completed=0,failed=0; const CONCURRENCY=3; if (!abortController||abortController.signal.aborted) abortController=new AbortController(); for (const tn of textNodes) inFlightNodes.add(tn.node); isTranslating=true; try { const toTranslate=[]; for (let i=0;i<textNodes.length;i++) { const tn=textNodes[i]; if (translationCache.has(tn.text)) { applyTranslation(tn.node,tn.text,translationCache.get(tn.text),tn.subNodes); cacheHits++; completed++; } else toTranslate.push({ ...tn, id:String(i) }); } pageTokens.cacheHits+=cacheHits; if (!toTranslate.length) { window._lfSetProgress?.(completed,textNodes.length); return { apiTime,cacheHits,completed,failed,allCached:true }; } const batches=[]; let cur={ items:[],chars:0 },limit=400; for (const tn of toTranslate) { if (cur.chars+tn.text.length>limit&&cur.items.length) { batches.push(cur); cur={ items:[],chars:0 }; if (batches.length>=2) limit=800; } cur.items.push(tn); cur.chars+=tn.text.length; } if (cur.items.length) batches.push(cur); let nextIdx=0; async function processBatch(batch) { if (abortController.signal.aborted) throw new DOMException('Aborted','AbortError'); const reallyNeed=[]; for (const item of batch.items) { if (translationCache.has(item.text)) { applyTranslation(item.node,item.text,translationCache.get(item.text),item.subNodes); cacheHits++; completed++; } else reallyNeed.push(item); } if (!reallyNeed.length) return; const t=performance.now(); const result=await translateBatch(reallyNeed); apiTime+=performance.now()-t; if (result) { for (const item of reallyNeed) { const tr=result[item.id]; if (tr) { if (tr!==item.text) { applyTranslation(item.node,item.text,tr,item.subNodes); } else { if (item.subNodes) { for (const sn of item.subNodes) translationMap.set(sn,{ original:sn.textContent?sn.textContent.trim():(sn.value||'').trim() }); } else { translationMap.set(item.node,{ original:item.text }); untranslatedNodes.add(item.node); } } translationCache.set(item.text,tr); markCacheDirty(); } } } else { failed+=reallyNeed.length; } completed+=reallyNeed.length; window._lfSetProgress?.(completed,textNodes.length); } async function worker() { while (nextIdx<batches.length) { if (abortController.signal.aborted) return; const idx=nextIdx++; try { await processBatch(batches[idx]); } catch(e) { if (e.name==='AbortError') return; failed+=batches[idx].items.length; completed+=batches[idx].items.length; } } } await Promise.all(Array.from({ length:Math.min(CONCURRENCY,batches.length) },()=>worker())); } finally { for (const tn of textNodes) inFlightNodes.delete(tn.node); isTranslating=false; } return { apiTime,cacheHits,completed,failed }; }
+  async function startTranslation(transSettings, opts={}) { const { continuous=true } = opts; if (isTranslated) restoreOriginal(); settings=transSettings; abortController=new AbortController(); pageTokens={ input:0,output:0,total:0,cacheHits:0,apiCalls:0 }; const cfg=MODES[mode]||MODES.medium;const textNodes=collectTextNodes(document.body,{ viewportOnly:!cfg.fullPage, viewportMargin:cfg.viewportMargin }); const inputEls=document.body.querySelectorAll('input[type="submit"],input[type="button"],button:not(:empty),[role="button"]'); for (const el of inputEls) { if (shouldSkip(el)) continue; const v=(el.value||'').trim(); if (v.length<3||!isTranslatable(v)) continue; if (!isInViewport(el,200)) continue; textNodes.push({ node:el, text:v, y:el.getBoundingClientRect().top, isInput:true }); } textNodes.sort((a,b)=>a.y-b.y); if (!textNodes.length) { showToast('warning','⚠️ '+t('noText')); return; } const stats=await translateAndApply(textNodes, textNodes.length); if (abortController.signal.aborted) return; isTranslated=true; isTranslating=false; if (continuous) { if (cfg.scroll) startScrollObserver(); if (cfg.mutation) startMutationObserver(); } updateUsageBall(); if (!stats.allCached) { const ok=stats.completed-stats.failed; showToast('success',stats.failed?`✅ ${ok}/${stats.completed} ${t('segments')} (${stats.failed} ${t('failed')})`:`✅ ${t('completed')} (${stats.completed} ${t('segments')})`); } }
+  async function translateAndApply(textNodes, totalForProgress) { let apiTime=0,cacheHits=0,completed=0,failed=0; const apiErrors=[]; const CONCURRENCY=(MODES[mode]||MODES.medium).concurrency; if (!abortController||abortController.signal.aborted) abortController=new AbortController(); for (const tn of textNodes) inFlightNodes.add(tn.node); isTranslating=true; try { const toTranslate=[]; for (let i=0;i<textNodes.length;i++) { const tn=textNodes[i]; if (translationCache.has(tn.text)) { applyTranslation(tn.node,tn.text,translationCache.get(tn.text),tn.subNodes); cacheHits++; completed++; } else toTranslate.push({ ...tn, id:String(i) }); } pageTokens.cacheHits+=cacheHits; if (!toTranslate.length) { window._lfSetProgress?.(completed,textNodes.length); return { apiTime,cacheHits,completed,failed,allCached:true }; } const batches=[]; let cur={ items:[],chars:0 },limit=(MODES[mode]||MODES.medium).batchLimit; for (const tn of toTranslate) { if (cur.chars+tn.text.length>limit&&cur.items.length) { batches.push(cur); cur={ items:[],chars:0 }; } cur.items.push(tn); cur.chars+=tn.text.length; } if (cur.items.length) batches.push(cur); let nextIdx=0; async function processBatch(batch) { if (abortController.signal.aborted) throw new DOMException('Aborted','AbortError'); const reallyNeed=[]; for (const item of batch.items) { if (translationCache.has(item.text)) { applyTranslation(item.node,item.text,translationCache.get(item.text),item.subNodes); cacheHits++; completed++; } else reallyNeed.push(item); } if (!reallyNeed.length) return; const t=performance.now(); const result=await translateBatch(reallyNeed); if (abortController.signal.aborted) throw new DOMException('Aborted','AbortError'); apiTime+=performance.now()-t; if (result) { for (const item of reallyNeed) { const tr=result[item.id]; if (tr) { if (tr!==item.text) { applyTranslation(item.node,item.text,tr,item.subNodes); } else { if (item.subNodes) { for (const sn of item.subNodes) translationMap.set(sn,{ original:sn.textContent?sn.textContent.trim():(sn.value||'').trim() }); } else { translationMap.set(item.node,{ original:item.text }); untranslatedNodes.add(item.node); } } translationCache.set(item.text,tr); markCacheDirty(); } } } else { failed+=reallyNeed.length; } completed+=reallyNeed.length; window._lfSetProgress?.(completed,textNodes.length); } async function worker() { while (nextIdx<batches.length) { if (abortController.signal.aborted) return; const idx=nextIdx++; try { await processBatch(batches[idx]); } catch(e) { if (e.name==='AbortError') return; apiErrors.push(e.message||String(e)); failed+=batches[idx].items.length; completed+=batches[idx].items.length; } } } await Promise.all(Array.from({ length:Math.min(CONCURRENCY,batches.length) },()=>worker())); if (apiErrors.length) showApiError(apiErrors[0]); } finally { for (const tn of textNodes) inFlightNodes.delete(tn.node); isTranslating=false; } return { apiTime,cacheHits,completed,failed }; }
   function translateBatch(items) { return new Promise((resolve,reject)=>{ try { chrome.runtime.sendMessage({ type:'BATCH_TRANSLATE', items:items.map(it=>({ id:it.id, text:it.text })), settings:{ apiKey:settings.apiKey,apiUrl:settings.apiUrl,model:settings.model,sourceLang:settings.sourceLang,targetLang:settings.targetLang } }, resp=>{ if (chrome.runtime.lastError) { if (chrome.runtime.lastError.message?.includes('context invalidated')) console.warn('[LinguaFlow] 扩展已更新，请刷新页面'); reject(new Error(chrome.runtime.lastError.message)); } else if (resp?.success) { if (resp.usage) addPageTokens(resp.usage); resolve(resp.translations); } else reject(new Error(resp?.error||'翻译失败')); }); } catch(e) { reject(e); } }); }
-  function applyTranslation(node, originalText, translatedText, subNodes) { if (subNodes&&subNodes.length>1) { const parts=translatedText.split(' | '); for (let i=0;i<subNodes.length;i++) { const part=(parts[i]||'').trim(); const orig=subNodes[i].textContent?subNodes[i].textContent.trim():(subNodes[i].value||'').trim(); if (subNodes[i].nodeType===Node.ELEMENT_NODE) { subNodes[i].value=part||orig; } else { subNodes[i].textContent=part||orig; } translationMap.set(subNodes[i],{ original:orig }); } const p=node.parentElement||node; if (p&&p.setAttribute) p.setAttribute('data-linguaflow-translated','true'); } else if (node.nodeType===Node.ELEMENT_NODE) { translationMap.set(node,{ original:originalText }); node.value=translatedText; if (node.setAttribute) node.setAttribute('data-linguaflow-translated','true'); } else { translationMap.set(node,{ original:originalText }); node.textContent=translatedText; const p=node.parentElement; if (p) { p.setAttribute('data-linguaflow-translated','true'); } } }
+  function applyTranslation(node, originalText, translatedText, subNodes) { if (subNodes&&subNodes.length>1) { for (let i=0;i<subNodes.length;i++) { const orig=subNodes[i].textContent?subNodes[i].textContent.trim():(subNodes[i].value||'').trim(); if (subNodes[i].nodeType===Node.ELEMENT_NODE) { subNodes[i].value=i===0?translatedText:''; } else { subNodes[i].textContent=i===0?translatedText:''; } translationMap.set(subNodes[i],{ original:orig }); } const p=node.parentElement||node; if (p&&p.setAttribute) p.setAttribute('data-linguaflow-translated','true'); } else if (node.nodeType===Node.ELEMENT_NODE) { translationMap.set(node,{ original:originalText }); node.value=translatedText; if (node.setAttribute) node.setAttribute('data-linguaflow-translated','true'); } else { translationMap.set(node,{ original:originalText }); node.textContent=translatedText; const p=node.parentElement; if (p) { p.setAttribute('data-linguaflow-translated','true'); } } }
   function restoreOriginal() { if (abortController) abortController.abort(); for (const [node,data] of translationMap) { if (node.nodeType===Node.ELEMENT_NODE) node.value=data.original; else node.textContent=data.original; } translationMap.clear(); isTranslated=false; isTranslating=false; const mini=document.getElementById('lf-mini'); if (mini) { mini.classList.remove('translating','translated'); } }
 
   // ===== 缓存 =====
@@ -336,42 +440,128 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
   async function loadPersistentCache() { const langKey='last_target_lang'; const r=await chrome.storage.local.get([langKey,'translation_cache']); const currentLang=(await chrome.storage.sync.get('targetLang')).targetLang||'zh-CN'; if (r[langKey]&&r[langKey]!==currentLang) { console.log(`[LinguaFlow] 语言切换: ${r[langKey]} → ${currentLang}, 清除缓存`); translationCache.clear(); await chrome.storage.local.remove('translation_cache'); } await chrome.storage.local.set({ [langKey]:currentLang }); if (r.translation_cache&&Array.isArray(r.translation_cache)) { const now=Date.now(); let n=0; for (const e of r.translation_cache) { if (!e.k||!e.v) continue; if (now-e.t>3600000) continue; if (!translationCache.has(e.k)) { translationCache.set(e.k,e.v); n++; } } if (n) console.log('[LinguaFlow] 缓存加载:',n); } }
 
   // ===== 观察器 =====
-  function startScrollObserver() { const scan=async()=>{ if (!isTranslated||isTranslating) return; const nodes=collectTextNodes(document.body,{ viewportOnly:true, viewportMargin:window.innerHeight*1.5 }); if (!nodes.length) return; await translateAndApply(nodes,nodes.length); }; window.addEventListener('scroll',()=>{ clearTimeout(scrollTimer); scrollTimer=setTimeout(scan,200); },{ passive:true }); setTimeout(()=>{ if (!isTranslated||isTranslating) return; const nodes=collectTextNodes(document.body,{ viewportOnly:true, viewportMargin:0 }); if (nodes.length) translateAndApply(nodes,nodes.length); },4000); let hoverQueue=[],hoverFlushTimer=null; function checkHover(e) { if (!isTranslated||isTranslating) return; clearTimeout(hoverFlushTimer); hoverFlushTimer=setTimeout(()=>{ if (!hoverQueue.length||isTranslating) return; if (hoverQueue.length<3) return; const batch=[...hoverQueue]; hoverQueue=[]; const seen=new Set(); const unique=batch.filter(n=>{ const k=n.node; if (seen.has(k)) return false; seen.add(k); return true; }); if (unique.length) translateAndApply(unique,unique.length); },300); const el=document.elementFromPoint(e.clientX,e.clientY); if (!el||el.closest('[id^="lf-"]')) return; const nodes=collectTextNodes(el,{ viewportOnly:true, viewportMargin:0 }); if (nodes.length) hoverQueue.push(...nodes); } document.addEventListener('mouseover',checkHover,{ passive:true }); document.addEventListener('mousemove',checkHover,{ passive:true }); }
-  function startMutationObserver() { if (mutationObserver) return; let startedAt=Date.now(); mutationObserver=new MutationObserver(mutations=>{ if (Date.now()-startedAt<3000) return; let hasNew=false; for (const m of mutations) for (const node of m.addedNodes) { if (node.nodeType===Node.ELEMENT_NODE) { const found=collectTextNodes(node,{ viewportOnly:true, viewportMargin:window.innerHeight }); if (found.length) { pendingNodes.push(...found); hasNew=true; } } } if (hasNew) { clearTimeout(pendingTimer); pendingTimer=setTimeout(translatePending,800); } }); mutationObserver.observe(document.body,{ childList:true, subtree:true }); }
+  function startScrollObserver() { const cfg=MODES[mode]||MODES.medium; if (cfg.scroll) { const scan=async()=>{ if (!isTranslated||isTranslating) return; const nodes=collectTextNodes(document.body,{ viewportOnly:true, viewportMargin:window.innerHeight*1.5 }); if (!nodes.length) return; await translateAndApply(nodes,nodes.length); }; window.addEventListener('scroll',()=>{ clearTimeout(scrollTimer); scrollTimer=setTimeout(scan,200); },{ passive:true }); setTimeout(()=>{ if (!isTranslated||isTranslating) return; const nodes=collectTextNodes(document.body,{ viewportOnly:true, viewportMargin:0 }); if (nodes.length) translateAndApply(nodes,nodes.length); },4000); } if (cfg.hover) { let hoverQueue=[],hoverFlushTimer=null; function checkHover(e) { if (!isTranslated||isTranslating) return; clearTimeout(hoverFlushTimer); hoverFlushTimer=setTimeout(()=>{ if (!hoverQueue.length||isTranslating) return; if (hoverQueue.length<3) return; const batch=[...hoverQueue]; hoverQueue=[]; const seen=new Set(); const unique=batch.filter(n=>{ const k=n.node; if (seen.has(k)) return false; seen.add(k); return true; }); if (unique.length) translateAndApply(unique,unique.length); },300); const el=document.elementFromPoint(e.clientX,e.clientY); if (!el||el.closest('[id^="lf-"]')) return; const nodes=collectTextNodes(el,{ viewportOnly:true, viewportMargin:0 }); if (nodes.length) hoverQueue.push(...nodes); } document.addEventListener('mouseover',checkHover,{ passive:true }); document.addEventListener('mousemove',checkHover,{ passive:true }); } }
+  function startMutationObserver() { const cfg=MODES[mode]||MODES.medium; if (!cfg.mutation) return; if (mutationObserver) return; let startedAt=Date.now(); mutationObserver=new MutationObserver(mutations=>{ if (Date.now()-startedAt<3000) return; let hasNew=false; for (const m of mutations) for (const node of m.addedNodes) { if (node.nodeType===Node.ELEMENT_NODE) { const found=collectTextNodes(node,{ viewportOnly:true, viewportMargin:window.innerHeight }); if (found.length) { pendingNodes.push(...found); hasNew=true; } } } if (hasNew) { clearTimeout(pendingTimer); pendingTimer=setTimeout(translatePending,800); } }); mutationObserver.observe(document.body,{ childList:true, subtree:true }); }
   async function translatePending() { if (!pendingNodes.length||!isTranslated||isTranslating) return; const nodes=[...pendingNodes]; pendingNodes=[]; await translateAndApply(nodes,nodes.length); }
 
   // ===== 消息 =====
   chrome.runtime.onMessage.addListener((msg,sender,sendResponse)=>{ switch(msg.type) { case 'START_TRANSLATION':sendResponse({ success:true });showTranslation=true;updateUsageBall();startTranslation(msg.settings,{ continuous:true }).catch(e=>console.error(e));break; case 'RESTORE_PAGE':restoreOriginal();showTranslation=false;updateUsageBall();showToast('warning',t('restored'));sendResponse({ success:true });break; case 'GET_STATUS':sendResponse({ isTranslated,isTranslating });break; case 'UI_LANG_CHANGED':if(msg.uiLang&&msg.uiLang!==uiLang){uiLang=msg.uiLang;updateAllUIText();updateUsageBall();updateDetailNumbers();const sel=document.getElementById('lf-ui-lang');if(sel)sel.value=uiLang;}break; } });
   async function saveTabMode(on) { const id=await getTabId(); await chrome.storage.local.set({ [`tmode_${id}`]:on }); }
   async function getTabMode() { const id=await getTabId(); const r=await chrome.storage.local.get(`tmode_${id}`); return r[`tmode_${id}`]||false; }
-  async function loadAndTranslate(opts={}) { const r=await chrome.storage.sync.get({ apiKey:'',apiUrl:'https://api.deepseek.com/v1',model:'deepseek-chat',sourceLang:'auto',targetLang:'zh-CN',hoverOriginal:true,showProgress:true }); if (!r.apiKey) { showToast('error','⚠️ '+t('noKey')); return; } settings=r; abortController=new AbortController(); try { await startTranslation(r,opts); } catch(e) { console.error(e); updateUsageBall(); } }
+  async function loadAndTranslate(opts={}) { const apiSettings=await readApiSettings(); if (!apiSettings.apiKey) { showToast('error','⚠️ '+t('noKey')); return; } if (apiSettings.supportsConcurrency===false) { showApiError('此 API 不支持并发，请在 Popup 中更换 API 或开启"支持并发"选项'); return; } const s=await chrome.storage.sync.get({ sourceLang:'auto',targetLang:'zh-CN',hoverOriginal:true,showProgress:true,mode:null }); if (s.mode) { mode=s.mode; } settings={ ...apiSettings, ...s }; abortController=new AbortController(); try { await startTranslation(settings,opts); } catch(e) { console.error(e); updateUsageBall(); } }
   function estimateCost(input,output) { const p={ 'deepseek-chat':[1,2],'deepseek-reasoner':[4,16] }[settings.model]||[1,2]; return (input/1e6)*p[0]+(output/1e6)*p[1]; }
   function addPageTokens(u) { if (!u) return; pageTokens.input+=u.prompt_tokens||0; pageTokens.output+=u.completion_tokens||0; pageTokens.total+=u.total_tokens||0; pageTokens.apiCalls++; updateUsageBall(); }
 
-  // ===== Ctrl解释 =====
-  function handleExplainPoint(e) {
-    if (!e.ctrlKey&&!e.metaKey) return; const el=document.elementFromPoint(e.clientX,e.clientY); if (!el||el.closest('[id^="lf-"],.lf-inline-explain')) return;
-    const tw=document.createTreeWalker(el,NodeFilter.SHOW_TEXT); const candidates=[]; while (tw.nextNode()) candidates.push(tw.currentNode);
-    let node=candidates[0],offset=candidates[0]?.textContent.length>>1||0;
-    const range=document.caretRangeFromPoint(e.clientX,e.clientY);
-    if (range&&range.startContainer.nodeType===Node.TEXT_NODE&&candidates.includes(range.startContainer)) { node=range.startContainer; offset=range.startOffset; }
-    if (!candidates.length) { let p=el; while(p) { const w=document.createTreeWalker(p,NodeFilter.SHOW_TEXT); const n=w.nextNode(); if (n) { node=n; offset=n.textContent.length>>1; break; } p=p.parentElement; } }
-    if (!node||node.parentElement?.closest('[id^="lf-"]')) return;
-    const text=node.textContent; const pos=Math.min(offset,text.length-1);
-    let s=pos,end=pos; while(s>0&&!/[一-鿿぀-ゟ가-힯]/.test(text[s-1])) s--; while(end<text.length&&!/[一-鿿぀-ゟ가-힯]/.test(text[end])) end++;
-    let phrase=text.substring(s,end).trim().replace(/^[,\s]+|[,\s]+$/g,''); if (!phrase||phrase.length<2) return;
-    if (insertedExplanations.some(el=>el.dataset.lfWord===phrase)) return;
-    const parent=node.parentElement; if (!parent||end<=0||end>text.length) return;
-    let placeholder; try { placeholder=document.createElement('i'); placeholder.style.cssText='color:#9061f9;font-size:0.9em;font-style:italic;'; placeholder.textContent='（…）'; placeholder.dataset.lfWord=phrase; placeholder.className='lf-inline-explain'; if (end<text.length) { const after=node.splitText(end); parent.insertBefore(placeholder,after); } else { parent.appendChild(placeholder); } insertedExplanations.push(placeholder); } catch { return; }
-    const cleanText=text.replace(/（[^）]*）/g,'').replace(/\s+/g,' ').trim();
-    const ctx=cleanText.substring(Math.max(0,s-100),Math.min(cleanText.length,end+150));
-    loadSettingsForExplain().then(cfg=>{ if (!cfg.apiKey) return; chrome.runtime.sendMessage({ type:'EXPLAIN_WORD',word:phrase,domain:location.hostname.replace('www.',''),nearbyText:ctx,settings:{ apiKey:cfg.apiKey,apiUrl:cfg.apiUrl,model:cfg.model,targetLang:cfg.targetLang||'zh-CN' } },resp=>{ if (resp?.success&&resp.explanation) { if (resp.usage) addPageTokens(resp.usage); const stripped=resp.explanation.trim().replace(/[，。！？、：；""'']/g,'').toLowerCase(); const final=(stripped===phrase.toLowerCase())?'(无法解释)':resp.explanation; explainCache.set(phrase,final); if (placeholder.isConnected) placeholder.textContent='（'+final+'）'; } }); });
+  // ===== Ctrl解释 — 气泡弹窗 =====
+  function getBubble() {
+    if (explainBubble) return explainBubble;
+    const b = document.createElement('div'); b.id = 'lf-explain-bubble';
+    b.innerHTML = `<div class="lf-explain-header"><span class="lf-explain-word" id="lf-explain-word"></span><button class="lf-explain-close" id="lf-explain-close">✕</button></div><div class="lf-explain-body" id="lf-explain-body"></div>`;
+    document.body.appendChild(b);
+    b.querySelector('#lf-explain-close').addEventListener('click', hideBubble);
+    explainBubble = b;
+    return b;
   }
-  async function loadSettingsForExplain() { if (settings.apiKey) return settings; return await chrome.storage.sync.get({ apiKey:'',apiUrl:'https://api.deepseek.com/v1',model:'deepseek-chat',targetLang:'zh-CN' }); }
-  let lastMX=0,lastMY=0; document.addEventListener('mousemove',e=>{ lastMX=e.clientX;lastMY=e.clientY; if(e.ctrlKey||e.metaKey) handleExplainPoint(e); },{ passive:true }); document.addEventListener('mouseover',e=>{ lastMX=e.clientX;lastMY=e.clientY; if(e.ctrlKey||e.metaKey) handleExplainPoint(e); },{ passive:true }); document.addEventListener('keydown',e=>{ if(e.key==='Control'||e.key==='Meta'){ handleExplainPoint({ clientX:lastMX,clientY:lastMY,ctrlKey:e.key==='Control',metaKey:e.key==='Meta' }); } });
+  function showBubble(x, y, word) {
+    const b = getBubble();
+    document.getElementById('lf-explain-word').textContent = word;
+    document.getElementById('lf-explain-body').innerHTML = '<span class="lf-explain-loading">…</span>';
+    // 智能定位：优先在光标下方，空间不够则上方
+    const bw = b.offsetWidth || 300, bh = 120;
+    let left = x + 10, top = y + 14;
+    if (left + bw > window.innerWidth - 10) left = window.innerWidth - bw - 10;
+    if (left < 10) left = 10;
+    if (top + bh > window.innerHeight - 10) top = y - bh - 6;
+    if (top < 10) top = 10;
+    b.style.left = left + 'px'; b.style.top = top + 'px';
+    b.classList.add('show');
+  }
+  function updateBubble(text) {
+    const body = document.getElementById('lf-explain-body');
+    if (body) body.textContent = text;
+    // 内容更新后重新定位，防止长文本超出屏幕
+    if (explainBubble) {
+      const r = explainBubble.getBoundingClientRect();
+      if (r.bottom > window.innerHeight - 10) explainBubble.style.top = Math.max(10, window.innerHeight - r.height - 10) + 'px';
+    }
+  }
+  function hideBubble() {
+    if (explainBubble) { explainBubble.classList.remove('show'); explainBubble = null; setTimeout(() => { const b = document.getElementById('lf-explain-bubble'); if (b && !b.classList.contains('show')) b.remove(); }, 250); }
+  }
+
+  function handleExplainPoint(e) {
+    if (!e.ctrlKey&&!e.metaKey) return;
+    try {
+    // 优先处理划词：用户选中了文字 → 直接解释选中内容
+    const sel=window.getSelection(); const selText=(sel&&!sel.isCollapsed)?sel.toString().trim():'';
+    if(selText&&selText.length>=1){
+      if(inFlightWords.has(selText)) return;
+      inFlightWords.add(selText);
+      showBubble(e.clientX,e.clientY,selText);
+      loadSettingsForExplain().then(cfg=>{ if(!cfg.apiKey){ inFlightWords.delete(selText); updateBubble('⚠️ '+t('noKey')); return; } chrome.runtime.sendMessage({ type:'EXPLAIN_WORD',word:selText,domain:location.hostname.replace('www.',''),nearbyText:'',htmlContext:'',settings:{ apiKey:cfg.apiKey,apiUrl:cfg.apiUrl,model:cfg.model,targetLang:cfg.targetLang||'zh-CN' } },resp=>{ inFlightWords.delete(selText); if(resp?.success&&resp.explanation){ if(resp.usage) addPageTokens(resp.usage); updateBubble(resp.explanation); } else { updateBubble('⚠️ '+(resp?.error||'请求失败')); } }); });
+      return;
+    }
+    // 光标指向模式
+    const el=document.elementFromPoint(e.clientX,e.clientY); if (!el||el.closest('[id^="lf-"],.lf-inline-explain')) return;
+    const caret=document.caretRangeFromPoint(e.clientX,e.clientY);
+    if (!caret) return;
+    const cursorNode=caret.startContainer, cursorOffset=caret.startOffset;
+    // 合集所有可见文本节点，同时精确定位光标
+    const container=el.closest('p,div,span,li,td,th,h1,h2,h3,h4,h5,h6,a,article,section,main')||el;
+    const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
+    const rawParts=[]; let cursorPos=-1, charCount=0; let tn;
+    while(tn=walker.nextNode()) {
+      if(tn.parentElement?.closest('[id^="lf-"],script,style,noscript')) continue;
+      const t=tn.textContent; if(!t.trim()) continue;
+      rawParts.push({node:tn,text:t});
+      charCount+=t.length;
+      if(charCount>200) break;
+    }
+    // 精确计算光标在整个文本中的位置
+    let fullText='', posInFull=-1;
+    for(const p of rawParts){
+      const start=fullText.length;
+      fullText+=p.text;
+      if(p.node===cursorNode){
+        posInFull=start+cursorOffset;
+      }
+    }
+    // 如果没有精确匹配到光标节点，用光标在元素中的近似位置
+    if(posInFull<0&&cursorNode){
+      const allText=container.textContent||'';
+      const nodeText=cursorNode.textContent||'';
+      const idx=allText.indexOf(nodeText);
+      if(idx>=0) posInFull=idx+cursorOffset;
+    }
+    if(!fullText||fullText.length<2) return;
+    // 提取光标处单词
+    let cursorWord='';
+    if(posInFull>=0&&posInFull<fullText.length){
+      const D=/[\s/\\.,;:!?()\[\]{}@#$%^&*+=<>|~`"' -​]/;
+      let s=posInFull,e=posInFull;
+      while(s>0&&!D.test(fullText[s-1])) s--;
+      while(e<fullText.length&&!D.test(fullText[e])) e++;
+      cursorWord=fullText.substring(s,e).trim();
+    }
+    // 取光标周围文本
+    const ctxStart=Math.max(0,(posInFull>=0?posInFull:fullText.length/2)-40);
+    const ctxEnd=Math.min(fullText.length,ctxStart+80);
+    const nearbyText=fullText.substring(ctxStart,ctxEnd).replace(/\s+/g,' ').trim();
+    // 收集 HTML 结构（兜底：代码判断）
+    let htmlContext='';
+    try { const p=el.closest('a,button,h1,h2,h3,h4,h5,h6,code,pre,[class*="user"],[class*="brand"],[class*="product"],[class*="title"]')||el.parentElement; if(p) htmlContext=p.outerHTML.substring(0,400); } catch {}
+    const phrase=cursorWord||nearbyText.substring(0,40);
+    if (inFlightWords.has(phrase)) return;
+    inFlightWords.add(phrase);
+    showBubble(e.clientX, e.clientY, cursorWord||'…');
+    loadSettingsForExplain().then(cfg=>{ if (!cfg.apiKey) { inFlightWords.delete(phrase); updateBubble('⚠️ '+t('noKey')); return; } chrome.runtime.sendMessage({ type:'EXPLAIN_WORD',word:cursorWord,domain:location.hostname.replace('www.',''),nearbyText,htmlContext,settings:{ apiKey:cfg.apiKey,apiUrl:cfg.apiUrl,model:cfg.model,targetLang:cfg.targetLang||'zh-CN' } },resp=>{ inFlightWords.delete(phrase); if (resp?.success&&resp.explanation) { if (resp.usage) addPageTokens(resp.usage); updateBubble(resp.explanation); } else { updateBubble('⚠️ '+(resp?.error||'请求失败')); } }); });
+    } catch(err) { console.error('[LF] 解释出错:', err); }
+  }
+  async function loadSettingsForExplain() { if (settings.apiKey) return settings; return await readApiSettings(); }
+  let lastMX=0,lastMY=0; document.addEventListener('mousemove',e=>{ lastMX=e.clientX;lastMY=e.clientY; if(e.ctrlKey||e.metaKey) handleExplainPoint(e); },{ passive:true }); document.addEventListener('mouseover',e=>{ lastMX=e.clientX;lastMY=e.clientY; if(e.ctrlKey||e.metaKey) handleExplainPoint(e); },{ passive:true }); document.addEventListener('keydown',e=>{ if(e.key==='Control'||e.key==='Meta'){ const sel=window.getSelection(); const selText=(sel&&!sel.isCollapsed)?sel.toString().trim():''; if(selText){ handleExplainPoint({ clientX:lastMX||window.innerWidth/2,clientY:lastMY||window.innerHeight/2,ctrlKey:true,metaKey:e.key==='Meta' }); } else { handleExplainPoint({ clientX:lastMX,clientY:lastMY,ctrlKey:e.key==='Control',metaKey:e.key==='Meta' }); } } });
 
   // Esc
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(isTranslating&&abortController){ abortController.abort(); return; } for(const el of insertedExplanations) el.remove(); insertedExplanations=[]; } });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(isTranslating&&abortController){ abortController.abort(); return; } hideBubble(); inFlightWords.clear(); } });
 
   // 防御 GitHub 中文化插件
   const langOpts={'zh-CN':'简体中文','zh-TW':'繁體中文',en:'English',ja:'日本語',ko:'한국어',fr:'Français',de:'Deutsch',es:'Español',pt:'Português',ru:'Русский',ar:'العربية',hi:'हिन्दी',th:'ไทย',vi:'Tiếng Việt',it:'Italiano',nl:'Nederlands',pl:'Polski',tr:'Türkçe',id:'Bahasa Indonesia',sv:'Svenska',da:'Dansk',fi:'Suomi',no:'Norsk',cs:'Čeština',ro:'Română',hu:'Magyar',el:'Ελληνικά',he:'עברית',uk:'Українська',ms:'Bahasa Melayu',fil:'Filipino',bn:'বাংলা',ur:'اردو',fa:'فارسی',sw:'Kiswahili',ta:'தமிழ்',te:'తెలుగు',mr:'मराठी',gu:'ગુજરાતી',kn:'ಕನ್ನಡ',ml:'മലയാളം',pa:'ਪੰਜਾਬੀ',bg:'Български',sk:'Slovenčina',lt:'Lietuvių',lv:'Latviešu',et:'Eesti',sl:'Slovenščina',hr:'Hrvatski',sr:'Српски'};
@@ -388,5 +578,5 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
       document.getElementById('btn-collapse').classList.add('collapsed');
     }
     updateMiniText(); const stored=await chrome.storage.sync.get('uiLang'); if(stored.uiLang&&stored.uiLang!==uiLang){ uiLang=stored.uiLang; updateAllUIText(); const sel=document.getElementById('lf-ui-lang'); if(sel) sel.value=uiLang; } await getTabId(); await loadPersistentCache(); if(await getTabMode()){ switchIntent=true; showTranslation=true; updateUsageBall(); setTimeout(()=>loadAndTranslate({ continuous:true }),800); } })();
-  console.log('🌐 LinguaFlow 已加载');
+  console.log('🌐 Faluber Translate 已加载');
 })();
