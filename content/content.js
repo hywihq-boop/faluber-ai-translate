@@ -138,29 +138,30 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
 .lf-explain-close:hover{color:var(--lf-text);background:rgba(255,255,255,0.06)}
 .lf-explain-body{word-break:break-word}
 .lf-explain-loading{color:var(--lf-text-weak);font-style:italic}
-#lf-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2147483645;width:900px;background:rgba(15,15,26,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(124,92,252,0.2);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.55);font-family:system-ui;display:none;user-select:none;overflow:hidden}
+#lf-panel{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2147483645;width:960px;background:rgba(15,15,26,0.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(124,92,252,0.2);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,0.55);font-family:system-ui;display:none;user-select:none;overflow:hidden}
 #lf-panel.show{display:block}
 #lf-panel.mini{width:200px}
 #lf-panel.mini .lf-panel-body,#lf-panel.mini .lf-panel-foot{display:none}
-.lf-panel-head{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;cursor:move;border-bottom:1px solid rgba(255,255,255,0.05)}
-.lf-panel-title{font-size:12px;font-weight:600;color:var(--lf-text-strong);display:flex;align-items:center;gap:6px}
-.lf-panel-actions{display:flex;gap:2px}
-.lf-panel-btn{width:26px;height:26px;display:grid;place-items:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:5px;font-size:12px}
+.lf-panel-head{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;cursor:move;border-bottom:1px solid rgba(255,255,255,0.05)}
+.lf-panel-title{font-size:14px;font-weight:600;color:var(--lf-text-strong);display:flex;align-items:center;gap:8px}
+.lf-panel-actions{display:flex;gap:4px}
+.lf-panel-btn{width:28px;height:28px;display:grid;place-items:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:6px;font-size:14px}
 .lf-panel-btn:hover{color:var(--lf-text);background:rgba(255,255,255,0.06)}
-.lf-panel-body{display:flex;gap:0;min-height:360px}
+.lf-panel-body{display:flex;gap:0;min-height:400px}
 .lf-panel-col{flex:1;display:flex;flex-direction:column}
 .lf-panel-col+.lf-panel-col{border-left:1px solid rgba(255,255,255,0.05)}
-.lf-panel-lang{display:flex;align-items:center;padding:6px 10px;gap:6px;border-bottom:1px solid rgba(255,255,255,0.04)}
-.lf-panel-lang select{background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:5px;color:var(--lf-text);font-size:10px;padding:2px 4px;outline:none;cursor:pointer;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M1 2l3 3 3-3' stroke='%239090a8' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 3px center;padding-right:14px}
-.lf-panel-text{flex:1;padding:14px;font-size:14px;font-family:inherit;color:var(--lf-text);background:transparent;border:none;outline:none;resize:none;line-height:1.6;min-height:300px}
+.lf-panel-lang{display:flex;align-items:center;padding:8px 12px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.lf-panel-lang span{font-size:11px!important;color:var(--lf-text-weak);flex-shrink:0}
+.lf-panel-lang select{background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:var(--lf-text);font-size:11px;padding:4px 6px;outline:none;cursor:pointer;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M1 2l3 3 3-3' stroke='%239090a8' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center;padding-right:20px}
+.lf-panel-text{flex:1;padding:16px;font-size:15px;font-family:inherit;color:var(--lf-text);background:transparent;border:none;outline:none;resize:none;line-height:1.7;min-height:340px}
 .lf-panel-text:read-only{color:var(--lf-text-weak)}
 .lf-panel-text::placeholder{color:var(--lf-text-weak);opacity:0.4}
-.lf-panel-foot{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;border-top:1px solid rgba(255,255,255,0.05);gap:8px}
-.lf-panel-foot .lf-panel-btn{width:auto;padding:5px 12px;font-size:11px;gap:4px;border-radius:6px}
-.lf-panel-swap{font-size:16px;cursor:pointer;flex-shrink:0;padding:4px;color:var(--lf-text-weak);transition:color 0.2s,transform 0.2s}
-.lf-panel-swap:hover{color:var(--lf-purple-soft);transform:rotate(180deg)}
-.lf-panel-char-count{font-size:10px;color:var(--lf-text-weak)}
-@media(max-width:600px){#lf-panel{width:calc(100vw-20px);left:10px;right:10px;top:40px}}`;
+.lf-panel-foot{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-top:1px solid rgba(255,255,255,0.05);gap:10px}
+.lf-panel-foot .lf-panel-btn{width:auto;padding:6px 14px;font-size:12px;gap:4px;border-radius:6px}
+.lf-panel-swap{display:flex;align-items:center;justify-content:center;align-self:center;width:36px;height:36px;border-radius:50%;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.2);color:var(--lf-purple-soft);cursor:pointer;font-size:18px;flex-shrink:0;margin:0 -18px;z-index:2;transition:all 0.2s}
+.lf-panel-swap:hover{background:rgba(124,92,252,0.2);border-color:rgba(124,92,252,0.35);transform:rotate(180deg)}
+.lf-panel-char-count{font-size:11px;color:var(--lf-text-weak)}
+@media(max-width:980px){#lf-panel{width:calc(100vw-20px);transform:none;top:20px;left:10px;right:auto}.lf-panel-body{min-height:260px}.lf-panel-text{min-height:200px}}`;
     document.head.appendChild(s);
   }
 
@@ -605,18 +606,18 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     </div>
     <div class="lf-panel-body">
       <div class="lf-panel-col">
-        <div class="lf-panel-lang"><span style="font-size:10px;color:var(--lf-text-weak);flex-shrink:0">源语言</span><select id="lf-panel-src"></select></div>
+        <div class="lf-panel-lang"><span>源语言</span><select id="lf-panel-src"></select></div>
         <textarea class="lf-panel-text" id="lf-panel-input" placeholder="输入文字…"></textarea>
       </div>
+      <button class="lf-panel-swap" id="lf-panel-swap" title="交换语言">↔</button>
       <div class="lf-panel-col">
-        <div class="lf-panel-lang"><span style="font-size:10px;color:var(--lf-text-weak);flex-shrink:0">目标语言</span><select id="lf-panel-tgt"></select></div>
+        <div class="lf-panel-lang"><span>目标语言</span><select id="lf-panel-tgt"></select></div>
         <textarea class="lf-panel-text" id="lf-panel-output" placeholder="翻译结果…" readonly></textarea>
       </div>
     </div>
     <div class="lf-panel-foot">
       <span class="lf-panel-char-count" id="lf-panel-count">0 字符</span>
       <span style="display:flex;gap:6px">
-        <button class="lf-panel-btn" id="lf-panel-swap" title="交换语言">↔</button>
         <button class="lf-panel-btn" id="lf-panel-copy" title="复制译文">📋 复制</button>
         <button class="lf-panel-btn" id="lf-panel-translate" style="background:rgba(124,92,252,0.12);color:var(--lf-purple-soft)">🔄 翻译</button>
       </span>
