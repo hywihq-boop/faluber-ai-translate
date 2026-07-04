@@ -53,8 +53,8 @@
     },
     "translate-panel": {
       "suggested_key": {
-        "default": "Alt+F",
-        "mac": "Alt+F"
+        "default": "Alt+Q",
+        "mac": "Alt+Q"
       },
       "description": "打开翻译面板"
     }
