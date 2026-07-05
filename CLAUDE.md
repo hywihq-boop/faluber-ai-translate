@@ -84,6 +84,10 @@ SW 中 `LANG_MAP` 和 `PROMPT` 两个全局对象覆盖 50 种语言。`PROMPT` 
 翻译错误 → widget 顶部内联红色错误条（`#lf-error-bar`），可手动关闭。
 API 空响应 → 显示 `⚠️ 错误信息`，不静默。
 
+## 开发规范
+
+- **每次修改代码后，必须更新 `manifest.json` 中的 `version` 版本号。** 格式：`X.Y.Z`，根据改动幅度递增。
+
 ## 打包
 
 ```bash

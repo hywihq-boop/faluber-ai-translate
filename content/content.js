@@ -48,6 +48,7 @@
     const s = document.createElement('style'); s.id = 'lf-styles';
     s.textContent = `:root{--lf-purple:#7c5cfc;--lf-purple-soft:#9061f9;--lf-cyan:#5ce0fc;--lf-green:#4ade80;--lf-red:#f87171;--lf-yellow:#facc15;--lf-bg:rgba(15,15,26,0.94);--lf-border:rgba(255,255,255,0.08);--lf-text:#c0c0d0;--lf-text-strong:#e0e0e0;--lf-text-weak:#7a7a8e}
 #lf-wrapper{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:260px;font-family:system-ui;user-select:none;pointer-events:none;transition:width 0.45s cubic-bezier(0.22,0,0,1);overflow:visible}
+#lf-wrapper.lf-fullscreen-hidden{display:none!important}
 #lf-wrapper.collapsed{width:56px}
 #lf-wrapper>#lf-widget,#lf-wrapper>.lf-collapse-btn-wrap{pointer-events:auto}
 #lf-widget{position:relative;display:flex;flex-direction:column;align-items:stretch;width:260px;gap:6px;margin-left:auto;transform-origin:center right;transition:opacity 0.28s ease,transform 0.45s cubic-bezier(0.22,0,0,1)}
@@ -703,6 +704,11 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     try {
     const r = await chrome.storage.local.get('lf_collapsed');
     buildUI();
+    document.addEventListener('fullscreenchange', () => {
+      const wrapper = document.getElementById('lf-wrapper');
+      if (!wrapper) return;
+      wrapper.classList.toggle('lf-fullscreen-hidden', !!document.fullscreenElement);
+    });
     if (r.lf_collapsed) {
       document.getElementById('lf-wrapper').classList.add('collapsed');
       document.getElementById('lf-mini').classList.add('visible');
