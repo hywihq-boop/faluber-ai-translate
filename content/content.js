@@ -646,12 +646,13 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     document.getElementById('lf-panel-mini').addEventListener('click',()=>p.classList.toggle('mini'));
     document.getElementById('lf-panel-swap').addEventListener('click',()=>{ const sv=srcSel.value,tv=tgtSel.value; srcSel.value=tv; tgtSel.value=sv; const inp=document.getElementById('lf-panel-input'); const out=document.getElementById('lf-panel-output'); if(out.value){ inp.value=out.value; out.value=''; } });
     document.getElementById('lf-panel-copy').addEventListener('click',()=>{ const v=document.getElementById('lf-panel-output').value; if(v){ navigator.clipboard.writeText(v).then(()=>showToast('success','✅ 已复制')); } });
-    document.getElementById('lf-panel-input').addEventListener('input',()=>{ const inp=document.getElementById('lf-panel-input'); document.getElementById('lf-panel-count').textContent=(inp.value.length||0)+' 字符'; if(!inp.value.trim()) document.getElementById('lf-panel-output').value=''; });
     document.getElementById('lf-panel-clear').addEventListener('click',()=>{ document.getElementById('lf-panel-input').value=''; document.getElementById('lf-panel-output').value=''; document.getElementById('lf-panel-count').textContent='0 字符'; });
     let panelTimer=null;
     const doPanelTranslate=async()=>{
-      const inp=document.getElementById('lf-panel-input'); const txt=inp.value.trim(); if(!txt) return;
+      const inp=document.getElementById('lf-panel-input'); const txt=inp.value.trim();
       const out=document.getElementById('lf-panel-output');
+      document.getElementById('lf-panel-count').textContent=(inp.value.length||0)+' 字符';
+      if(!txt){ out.value=''; return; }
       const btn=document.getElementById('lf-panel-translate'); btn.textContent='⏳'; btn.disabled=true;
       const cfg=await readApiSettings(); if(!cfg.apiKey){ out.value='⚠️ '+t('noKey'); btn.textContent='🔄 翻译'; btn.disabled=false; return; }
       chrome.runtime.sendMessage({ type:'PANEL_TRANSLATE', text:txt, sourceLang:srcSel.value, targetLang:tgtSel.value, settings:{ apiKey:cfg.apiKey, apiUrl:cfg.apiUrl, model:cfg.model } }, resp=>{
