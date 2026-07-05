@@ -655,14 +655,19 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
       if(!txt){ out.value=''; return; }
       const btn=document.getElementById('lf-panel-translate'); btn.textContent='⏳'; btn.disabled=true;
       const cfg=await readApiSettings(); if(!cfg.apiKey){ out.value='⚠️ '+t('noKey'); btn.textContent='🔄 翻译'; btn.disabled=false; return; }
-      chrome.runtime.sendMessage({ type:'PANEL_TRANSLATE', text:txt, sourceLang:srcSel.value, targetLang:tgtSel.value, settings:{ apiKey:cfg.apiKey, apiUrl:cfg.apiUrl, model:cfg.model } }, resp=>{
-        btn.textContent='🔄 翻译'; btn.disabled=false;
-        if(resp?.success){ out.value=resp.translation; if(resp.usage) addPageTokens(resp.usage); }
-        else out.value='⚠️ '+(resp?.error||'翻译失败');
-      });
+      return new Promise((resolve,reject)=>{
+        let done=false; panelAbort=()=>{ if(!done){ done=true; reject(new Error('aborted')); } };
+        chrome.runtime.sendMessage({ type:'PANEL_TRANSLATE', text:txt, sourceLang:srcSel.value, targetLang:tgtSel.value, settings:{ apiKey:cfg.apiKey, apiUrl:cfg.apiUrl, model:cfg.model } }, resp=>{
+          if(done) return; done=true; panelAbort=null;
+          btn.textContent='🔄 翻译'; btn.disabled=false;
+          if(resp?.success){ out.value=resp.translation; if(resp.usage) addPageTokens(resp.usage); resolve(); }
+          else{ out.value='⚠️ '+(resp?.error||'翻译失败'); resolve(); }
+        });
+      }).catch(()=>{});
     };
+    let panelAbort=null;
     document.getElementById('lf-panel-translate').addEventListener('click',doPanelTranslate);
-    document.getElementById('lf-panel-input').addEventListener('input',()=>{ clearTimeout(panelTimer); panelTimer=setTimeout(doPanelTranslate,500); });
+    document.getElementById('lf-panel-input').addEventListener('input',()=>{ clearTimeout(panelTimer); if(panelAbort){ panelAbort(); panelAbort=null; } panelTimer=setTimeout(()=>{ doPanelTranslate().then(()=>{panelAbort=null;}); },800); });
   }
   function togglePanel(){ createPanel(); const p=document.getElementById('lf-panel'); p.classList.toggle('show'); if(p.classList.contains('show')){ chrome.storage.sync.get('targetLang',s=>{ if(s.targetLang) document.getElementById('lf-panel-tgt').value=s.targetLang; }); document.getElementById('lf-panel-input').focus(); } }
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&document.getElementById('lf-panel')?.classList.contains('show')){ const inp=document.activeElement; if(inp&&inp.id==='lf-panel-input') return; document.getElementById('lf-panel').classList.remove('show'); } });

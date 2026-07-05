@@ -292,7 +292,7 @@ async function handlePanelTranslate(msg, sendResponse) {
     const response = await fetch(`${apiUrl}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${apiKey}` },
-      body: JSON.stringify({ model, messages:[{ role:'system', content:systemPrompt },{ role:'user', content:text }], max_tokens:2000, reasoning_effort:'low' }),
+      body: JSON.stringify({ model, messages:[{ role:'system', content:systemPrompt },{ role:'user', content:text }], max_tokens:800, reasoning_effort:'low' }),
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
