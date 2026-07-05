@@ -626,6 +626,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     <div class="lf-panel-foot">
       <span class="lf-panel-char-count" id="lf-panel-count">0 字符</span>
       <span style="display:flex;gap:6px">
+        <button class="lf-panel-btn" id="lf-panel-clear" title="清空">🗑 清空</button>
         <button class="lf-panel-btn" id="lf-panel-copy" title="复制译文">📋 复制</button>
         <button class="lf-panel-btn" id="lf-panel-translate" style="background:rgba(124,92,252,0.12);color:var(--lf-purple-soft)">🔄 翻译</button>
       </span>
@@ -634,7 +635,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     // 填充语言列表
     const langs=[{v:'auto',t:'自动检测'},{v:'zh-CN',t:'简体中文'},{v:'zh-TW',t:'繁體中文'},{v:'en',t:'English'},{v:'ja',t:'日本語'},{v:'ko',t:'한국어'},{v:'fr',t:'Français'},{v:'de',t:'Deutsch'},{v:'es',t:'Español'},{v:'pt',t:'Português'},{v:'ru',t:'Русский'},{v:'ar',t:'العربية'},{v:'hi',t:'हिन्दी'},{v:'th',t:'ไทย'},{v:'vi',t:'Tiếng Việt'},{v:'it',t:'Italiano'},{v:'nl',t:'Nederlands'},{v:'pl',t:'Polski'},{v:'tr',t:'Türkçe'},{v:'id',t:'Indonesia'},{v:'sv',t:'Svenska'}];
     const srcSel=document.getElementById('lf-panel-src'), tgtSel=document.getElementById('lf-panel-tgt');
-    langs.forEach(l=>{ srcSel.appendChild(new Option(l.t,l.v)); tgtSel.appendChild(new Option(l.t,l.v)); });
+    langs.forEach(l=>{ srcSel.appendChild(new Option(l.t,l.v)); if(l.v!=='auto') tgtSel.appendChild(new Option(l.t,l.v)); });
     chrome.storage.sync.get('targetLang',s=>{ if(s.targetLang) tgtSel.value=s.targetLang; });
     // 事件
     let panelDrag=false,px=0,py=0;
@@ -645,7 +646,8 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     document.getElementById('lf-panel-mini').addEventListener('click',()=>p.classList.toggle('mini'));
     document.getElementById('lf-panel-swap').addEventListener('click',()=>{ const sv=srcSel.value,tv=tgtSel.value; srcSel.value=tv; tgtSel.value=sv; const inp=document.getElementById('lf-panel-input'); const out=document.getElementById('lf-panel-output'); if(out.value){ inp.value=out.value; out.value=''; } });
     document.getElementById('lf-panel-copy').addEventListener('click',()=>{ const v=document.getElementById('lf-panel-output').value; if(v){ navigator.clipboard.writeText(v).then(()=>showToast('success','✅ 已复制')); } });
-    document.getElementById('lf-panel-input').addEventListener('input',()=>{ document.getElementById('lf-panel-count').textContent=(document.getElementById('lf-panel-input').value.length||0)+' 字符'; });
+    document.getElementById('lf-panel-input').addEventListener('input',()=>{ const inp=document.getElementById('lf-panel-input'); document.getElementById('lf-panel-count').textContent=(inp.value.length||0)+' 字符'; if(!inp.value.trim()) document.getElementById('lf-panel-output').value=''; });
+    document.getElementById('lf-panel-clear').addEventListener('click',()=>{ document.getElementById('lf-panel-input').value=''; document.getElementById('lf-panel-output').value=''; document.getElementById('lf-panel-count').textContent='0 字符'; });
     let panelTimer=null;
     const doPanelTranslate=async()=>{
       const inp=document.getElementById('lf-panel-input'); const txt=inp.value.trim(); if(!txt) return;
