@@ -283,16 +283,15 @@ async function handleTestApi(msg, sendResponse) {
 
 // ===== 面板翻译（单条，无[N]格式）=====
 async function handlePanelTranslate(msg, sendResponse) {
-  const { text, sourceLang, targetLang, settings } = msg;
+  const { text, maxTokens, sourceLang, targetLang, settings } = msg;
   const { apiKey, apiUrl, model } = settings;
   const targetName = LANG_MAP[targetLang] || targetLang;
-  const sourceName = sourceLang && sourceLang !== 'auto' ? (LANG_MAP[sourceLang] || sourceLang) : '';
   try {
     const systemPrompt = `你是专业翻译员。将以下文字翻译成${targetName}，只输出译文，不要解释、不要注释、不要原文。`;
     const response = await fetch(`${apiUrl}/chat/completions`, {
       method: 'POST',
       headers: { 'Content-Type':'application/json', 'Authorization':`Bearer ${apiKey}` },
-      body: JSON.stringify({ model, messages:[{ role:'system', content:systemPrompt },{ role:'user', content:text }], max_tokens:800, reasoning_effort:'low' }),
+      body: JSON.stringify({ model, messages:[{ role:'system', content:systemPrompt },{ role:'user', content:text }], max_tokens:maxTokens||800, reasoning_effort:'low' }),
     });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
