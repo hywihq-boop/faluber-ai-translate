@@ -24,22 +24,14 @@
 
 ## 📸 Скриншоты
 
-<div align="center">
-  <p><em>⬇️ Перевод всей страницы + виджет — клик или <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="Перевод страницы" width="780">
-  <br><br>
-
-  <p><em>⬇️ Ctrl + объяснение — наведите на слово + <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl объяснение" width="780">
-  <br><br>
-
-  <p><em>⬇️ Панель перевода <kbd>Alt+Q</kbd> — ввод/вывод в две колонки</em></p>
-  <img src="assets/screenshot-panel.png" alt="Панель перевода" width="780">
-  <br><br>
-
-  <p><em>⬇️ Настройки API & переключение режимов</em></p>
-  <img src="assets/screenshot-settings.png" alt="Настройки" width="360">
-</div>
+> **Хотите увидеть в действии?** Добавьте скриншоты в папку `assets/`:
+>
+> | Файл | Что снимать |
+> |------|-------------|
+> | `assets/screenshot-translate.png` | Перевод всей страницы + виджет |
+> | `assets/screenshot-explain.png` | Ctrl + объяснение (всплывающее окно) |
+> | `assets/screenshot-panel.png` | Панель перевода (Alt+Q) |
+> | `assets/screenshot-settings.png` | Настройки API & переключение режимов |
 
 ---
 

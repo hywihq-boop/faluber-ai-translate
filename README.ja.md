@@ -24,22 +24,14 @@
 
 ## 📸 スクリーンショット
 
-<div align="center">
-  <p><em>⬇️ 全ページ翻訳 + フローティングウィジェット — クリックまたは <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="全ページ翻訳" width="780">
-  <br><br>
-
-  <p><em>⬇️ Ctrl + スマート説明 — 単語にホバー + <kbd>Ctrl</kbd> タップ</em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 説明" width="780">
-  <br><br>
-
-  <p><em>⬇️ 翻訳パネル <kbd>Alt+Q</kbd> — 左右分割の入出力</em></p>
-  <img src="assets/screenshot-panel.png" alt="翻訳パネル" width="780">
-  <br><br>
-
-  <p><em>⬇️ API 設定 & モード切替</em></p>
-  <img src="assets/screenshot-settings.png" alt="設定" width="360">
-</div>
+> **実際の動作を見たい？** `assets/` フォルダにスクリーンショットを追加すると表示されます：
+>
+> | ファイル | キャプチャ内容 |
+> |----------|----------------|
+> | `assets/screenshot-translate.png` | 全ページ翻訳 + フローティングウィジェット |
+> | `assets/screenshot-explain.png` | Ctrl + スマート説明バブル |
+> | `assets/screenshot-panel.png` | 翻訳パネル (Alt+Q) 左右分割 |
+> | `assets/screenshot-settings.png` | API 設定 & モード切替 |
 
 ---
 

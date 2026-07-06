@@ -24,22 +24,14 @@
 
 ## 📸 스크린샷
 
-<div align="center">
-  <p><em>⬇️ 전체 페이지 번역 + 플로팅 위젯 — 클릭 또는 <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="전체 페이지 번역" width="780">
-  <br><br>
-
-  <p><em>⬇️ Ctrl + 스마트 설명 — 단어에 호버 + <kbd>Ctrl</kbd> 탭</em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 설명" width="780">
-  <br><br>
-
-  <p><em>⬇️ 번역 패널 <kbd>Alt+Q</kbd> — 좌우 분할 입출력</em></p>
-  <img src="assets/screenshot-panel.png" alt="번역 패널" width="780">
-  <br><br>
-
-  <p><em>⬇️ API 설정 & 모드 전환</em></p>
-  <img src="assets/screenshot-settings.png" alt="설정" width="360">
-</div>
+> **실제 동작을 보고 싶다면?** `assets/` 폴더에 스크린샷을 추가하면 표시됩니다:
+>
+> | 파일 | 캡처 내용 |
+> |------|-----------|
+> | `assets/screenshot-translate.png` | 전체 페이지 번역 + 플로팅 위젯 |
+> | `assets/screenshot-explain.png` | Ctrl + 스마트 설명 버블 |
+> | `assets/screenshot-panel.png` | 번역 패널 (Alt+Q) 좌우 분할 |
+> | `assets/screenshot-settings.png` | API 설정 & 모드 전환 |
 
 ---
 

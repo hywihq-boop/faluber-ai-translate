@@ -26,22 +26,14 @@
 
 ## 📸 Screenshots
 
-<div align="center">
-  <p><em>⬇️ Full-page translation with floating widget — click or press <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="Full-page translation" width="780">
-  <br><br>
-
-  <p><em>⬇️ Ctrl + Explain — hover over a word and tap <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl + Explain" width="780">
-  <br><br>
-
-  <p><em>⬇️ Translation Panel <kbd>Alt+Q</kbd> — side-by-side input/output</em></p>
-  <img src="assets/screenshot-panel.png" alt="Translation Panel" width="780">
-  <br><br>
-
-  <p><em>⬇️ Settings popup & mode switching</em></p>
-  <img src="assets/screenshot-settings.png" alt="Settings" width="360">
-</div>
+> **Want to see it in action?** Add your screenshots to `assets/` and they'll appear here:
+>
+> | Screenshot | What to capture |
+> |------------|----------------|
+> | `assets/screenshot-translate.png` | Full-page translation with the floating widget |
+> | `assets/screenshot-explain.png` | Ctrl + Explain bubble on a word |
+> | `assets/screenshot-panel.png` | Translation Panel (Alt+Q) side-by-side |
+> | `assets/screenshot-settings.png` | Settings popup & mode switching |
 
 ---
 

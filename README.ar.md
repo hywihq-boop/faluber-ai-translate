@@ -24,22 +24,14 @@
 
 ## 📸 لقطات الشاشة
 
-<div align="center">
-  <p><em>⬇️ ترجمة الصفحة كاملة + الأداة العائمة — انقر أو اضغط <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="ترجمة الصفحة" width="780">
-  <br><br>
-
-  <p><em>⬇️ Ctrl + شرح ذكي — مرر فوق كلمة + اضغط <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl شرح" width="780">
-  <br><br>
-
-  <p><em>⬇️ لوحة الترجمة <kbd>Alt+Q</kbd> — إدخال/إخراج جنباً إلى جنب</em></p>
-  <img src="assets/screenshot-panel.png" alt="لوحة الترجمة" width="780">
-  <br><br>
-
-  <p><em>⬇️ إعدادات API وتبديل الأوضاع</em></p>
-  <img src="assets/screenshot-settings.png" alt="الإعدادات" width="360">
-</div>
+> **تريد رؤيتها أثناء العمل؟** أضف لقطات الشاشة إلى مجلد `assets/`:
+>
+> | الملف | ما تلتقطه |
+> |-------|-----------|
+> | `assets/screenshot-translate.png` | ترجمة الصفحة كاملة + الأداة العائمة |
+> | `assets/screenshot-explain.png` | Ctrl + شرح ذكي (فقاعة منبثقة) |
+> | `assets/screenshot-panel.png` | لوحة الترجمة (Alt+Q) |
+> | `assets/screenshot-settings.png` | إعدادات API وتبديل الأوضاع |
 
 ---
 

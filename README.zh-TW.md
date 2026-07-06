@@ -24,22 +24,14 @@
 
 ## 📸 效果截圖
 
-<div align="center">
-  <p><em>⬇️ 整頁翻譯 + 懸浮球 — 點擊或按 <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="整頁翻譯" width="780">
-  <br><br>
-
-  <p><em>⬇️ Ctrl + 智慧解釋 — 滑鼠指向詞彙 + 單擊 <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 解釋" width="780">
-  <br><br>
-
-  <p><em>⬇️ 翻譯面板 <kbd>Alt+Q</kbd> — 左右佈局輸入/輸出</em></p>
-  <img src="assets/screenshot-panel.png" alt="翻譯面板" width="780">
-  <br><br>
-
-  <p><em>⬇️ API 設定彈窗 & 模式切換</em></p>
-  <img src="assets/screenshot-settings.png" alt="設定" width="360">
-</div>
+> **想看實際效果？** 把截圖放到 `assets/` 資料夾即可顯示：
+>
+> | 截圖檔案 | 截取內容 |
+> |----------|----------|
+> | `assets/screenshot-translate.png` | 整頁翻譯 + 懸浮球效果 |
+> | `assets/screenshot-explain.png` | Ctrl + 智慧解釋氣泡 |
+> | `assets/screenshot-panel.png` | 翻譯面板 (Alt+Q) 左右佈局 |
+> | `assets/screenshot-settings.png` | API 設定彈窗 & 模式切換 |
 
 ---
 
