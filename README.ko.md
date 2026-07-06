@@ -86,7 +86,7 @@
 
 ### 전체 페이지 번역 + 플로팅 위젯
 
-오른쪽 하단 위젯을 클릭하거나 <kbd>Alt+T</kbd>를 누르면 전체 페이지가 즉시 번역됩니다. 번역된 텍스트에 마우스를 올리면 원문을 볼 수 있습니다.
+오른쪽 하단 위젯을 클릭하거나 <kbd>Alt+T</kbd>를 누르면 전체 페이지가 즉시 번역됩니다.
 
 <div style="border-radius:12px;overflow:hidden;border:1px solid #30363d;background:#161b22;max-width:780px;margin:0 auto 20px">
   <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#21262d;border-bottom:1px solid #30363d">
@@ -95,30 +95,24 @@
     <span style="width:10px;height:10px;border-radius:50%;background:#4ade80;display:inline-block"></span>
     <span style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:11px;color:#8b949e;flex:1;margin-left:4px">wikipedia.org — Artificial Intelligence</span>
   </div>
-  <div style="padding:24px;position:relative;min-height:180px">
+  <div style="padding:24px">
     <h3 style="color:#e6edf3;margin-bottom:12px;font-size:18px">Artificial Intelligence</h3>
     <p style="color:#8b949e;font-size:13px;margin-bottom:10px;line-height:1.7">
-      <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">인공지능</mark>(AI)은 기계가 보여주는 지능입니다. 주요 AI 교과서는 이 분야를 <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">"지능형 에이전트"</mark>의 연구로 정의합니다: 환경을 인식하고 목표 달성 가능성을 최대화하는 행동을 취하는 시스템입니다.
+      <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">인공지능</mark>(AI)은 기계가 보여주는 지능입니다. 주요 AI 교과서는 이 분야를 <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">"지능형 에이전트"</mark>의 연구로 정의합니다.
     </p>
     <p style="color:#8b949e;font-size:13px;margin-bottom:10px;line-height:1.7">
       AI 응용에는 <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">고급 검색 엔진</mark>, <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">추천 시스템</mark>, <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">음성 인식</mark>, <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">자율주행</mark>, <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">생성형 AI</mark>가 포함됩니다.
     </p>
-    <h4 style="color:#e6edf3;margin:16px 0 8px;font-size:15px">History</h4>
-    <p style="color:#8b949e;font-size:13px;line-height:1.7">
-      <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">인공생명</mark>의 개념은 고대 그리스 신화까지 거슬러 올라갑니다. 이 이야기들은 이후 AI와 그 한계에 대한 논의를 미리 보여주었습니다.
-    </p>
-    <div style="position:absolute;bottom:14px;right:16px">
-      <div style="border-radius:18px;background:#0d1117;border:1px solid #30363d;box-shadow:0 8px 24px rgba(0,0,0,0.6);overflow:hidden;width:250px">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px">
-          <span style="font-size:11px;color:#8b949e">자동</span>
-          <span style="display:inline-block;width:32px;height:18px;border-radius:99px;background:#7c5cfc;position:relative"><span style="position:absolute;top:2px;right:3px;width:14px;height:14px;border-radius:50%;background:#fff;display:inline-block"></span></span>
-          <span style="padding:5px 14px;border-radius:13px;background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);font-size:11px;font-weight:600">번역됨</span>
-        </div>
-        <div style="padding:6px 13px;background:rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#8b949e">
-          <span>토큰 <b style="color:#7c5cfc">2.5K</b></span>
-          <span style="color:#4ade80">캐시 적중 42%</span>
-        </div>
-      </div>
+  </div>
+  <div style="margin:0 16px 16px;border-radius:18px;background:#0d1117;border:1px solid #30363d;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px">
+      <span style="font-size:11px;color:#8b949e">자동</span>
+      <span style="display:inline-block;width:32px;height:18px;border-radius:99px;background:#7c5cfc"><span style="display:inline-block;margin:2px 0 0 15px;width:14px;height:14px;border-radius:50%;background:#fff"></span></span>
+      <span style="padding:5px 14px;border-radius:13px;background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);font-size:11px;font-weight:600">번역됨</span>
+    </div>
+    <div style="padding:6px 13px;background:rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#8b949e">
+      <span>토큰 <b style="color:#7c5cfc">2.5K</b></span>
+      <span style="color:#4ade80">캐시 적중 42%</span>
     </div>
   </div>
 </div>
@@ -127,7 +121,7 @@
 
 ### Ctrl + 스마트 설명
 
-단어에 마우스를 올리고 <kbd>Ctrl</kbd>을 누르면 AI가 즉시 설명 버블을 표시합니다. 웹페이지 텍스트는 변경되지 않습니다.
+단어에 마우스를 올리고 <kbd>Ctrl</kbd>을 누르면 AI가 즉시 설명 버블을 표시합니다.
 
 <div style="border-radius:12px;overflow:hidden;border:1px solid #30363d;background:#161b22;max-width:780px;margin:0 auto 20px">
   <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#21262d;border-bottom:1px solid #30363d">
@@ -136,17 +130,18 @@
     <span style="width:10px;height:10px;border-radius:50%;background:#4ade80;display:inline-block"></span>
     <span style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:11px;color:#8b949e;flex:1;margin-left:4px">github.com — Trending today</span>
   </div>
-  <div style="padding:24px;position:relative;min-height:200px">
+  <div style="padding:24px">
     <p style="margin-bottom:6px;font-size:14px"><span style="color:#58a6ff">usestrix</span> / <mark style="background:rgba(124,92,252,0.3);color:#e6edf3;padding:0 3px;border-radius:2px">strix</mark></p>
     <p style="font-size:11px;color:#8b949e;margin-bottom:16px">An agentic skills framework &amp; software development methodology.</p>
     <p style="margin-bottom:6px;font-size:14px"><span style="color:#58a6ff">actions</span> / checkout</p>
     <p style="font-size:11px;color:#8b949e;margin-bottom:16px">Action for checking out a repo</p>
     <p style="margin-bottom:6px;font-size:14px"><span style="color:#58a6ff">affaan-m</span> / ECC</p>
-    <p style="font-size:11px;color:#8b949e">The agent harness performance optimization system.</p>
-    <div style="position:absolute;top:12px;right:20px;max-width:250px;background:#161b22;border:1px solid rgba(124,92,252,0.35);border-radius:12px;padding:10px 13px;font-size:12px;line-height:1.6;color:#c0c0d0;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
+    <p style="font-size:11px;color:#8b949e;margin-bottom:20px">The agent harness performance optimization system.</p>
+
+    <div style="border-radius:12px;background:#161b22;border:1px solid rgba(124,92,252,0.35);padding:10px 13px;font-size:12px;line-height:1.6;color:#c0c0d0;max-width:380px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <b style="color:#9061f9;font-size:13px">strix</b>
-        <span style="color:#8b949e;cursor:default">✕</span>
+        <b style="color:#9061f9;font-size:13px">💬 strix</b>
+        <span style="color:#8b949e">✕</span>
       </div>
       <div style="font-size:11px;color:#c0c0d0">
         "Strix"는 라틴어로 "올빼미"를 의미하며, ASUS의 프리미엄 게이밍 브랜드 ROG Strix의 이름이기도 합니다. GitHub에서는 프로젝트명이나 조직명으로 자주 사용됩니다.
@@ -159,7 +154,7 @@
 
 ### 번역 패널 — <kbd>Alt+Q</kbd>
 
-<kbd>Alt+Q</kbd>를 누르면 좌우 분할 플로팅 번역 패널이 열립니다. 왼쪽에 텍스트를 입력하면 오른쪽에 번역 결과가 표시됩니다.
+<kbd>Alt+Q</kbd>를 누르면 좌우 분할 플로팅 번역 패널이 열립니다.
 
 <div style="border-radius:12px;overflow:hidden;border:1px solid #30363d;background:#161b22;max-width:780px;margin:0 auto 20px">
   <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#21262d;border-bottom:1px solid #30363d">
@@ -168,15 +163,15 @@
     <span style="width:10px;height:10px;border-radius:50%;background:#4ade80;display:inline-block"></span>
     <span style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:11px;color:#8b949e;flex:1;margin-left:4px">Faluber Translate — 번역 패널</span>
   </div>
-  <div style="padding:24px;display:flex;gap:12px;align-items:stretch;min-height:160px">
+  <div style="padding:24px;display:flex;gap:12px;align-items:stretch">
     <div style="flex:1;display:flex;flex-direction:column">
       <span style="font-size:10px;color:#8b949e;margin-bottom:4px;text-transform:uppercase">입력 — English</span>
-      <textarea readonly style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;padding:12px;font-size:12px;resize:none;min-height:140px;width:100%;font-family:inherit;outline:none">Artificial intelligence is transforming how we interact with technology. From voice assistants to self-driving cars, AI applications are becoming ubiquitous.</textarea>
+      <textarea readonly style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;padding:12px;font-size:12px;resize:none;min-height:120px;width:100%;font-family:inherit;outline:none">Artificial intelligence is transforming how we interact with technology. From voice assistants to self-driving cars, AI applications are becoming ubiquitous.</textarea>
     </div>
-    <div style="display:flex;align-items:center;color:#7c5cfc;font-size:20px;padding:20px 0">→</div>
+    <div style="display:flex;align-items:center;color:#7c5cfc;font-size:20px">→</div>
     <div style="flex:1;display:flex;flex-direction:column">
       <span style="font-size:10px;color:#8b949e;margin-bottom:4px;text-transform:uppercase">출력 — 한국어</span>
-      <textarea readonly style="flex:1;background:#0d1117;border:1px solid rgba(74,222,128,0.2);border-radius:8px;color:#4ade80;padding:12px;font-size:12px;resize:none;min-height:140px;width:100%;font-family:inherit;outline:none">인공지능은 우리가 기술과 상호작용하는 방식을 변화시키고 있습니다. 음성 비서부터 자율주행 자동차까지, AI 애플리케이션은 일상 생활에서 점점 더 보편화되고 있습니다.</textarea>
+      <textarea readonly style="flex:1;background:#0d1117;border:1px solid rgba(74,222,128,0.2);border-radius:8px;color:#4ade80;padding:12px;font-size:12px;resize:none;min-height:120px;width:100%;font-family:inherit;outline:none">인공지능은 우리가 기술과 상호작용하는 방식을 변화시키고 있습니다. 음성 비서부터 자율주행 자동차까지, AI 애플리케이션은 일상 생활에서 점점 더 보편화되고 있습니다.</textarea>
     </div>
   </div>
 </div>
@@ -185,10 +180,10 @@
 
 ### API 설정 및 모드 전환
 
-여러 API 설정을 관리하고, 제공업체를 전환하고, 모델을 자동으로 가져오고, 번역 모드를 전환할 수 있습니다 — 모두 팝업 또는 플로팅 위젯에서 가능합니다.
+팝업 또는 플로팅 위젯에서 API 설정 관리, 제공업체 전환, 모델 가져오기, 모드 전환이 가능합니다.
 
-<div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:0 auto">
-  <div style="width:300px;background:#0d1117;border:1px solid #30363d;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+<div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:20px auto">
+  <div style="width:300px;background:#0d1117;border:1px solid #30363d;border-radius:14px;overflow:hidden">
     <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #21262d">
       <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#7c5cfc,#5ce0fc)"></div>
       <b style="background:linear-gradient(135deg,#7c5cfc,#5ce0fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Faluber Translate</b>
@@ -197,7 +192,7 @@
       <span style="font-size:10px;color:#6e7681;text-transform:uppercase">API 설정</span>
       <div style="display:flex;gap:4px;margin:6px 0 8px">
         <select style="flex:1;padding:7px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;font-size:11px"><option>Default</option></select>
-        <span style="padding:4px 8px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:4px;font-size:14px;cursor:default">＋</span>
+        <span style="padding:4px 8px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:4px;font-size:14px">＋</span>
       </div>
       <span style="font-size:10px;color:#6e7681;text-transform:uppercase">제공업체</span>
       <select style="width:100%;padding:7px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;font-size:11px;margin:4px 0 8px"><option>DeepSeek</option></select>
@@ -206,9 +201,9 @@
       <span style="font-size:10px;color:#6e7681;text-transform:uppercase">API URL</span>
       <input value="https://api.deepseek.com/v1" readonly style="width:100%;padding:7px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;font-size:11px;margin:4px 0 8px;font-family:monospace;outline:none">
       <div style="display:flex;gap:8px;margin-top:10px">
-        <span style="padding:6px 12px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:8px;font-size:11px;font-weight:600;cursor:default">연결 테스트</span>
-        <span style="padding:6px 12px;background:rgba(74,222,128,0.12);color:#4ade80;border-radius:8px;font-size:11px;font-weight:600;cursor:default">💾 저장</span>
-        <span style="font-size:10px;color:#4ade80;display:flex;align-items:center">✅ 연결 성공</span>
+        <span style="padding:6px 12px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:8px;font-size:11px;font-weight:600">연결 테스트</span>
+        <span style="padding:6px 12px;background:rgba(74,222,128,0.12);color:#4ade80;border-radius:8px;font-size:11px;font-weight:600">💾 저장</span>
+        <span style="font-size:10px;color:#4ade80">✅ 연결 성공</span>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;padding:10px 16px;font-size:10px;color:#6e7681">
@@ -217,10 +212,10 @@
     </div>
   </div>
 
-  <div style="width:260px;background:#0d1117;border:1px solid #30363d;border-radius:14px;padding:14px;font-size:11px;box-shadow:0 8px 32px rgba(0,0,0,0.4);align-self:flex-start">
+  <div style="width:260px;background:#0d1117;border:1px solid #30363d;border-radius:14px;padding:14px;font-size:11px">
     <div style="display:flex;justify-content:space-between;margin-bottom:12px">
       <b style="color:#e6edf3;font-size:13px">번역 설정</b>
-      <span style="background:rgba(248,113,133,0.1);color:#f87171;border-radius:6px;padding:3px 8px;font-size:10px;cursor:default">캐시 삭제</span>
+      <span style="background:rgba(248,113,133,0.1);color:#f87171;border-radius:6px;padding:3px 8px;font-size:10px">캐시 삭제</span>
     </div>
     <div style="margin-bottom:10px">
       <span style="font-size:10px;color:#6e7681">언어</span>
@@ -234,7 +229,7 @@
       <span style="font-size:10px;color:#6e7681">모드</span>
       <div style="margin-top:3px">
         <div style="display:flex;align-items:center;justify-content:space-between;background:#161b22;border:1px solid #30363d;border-radius:6px;padding:6px 8px;color:#c0c0d0;font-size:11px">⚡ 표준 <span style="color:#6e7681">▾</span></div>
-        <div style="background:#161b22;border:1px solid #30363d;border-radius:6px;margin-top:1px;overflow:hidden">
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:0 0 6px 6px;margin-top:1px;overflow:hidden">
           <div style="padding:6px 8px;font-size:11px;color:#9061f9;font-weight:600;background:rgba(124,92,252,0.08)">⚡ 표준</div>
           <div style="padding:6px 8px;font-size:11px;color:#c0c0d0">🚀 터보</div>
         </div>

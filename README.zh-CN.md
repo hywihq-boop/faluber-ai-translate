@@ -95,32 +95,24 @@
     <span style="width:10px;height:10px;border-radius:50%;background:#4ade80;display:inline-block"></span>
     <span style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:11px;color:#8b949e;flex:1;margin-left:4px">wikipedia.org — Artificial Intelligence</span>
   </div>
-  <div style="padding:24px;position:relative;min-height:180px">
+  <div style="padding:24px">
     <h3 style="color:#e6edf3;margin-bottom:12px;font-size:18px">Artificial Intelligence</h3>
     <p style="color:#8b949e;font-size:13px;margin-bottom:10px;line-height:1.7">
-      <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">人工智能</mark>（AI）是机器展示的智能。领先的 AI 教科书将这一领域定义为<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">"智能代理"</mark>的研究：任何能够感知其环境并采取行动以最大化实现其目标机会的系统。
+      <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">人工智能</mark>（AI）是机器展示的智能。领先的 AI 教科书将这一领域定义为<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">"智能代理"</mark>的研究。
     </p>
     <p style="color:#8b949e;font-size:13px;margin-bottom:10px;line-height:1.7">
       AI 应用包括<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">高级搜索引擎</mark>、<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">推荐系统</mark>、<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">语音识别</mark>、<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">自动驾驶</mark>以及<mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">生成式 AI</mark>。
     </p>
-    <h4 style="color:#e6edf3;margin:16px 0 8px;font-size:15px">History</h4>
-    <p style="color:#8b949e;font-size:13px;line-height:1.7">
-      <mark style="background:rgba(124,92,252,0.2);color:#c0c0d0;padding:0 2px;border-radius:2px">人造生命</mark>的概念早在古希腊神话中就已出现。这些故事预示了后来关于 AI 及其局限性的讨论。
-    </p>
-
-    <!-- 悬浮球 -->
-    <div style="position:absolute;bottom:14px;right:16px">
-      <div style="border-radius:18px;background:#0d1117;border:1px solid #30363d;box-shadow:0 8px 24px rgba(0,0,0,0.6);overflow:hidden;width:250px">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px">
-          <span style="font-size:11px;color:#8b949e">自动</span>
-          <span style="display:inline-block;width:32px;height:18px;border-radius:99px;background:#7c5cfc;position:relative"><span style="position:absolute;top:2px;right:3px;width:14px;height:14px;border-radius:50%;background:#fff;display:inline-block"></span></span>
-          <span style="padding:5px 14px;border-radius:13px;background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);font-size:11px;font-weight:600">已翻译</span>
-        </div>
-        <div style="padding:6px 13px;background:rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#8b949e">
-          <span>Token <b style="color:#7c5cfc">2.5K</b></span>
-          <span style="color:#4ade80">缓存命中 42%</span>
-        </div>
-      </div>
+  </div>
+  <div style="margin:0 16px 16px;border-radius:18px;background:#0d1117;border:1px solid #30363d;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 13px">
+      <span style="font-size:11px;color:#8b949e">自动</span>
+      <span style="display:inline-block;width:32px;height:18px;border-radius:99px;background:#7c5cfc"><span style="display:inline-block;margin:2px 0 0 15px;width:14px;height:14px;border-radius:50%;background:#fff"></span></span>
+      <span style="padding:5px 14px;border-radius:13px;background:rgba(74,222,128,0.1);color:#4ade80;border:1px solid rgba(74,222,128,0.2);font-size:11px;font-weight:600">已翻译</span>
+    </div>
+    <div style="padding:6px 13px;background:rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#8b949e">
+      <span>Token <b style="color:#7c5cfc">2.5K</b></span>
+      <span style="color:#4ade80">缓存命中 42%</span>
     </div>
   </div>
 </div>
@@ -138,19 +130,18 @@
     <span style="width:10px;height:10px;border-radius:50%;background:#4ade80;display:inline-block"></span>
     <span style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:11px;color:#8b949e;flex:1;margin-left:4px">github.com — Trending today</span>
   </div>
-  <div style="padding:24px;position:relative;min-height:200px">
+  <div style="padding:24px">
     <p style="margin-bottom:6px;font-size:14px"><span style="color:#58a6ff">usestrix</span> / <mark style="background:rgba(124,92,252,0.3);color:#e6edf3;padding:0 3px;border-radius:2px">strix</mark></p>
     <p style="font-size:11px;color:#8b949e;margin-bottom:16px">An agentic skills framework &amp; software development methodology.</p>
     <p style="margin-bottom:6px;font-size:14px"><span style="color:#58a6ff">actions</span> / checkout</p>
     <p style="font-size:11px;color:#8b949e;margin-bottom:16px">Action for checking out a repo</p>
     <p style="margin-bottom:6px;font-size:14px"><span style="color:#58a6ff">affaan-m</span> / ECC</p>
-    <p style="font-size:11px;color:#8b949e">The agent harness performance optimization system.</p>
+    <p style="font-size:11px;color:#8b949e;margin-bottom:20px">The agent harness performance optimization system.</p>
 
-    <!-- 解释气泡 -->
-    <div style="position:absolute;top:12px;right:20px;max-width:250px;background:#161b22;border:1px solid rgba(124,92,252,0.35);border-radius:12px;padding:10px 13px;font-size:12px;line-height:1.6;color:#c0c0d0;box-shadow:0 8px 32px rgba(0,0,0,0.5)">
+    <div style="border-radius:12px;background:#161b22;border:1px solid rgba(124,92,252,0.35);padding:10px 13px;font-size:12px;line-height:1.6;color:#c0c0d0;max-width:380px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <b style="color:#9061f9;font-size:13px">strix</b>
-        <span style="color:#8b949e;cursor:default">✕</span>
+        <b style="color:#9061f9;font-size:13px">💬 strix</b>
+        <span style="color:#8b949e">✕</span>
       </div>
       <div style="font-size:11px;color:#c0c0d0">
         Strix 是拉丁语"猫头鹰"，也是华硕旗下高端电竞品牌 ROG Strix 系列的名称。GitHub 上常被用作项目名或组织名。
@@ -172,15 +163,15 @@
     <span style="width:10px;height:10px;border-radius:50%;background:#4ade80;display:inline-block"></span>
     <span style="padding:4px 12px;border-radius:6px;background:rgba(255,255,255,0.05);font-size:11px;color:#8b949e;flex:1;margin-left:4px">Faluber Translate — 翻译面板</span>
   </div>
-  <div style="padding:24px;display:flex;gap:12px;align-items:stretch;min-height:160px">
+  <div style="padding:24px;display:flex;gap:12px;align-items:stretch">
     <div style="flex:1;display:flex;flex-direction:column">
       <span style="font-size:10px;color:#8b949e;margin-bottom:4px;text-transform:uppercase">输入 — English</span>
-      <textarea readonly style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;padding:12px;font-size:12px;resize:none;min-height:140px;width:100%;font-family:inherit;outline:none">Artificial intelligence is transforming how we interact with technology. From voice assistants to self-driving cars, AI applications are becoming ubiquitous.</textarea>
+      <textarea readonly style="flex:1;background:#0d1117;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;padding:12px;font-size:12px;resize:none;min-height:120px;width:100%;font-family:inherit;outline:none">Artificial intelligence is transforming how we interact with technology. From voice assistants to self-driving cars, AI applications are becoming ubiquitous.</textarea>
     </div>
-    <div style="display:flex;align-items:center;color:#7c5cfc;font-size:20px;padding:20px 0">→</div>
+    <div style="display:flex;align-items:center;color:#7c5cfc;font-size:20px">→</div>
     <div style="flex:1;display:flex;flex-direction:column">
       <span style="font-size:10px;color:#8b949e;margin-bottom:4px;text-transform:uppercase">输出 — 简体中文</span>
-      <textarea readonly style="flex:1;background:#0d1117;border:1px solid rgba(74,222,128,0.2);border-radius:8px;color:#4ade80;padding:12px;font-size:12px;resize:none;min-height:140px;width:100%;font-family:inherit;outline:none">人工智能正在改变我们与技术互动的方式。从语音助手到自动驾驶汽车，AI 应用在我们的日常生活中变得越来越无处不在。</textarea>
+      <textarea readonly style="flex:1;background:#0d1117;border:1px solid rgba(74,222,128,0.2);border-radius:8px;color:#4ade80;padding:12px;font-size:12px;resize:none;min-height:120px;width:100%;font-family:inherit;outline:none">人工智能正在改变我们与技术互动的方式。从语音助手到自动驾驶汽车，AI 应用在我们的日常生活中变得越来越无处不在。</textarea>
     </div>
   </div>
 </div>
@@ -191,9 +182,8 @@
 
 管理多 API 配置、切换提供商、自动拉取可用模型、切换翻译模式——全部在 Popup 弹窗或悬浮球详情面板中完成。
 
-<div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:0 auto">
-  <!-- Popup 弹窗 -->
-  <div style="width:300px;background:#0d1117;border:1px solid #30363d;border-radius:14px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+<div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin:20px auto">
+  <div style="width:300px;background:#0d1117;border:1px solid #30363d;border-radius:14px;overflow:hidden">
     <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #21262d">
       <div style="width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,#7c5cfc,#5ce0fc)"></div>
       <b style="background:linear-gradient(135deg,#7c5cfc,#5ce0fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Faluber Translate</b>
@@ -202,7 +192,7 @@
       <span style="font-size:10px;color:#6e7681;text-transform:uppercase">API 设置</span>
       <div style="display:flex;gap:4px;margin:6px 0 8px">
         <select style="flex:1;padding:7px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;font-size:11px"><option>Default</option></select>
-        <span style="padding:4px 8px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:4px;font-size:14px;cursor:default">＋</span>
+        <span style="padding:4px 8px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:4px;font-size:14px">＋</span>
       </div>
       <span style="font-size:10px;color:#6e7681;text-transform:uppercase">提供商</span>
       <select style="width:100%;padding:7px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;font-size:11px;margin:4px 0 8px"><option>DeepSeek</option></select>
@@ -211,9 +201,9 @@
       <span style="font-size:10px;color:#6e7681;text-transform:uppercase">API 地址</span>
       <input value="https://api.deepseek.com/v1" readonly style="width:100%;padding:7px 10px;background:#161b22;border:1px solid #30363d;border-radius:8px;color:#c0c0d0;font-size:11px;margin:4px 0 8px;font-family:monospace;outline:none">
       <div style="display:flex;gap:8px;margin-top:10px">
-        <span style="padding:6px 12px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:8px;font-size:11px;font-weight:600;cursor:default">测试连接</span>
-        <span style="padding:6px 12px;background:rgba(74,222,128,0.12);color:#4ade80;border-radius:8px;font-size:11px;font-weight:600;cursor:default">💾 保存</span>
-        <span style="font-size:10px;color:#4ade80;display:flex;align-items:center">✅ 连接成功</span>
+        <span style="padding:6px 12px;background:rgba(124,92,252,0.12);color:#7c5cfc;border-radius:8px;font-size:11px;font-weight:600">测试连接</span>
+        <span style="padding:6px 12px;background:rgba(74,222,128,0.12);color:#4ade80;border-radius:8px;font-size:11px;font-weight:600">💾 保存</span>
+        <span style="font-size:10px;color:#4ade80">✅ 连接成功</span>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;padding:10px 16px;font-size:10px;color:#6e7681">
@@ -222,11 +212,10 @@
     </div>
   </div>
 
-  <!-- 模式面板 -->
-  <div style="width:260px;background:#0d1117;border:1px solid #30363d;border-radius:14px;padding:14px;font-size:11px;box-shadow:0 8px 32px rgba(0,0,0,0.4);align-self:flex-start">
+  <div style="width:260px;background:#0d1117;border:1px solid #30363d;border-radius:14px;padding:14px;font-size:11px">
     <div style="display:flex;justify-content:space-between;margin-bottom:12px">
       <b style="color:#e6edf3;font-size:13px">翻译设置</b>
-      <span style="background:rgba(248,113,133,0.1);color:#f87171;border-radius:6px;padding:3px 8px;font-size:10px;cursor:default">清除缓存</span>
+      <span style="background:rgba(248,113,133,0.1);color:#f87171;border-radius:6px;padding:3px 8px;font-size:10px">清除缓存</span>
     </div>
     <div style="margin-bottom:10px">
       <span style="font-size:10px;color:#6e7681">Language</span>
@@ -240,7 +229,7 @@
       <span style="font-size:10px;color:#6e7681">翻译模式</span>
       <div style="margin-top:3px">
         <div style="display:flex;align-items:center;justify-content:space-between;background:#161b22;border:1px solid #30363d;border-radius:6px;padding:6px 8px;color:#c0c0d0;font-size:11px">⚡ 标准模式 <span style="color:#6e7681">▾</span></div>
-        <div style="background:#161b22;border:1px solid #30363d;border-radius:6px;margin-top:1px;overflow:hidden">
+        <div style="background:#161b22;border:1px solid #30363d;border-radius:0 0 6px 6px;margin-top:1px;overflow:hidden">
           <div style="padding:6px 8px;font-size:11px;color:#9061f9;font-weight:600;background:rgba(124,92,252,0.08)">⚡ 标准模式</div>
           <div style="padding:6px 8px;font-size:11px;color:#c0c0d0">🚀 极速模式</div>
         </div>
