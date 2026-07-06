@@ -5,7 +5,7 @@
 
   ### AI 기반 웹페이지 번역 — 50개 언어, 10개 API 제공업체
 
-  ![version](https://img.shields.io/badge/v2.0.11-7c5cfc?style=flat-square)
+  ![version](https://img.shields.io/badge/v2.0.12-7c5cfc?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
