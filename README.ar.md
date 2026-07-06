@@ -60,18 +60,18 @@
 
 إعدادات مسبقة لـ 10 مزودين. أي واجهة متوافقة مع OpenAI تعمل:
 
-| المزود | عنوان API الأساسي | النموذج |
-|--------|------------------|---------|
-| DeepSeek | `https://api.deepseek.com/v1` | `deepseek-chat` |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
-| Groq | `https://api.groq.com/openai/v1` | `llama-3.3-70b` |
-| Together AI | `https://api.together.xyz/v1` | `meta-llama/...` |
-| OpenRouter | `https://openrouter.ai/api/v1` | `openai/gpt-4o` |
-| SiliconFlow | `https://api.siliconflow.cn/v1` | `deepseek-ai/...` |
-| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` |
-| Zhipu | `https://open.bigmodel.cn/api/paas/v4` | `glm-4` |
-| DashScope | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` |
-| مخصص | أي نقطة نهاية متوافقة مع OpenAI | أي نموذج |
+| المزود | عنوان API الأساسي |
+|--------|------------------|
+| DeepSeek | `https://api.deepseek.com/v1` |
+| OpenAI | `https://api.openai.com/v1` |
+| Groq | `https://api.groq.com/openai/v1` |
+| Together AI | `https://api.together.xyz/v1` |
+| OpenRouter | `https://openrouter.ai/api/v1` |
+| SiliconFlow | `https://api.siliconflow.cn/v1` |
+| Moonshot | `https://api.moonshot.cn/v1` |
+| Zhipu | `https://open.bigmodel.cn/api/paas/v4` |
+| DashScope | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| مخصص | أي نقطة نهاية متوافقة مع OpenAI |
 
 ## 📂 هيكل المشروع
 

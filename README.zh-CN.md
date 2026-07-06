@@ -60,18 +60,18 @@
 
 内置 10 家提供商预设，兼容任意 OpenAI 格式 API：
 
-| 提供商 | API 地址 | 模型 |
-|--------|----------|------|
-| DeepSeek | `https://api.deepseek.com/v1` | `deepseek-chat` |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
-| Groq | `https://api.groq.com/openai/v1` | `llama-3.3-70b` |
-| Together AI | `https://api.together.xyz/v1` | `meta-llama/...` |
-| OpenRouter | `https://openrouter.ai/api/v1` | `openai/gpt-4o` |
-| SiliconFlow | `https://api.siliconflow.cn/v1` | `deepseek-ai/...` |
-| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` |
-| 智谱 | `https://open.bigmodel.cn/api/paas/v4` | `glm-4` |
-| 阿里百炼 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` |
-| 自定义 | 任意 OpenAI 兼容端点 | 任意模型 |
+| 提供商 | API 地址 |
+|--------|----------|
+| DeepSeek | `https://api.deepseek.com/v1` |
+| OpenAI | `https://api.openai.com/v1` |
+| Groq | `https://api.groq.com/openai/v1` |
+| Together AI | `https://api.together.xyz/v1` |
+| OpenRouter | `https://openrouter.ai/api/v1` |
+| SiliconFlow | `https://api.siliconflow.cn/v1` |
+| Moonshot | `https://api.moonshot.cn/v1` |
+| 智谱 | `https://open.bigmodel.cn/api/paas/v4` |
+| 阿里百炼 | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| 自定义 | 任意 OpenAI 兼容端点 |
 
 ## 📂 项目结构
 

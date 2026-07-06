@@ -60,18 +60,18 @@ AI（DeepSeek、OpenAI、Qwen などの OpenAI 互換 API）を使用した Chro
 
 10 のプロバイダープリセット内蔵。OpenAI 互換 API ならどれでも動作：
 
-| プロバイダー | API ベース URL | モデル |
-|-------------|---------------|-------|
-| DeepSeek | `https://api.deepseek.com/v1` | `deepseek-chat` |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
-| Groq | `https://api.groq.com/openai/v1` | `llama-3.3-70b` |
-| Together AI | `https://api.together.xyz/v1` | `meta-llama/...` |
-| OpenRouter | `https://openrouter.ai/api/v1` | `openai/gpt-4o` |
-| SiliconFlow | `https://api.siliconflow.cn/v1` | `deepseek-ai/...` |
-| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` |
-| Zhipu | `https://open.bigmodel.cn/api/paas/v4` | `glm-4` |
-| DashScope | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` |
-| カスタム | 任意の OpenAI 互換エンドポイント | 任意のモデル |
+| プロバイダー | API ベース URL |
+|-------------|---------------|
+| DeepSeek | `https://api.deepseek.com/v1` |
+| OpenAI | `https://api.openai.com/v1` |
+| Groq | `https://api.groq.com/openai/v1` |
+| Together AI | `https://api.together.xyz/v1` |
+| OpenRouter | `https://openrouter.ai/api/v1` |
+| SiliconFlow | `https://api.siliconflow.cn/v1` |
+| Moonshot | `https://api.moonshot.cn/v1` |
+| Zhipu | `https://open.bigmodel.cn/api/paas/v4` |
+| DashScope | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
+| カスタム | 任意の OpenAI 互換エンドポイント |
 
 ## 📂 プロジェクト構成
 
