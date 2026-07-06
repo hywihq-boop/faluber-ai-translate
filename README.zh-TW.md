@@ -95,13 +95,27 @@
 
 ---
 
-## 📦 三步開始
+## 📦 安裝
+
+### 方法一：下載 Release 壓縮包（推薦）
+
+1. 打開 [Releases](https://github.com/hywihq-boop/faluber-translate/releases) 頁面
+2. 下載最新版 `faluber-translate-vX.X.X.zip`
+3. 打開 `chrome://extensions`，開啟右上角**開發者模式**
+4. 將下載的 zip 檔案**直接拖入**瀏覽器視窗
+5. 完成！
+
+### 方法二：下載原始碼 zip
+
+1. 在倉庫主頁點擊綠色 **Code** 按鈕 → Download ZIP
+2. 同樣拖入 `chrome://extensions` 即可
+
+### 設定與使用
 
 | 步驟 | |
 |------|---|
-| **1. 安裝** | 從 [Releases](https://github.com/hywihq-boop/faluber-translate/releases) 下載 zip，解壓縮後在 `chrome://extensions` 載入已解壓的擴充功能 |
-| **2. 設定** | 點擊外掛圖示 → 選擇提供商 → 填入 API Key → 測試連線 → 儲存 |
-| **3. 翻譯** | 開啟任意網頁 → 點擊懸浮球或按 <kbd>Alt+T</kbd> |
+| **設定 API** | 點擊外掛圖示 → 選擇提供商 → 填入 API Key → 測試連線 → 儲存 |
+| **開始翻譯** | 開啟任意網頁 → 點擊右下角懸浮球或按 <kbd>Alt+T</kbd> |
 
 ---
 

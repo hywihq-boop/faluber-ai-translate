@@ -95,13 +95,27 @@
 
 ---
 
-## 📦 3 ステップで開始
+## 📦 インストール
 
-| ステップ | |
+### 方法 1：Release をダウンロード（推奨）
+
+1. [Releases](https://github.com/hywihq-boop/faluber-translate/releases) を開く
+2. 最新の `faluber-translate-vX.X.X.zip` をダウンロード
+3. `chrome://extensions` を開き、**デベロッパーモード**を有効にする
+4. ダウンロードした zip を**直接ドラッグ＆ドロップ**
+5. 完了！
+
+### 方法 2：ソースコード ZIP をダウンロード
+
+1. リポジトリページの緑の **Code** ボタン → Download ZIP
+2. 同様に `chrome://extensions` にドラッグ＆ドロップ
+
+### 設定と使用
+
+| 手順 | |
 |------|---|
-| **1. インストール** | [Releases](https://github.com/hywihq-boop/faluber-translate/releases) から zip をダウンロード、解凍して `chrome://extensions` で読み込み |
-| **2. API 設定** | 拡張機能アイコンをクリック → プロバイダー選択 → API キー入力 → 接続テスト → 保存 |
-| **3. 翻訳** | 任意のページを開く → ウィジェットをクリックまたは <kbd>Alt+T</kbd> |
+| **API を設定** | 拡張機能アイコンをクリック → プロバイダー選択 → API キー入力 → 接続テスト → 保存 |
+| **翻訳開始** | 任意のページを開く → ウィジェットをクリックまたは <kbd>Alt+T</kbd> |
 
 ---
 

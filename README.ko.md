@@ -95,13 +95,27 @@
 
 ---
 
-## 📦 3단계로 시작
+## 📦 설치
+
+### 방법 1: Release 다운로드 (추천)
+
+1. [Releases](https://github.com/hywihq-boop/faluber-translate/releases) 페이지 열기
+2. 최신 `faluber-translate-vX.X.X.zip` 다운로드
+3. `chrome://extensions` 열기, **개발자 모드** 켜기
+4. 다운로드한 zip 파일을 **직접 드래그**하여 브라우저 창에 놓기
+5. 완료!
+
+### 방법 2: 소스 코드 ZIP 다운로드
+
+1. 저장소 페이지에서 초록 **Code** 버튼 → Download ZIP
+2. 마찬가지로 `chrome://extensions`에 드래그
+
+### 설정 및 사용
 
 | 단계 | |
 |------|---|
-| **1. 설치** | [Releases](https://github.com/hywihq-boop/faluber-translate/releases)에서 zip 다운로드, 압축 해제 후 `chrome://extensions`에서 로드 |
-| **2. API 설정** | 확장 아이콘 클릭 → 제공업체 선택 → API 키 입력 → 연결 테스트 → 저장 |
-| **3. 번역** | 아무 페이지 열기 → 위젯 클릭 또는 <kbd>Alt+T</kbd> |
+| **API 설정** | 확장 아이콘 클릭 → 제공업체 선택 → API 키 입력 → 연결 테스트 → 저장 |
+| **번역 시작** | 아무 페이지 열기 → 우측 하단 위젯 클릭 또는 <kbd>Alt+T</kbd> |
 
 ---
 
