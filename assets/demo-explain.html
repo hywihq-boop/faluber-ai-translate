@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(180deg,#f0f0f5 0%,#e0e0e8 70%,#d5d5e0 100%);color:#333;line-height:1.9;padding:30px 36px;margin:0;width:1560px;min-height:700px;overflow:hidden}
+.page{max-width:860px}
+.page h1{color:#1a1a2e;font-size:24px;margin-bottom:18px}
+.page p{font-size:16px;margin-bottom:14px;color:#444}
+.hl{background:rgba(124,92,252,0.3);padding:0 4px;border-radius:3px;color:#5a3fcf;font-weight:600;transition:all 0.4s}
+.ctrl-indicator{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.82);color:#fff;font-size:18px;font-weight:600;padding:10px 28px;border-radius:10px;z-index:9999;pointer-events:none;opacity:0;transition:opacity 0.2s;letter-spacing:1px}
+.ctrl-indicator.show{opacity:1}
+.bubble{position:fixed;top:140px;right:50px;max-width:340px;background:rgba(18,16,36,0.97);border:1px solid rgba(124,92,252,0.28);border-radius:14px;padding:14px 16px;font-size:13px;line-height:1.7;color:#c0c0d0;box-shadow:0 8px 36px rgba(0,0,0,0.5),0 0 24px rgba(124,92,252,0.1);opacity:0;transform:translateY(8px);transition:opacity 0.3s,transform 0.3s}
+.bubble.show{opacity:1;transform:translateY(0)}
+.bubble-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.bubble-header b{color:#9061f9;font-size:15px}
+.bubble-header span{color:#7a7a8e;font-size:15px;cursor:default}
+.bubble-body{font-size:12px;line-height:1.7}
+.cursor{position:fixed;pointer-events:none;z-index:9998;transition:all 0.3s}
+.cursor svg{width:24px;height:24px;fill:#333}
+</style></head><body>
+
+<div class="page">
+  <h1>GitHub Trending — Developers</h1>
+  <p style="margin-bottom:6px;font-size:16px"><span style="color:#58a6ff;text-decoration:none">usestrix</span> / <span class="hl" id="target-word">strix</span></p>
+  <p style="font-size:13px;color:#666;margin-bottom:18px">An agentic skills framework &amp; software development methodology for building reliable AI systems.</p>
+
+  <p style="margin-bottom:6px;font-size:16px"><span style="color:#58a6ff">actions</span> / checkout</p>
+  <p style="font-size:13px;color:#666;margin-bottom:18px">Action for checking out a repository with full Git history and submodule support.</p>
+
+  <p style="margin-bottom:6px;font-size:16px"><span style="color:#58a6ff">vercel</span> / ai-sdk</p>
+  <p style="font-size:13px;color:#666;margin-bottom:18px">Build AI-powered applications with React, Svelte, Vue. Supports streaming responses.</p>
+
+  <p style="margin-bottom:6px;font-size:16px"><span style="color:#58a6ff">anthropics</span> / claude-code</p>
+  <p style="font-size:13px;color:#666">Claude Code is an agentic coding tool that lives in your terminal and understands your codebase.</p>
+</div>
+
+<div class="ctrl-indicator" id="ctrl-hint">Ctrl</div>
+
+<div class="bubble" id="bubble">
+  <div class="bubble-header">
+    <b>💬 strix</b>
+    <span>✕</span>
+  </div>
+  <div class="bubble-body">
+    <b>Strix</b> 源自拉丁语"strix"，意为<b>猫头鹰</b>。在科技领域，它是华硕旗下高端电竞品牌 <b>ROG Strix</b> 的名称。GitHub 上常被用作项目代号，寓意"敏锐"和"精准"。该词在游戏和开发者社区中具有较高的识别度。
+  </div>
+</div>
+
+<script>
+const ctrl = document.getElementById('ctrl-hint');
+const bubble = document.getElementById('bubble');
+const word = document.getElementById('target-word');
+
+let step = 0;
+async function runDemo() {
+  // Step 1: Show word highlighted
+  await new Promise(r => setTimeout(r, 1000));
+  word.style.background = 'rgba(124,92,252,0.45)';
+  word.style.color = '#3d1fc4';
+
+  // Step 2: Show Ctrl indicator
+  await new Promise(r => setTimeout(r, 600));
+  ctrl.classList.add('show');
+
+  // Step 3: Hide Ctrl, show bubble
+  await new Promise(r => setTimeout(r, 500));
+  ctrl.classList.remove('show');
+  bubble.classList.add('show');
+
+  // Step 4: Wait with bubble visible
+  await new Promise(r => setTimeout(r, 3000));
+
+  // Step 5: Loop back
+  bubble.classList.remove('show');
+  word.style.background = 'rgba(124,92,252,0.3)';
+  word.style.color = '#5a3fcf';
+  await new Promise(r => setTimeout(r, 500));
+  runDemo();
+}
+runDemo();
+</script></body></html>

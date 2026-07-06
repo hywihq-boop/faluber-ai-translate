@@ -27,20 +27,22 @@
 ## 📸 Screenshots
 
 <div align="center">
-  <p><em>Full-page translation — click or press <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="Full-page translation" width="780">
+  <p><em>🎬 Full-page translation — click <kbd>Alt+T</kbd>, text changes from English to Chinese in real time</em></p>
+  <img src="assets/translate-demo.gif" alt="Translation demo" width="780">
   <br><br>
 
-  <p><em>Widget collapse / expand — animated</em></p>
-  <img src="assets/collapse-expand.gif" alt="Collapse expand animation" width="360">
+  <p><em>🎬 Ctrl + Explain — hover over a word, tap <kbd>Ctrl</kbd>, AI explains it in a popup</em></p>
+  <img src="assets/explain-demo.gif" alt="Ctrl+Explain demo" width="780">
   <br><br>
 
-  <p><em>Detail panel expand / collapse — animated</em></p>
+  <p><em>🎬 Translation Panel <kbd>Alt+Q</kbd> — type or paste text, get instant translation</em></p>
+  <img src="assets/panel-demo.gif" alt="Translation panel demo" width="780">
+  <br><br>
+
+  <p><em>🎬 Widget collapse / expand — animated mini ball</em></p>
+  <img src="assets/collapse-expand.gif" alt="Collapse animation" width="360">
+  &nbsp;
   <img src="assets/detail-panel.gif" alt="Detail panel animation" width="360">
-  <br><br>
-
-  <p><em>Settings & mode switching</em></p>
-  <img src="assets/screenshot-settings.png" alt="Settings" width="400">
 </div>
 
 ---

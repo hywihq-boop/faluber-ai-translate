@@ -25,20 +25,22 @@
 ## 📸 스크린샷
 
 <div align="center">
-  <p><em>전체 페이지 번역 — 클릭 또는 <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="전체 페이지 번역" width="780">
+  <p><em>🎬 전체 페이지 번역 — <kbd>Alt+T</kbd> 클릭, 영어가 중국어로 번역</em></p>
+  <img src="assets/translate-demo.gif" alt="번역 데모" width="780">
   <br><br>
 
-  <p><em>위젯 접기 / 펼치기 — 애니메이션</em></p>
+  <p><em>🎬 Ctrl + 스마트 설명 — 단어에 호버 후 <kbd>Ctrl</kbd>로 설명 보기</em></p>
+  <img src="assets/explain-demo.gif" alt="Ctrl+설명 데모" width="780">
+  <br><br>
+
+  <p><em>🎬 번역 패널 <kbd>Alt+Q</kbd> — 텍스트 입력 즉시 번역</em></p>
+  <img src="assets/panel-demo.gif" alt="번역 패널 데모" width="780">
+  <br><br>
+
+  <p><em>🎬 위젯 접기 / 상세 패널 — 애니메이션</em></p>
   <img src="assets/collapse-expand.gif" alt="접기 애니메이션" width="360">
-  <br><br>
-
-  <p><em>상세 패널 펼치기 / 접기 — 애니메이션</em></p>
-  <img src="assets/detail-panel.gif" alt="상세 패널 애니메이션" width="360">
-  <br><br>
-
-  <p><em>설정 패널 & 모드 전환</em></p>
-  <img src="assets/screenshot-settings.png" alt="설정" width="400">
+  &nbsp;
+  <img src="assets/detail-panel.gif" alt="상세 패널" width="360">
 </div>
 
 ---

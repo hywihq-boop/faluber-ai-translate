@@ -1,28 +1,11 @@
-const puppeteer = require('puppeteer');
-const { execSync } = require('child_process');
+const puppeteer = require('puppeteer-core');
 const path = require('path');
 const fs = require('fs');
 
-const DIR = __dirname;
-const DEMO = path.join(DIR, 'demo.html').replace(/\\/g, '/');
+const DIR = 'D:/cursor/translate/faluber translate/assets';
+const DEMO = DIR + '/demo.html';
 
 async function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-async function captureFrames(page, outputDir, action, totalMs, intervalMs) {
-  fs.mkdirSync(outputDir, { recursive: true });
-  const frames = [];
-  const totalFrames = Math.ceil(totalMs / intervalMs);
-
-  action(); // trigger the action (non-awaited)
-
-  for (let i = 0; i < totalFrames; i++) {
-    await sleep(intervalMs);
-    const file = path.join(outputDir, `frame_${String(i).padStart(3, '0')}.png`);
-    await page.screenshot({ path: file, clip: { x: 1200, y: 500, width: 360, height: 300 } });
-    frames.push(file);
-  }
-  return frames;
-}
 
 (async () => {
   const browser = await puppeteer.launch({
@@ -33,37 +16,41 @@ async function captureFrames(page, outputDir, action, totalMs, intervalMs) {
   const page = await browser.newPage();
   await page.setViewport({ width: 1560, height: 900, deviceScaleFactor: 1 });
   await page.goto('file:///' + DEMO, { waitUntil: 'networkidle0' });
-  await sleep(800);
+  await sleep(1000);
 
-  // === Static screenshots with real code ===
-  // 1. Full-page translate (expanded widget with detail closed)
-  // First ensure detail is closed
+  // Close detail, ensure expanded
   await page.evaluate(() => {
     document.getElementById('lf-detail').classList.remove('open');
     document.getElementById('btn-chevron').classList.remove('open');
+    const w = document.getElementById('lf-wrapper');
+    w.classList.remove('collapsed');
+    document.getElementById('btn-collapse').classList.remove('collapsed');
+    document.getElementById('lf-mini').classList.remove('visible', 'translated');
   });
-  await sleep(400);
+  await sleep(500);
+
+  // Widget position on 1560x900 viewport: right:16, bottom:16
+  // Widget width:260 → x = 1560-16-260 = 1284
+  // Expanded height ~100px → y = 900-16-100 = 784
+  // Clip with padding: x:1260, y:740, w:300, h:160
+  const expandClip = { x: 1260, y: 740, width: 300, height: 160 };
+
+  // === Static: full page screenshot ===
   await page.screenshot({ path: path.join(DIR, 'screenshot-translate.png'), fullPage: false });
   console.log('✓ screenshot-translate.png');
 
-  // 2. Ctrl+Explain — we'll need a separate page for this
-  // (skip for now, use existing one)
-
-  // 3. Translation panel — also needs a separate approach
-
-  // 4. Settings — detail panel expanded
+  // === Static: detail panel open ===
   await page.evaluate(() => {
     document.getElementById('lf-detail').classList.add('open');
     document.getElementById('btn-chevron').classList.add('open');
   });
   await sleep(400);
-  await page.screenshot({
-    path: path.join(DIR, 'screenshot-settings.png'),
-    clip: { x: 1200, y: 200, width: 360, height: 700 }
-  });
+  // Detail open adds ~400px → widget extends up to y ~384
+  const detailClip = { x: 1260, y: 340, width: 300, height: 560 };
+  await page.screenshot({ path: path.join(DIR, 'screenshot-settings.png'), clip: detailClip });
   console.log('✓ screenshot-settings.png');
 
-  // === Animated GIF: collapse → mini ball → expand ===
+  // === GIF 1: collapse → mini ball → expand ===
   // Close detail first
   await page.evaluate(() => {
     document.getElementById('lf-detail').classList.remove('open');
@@ -73,133 +60,86 @@ async function captureFrames(page, outputDir, action, totalMs, intervalMs) {
 
   const gifDir = path.join(DIR, 'gif_frames');
   fs.mkdirSync(gifDir, { recursive: true });
-
-  // Capture: expanded → collapsed → expanded
   let fi = 0;
 
-  // Frame 0-5: expanded state (pause)
-  for (let i = 0; i < 6; i++) {
-    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: { x: 1200, y: 500, width: 340, height: 280 } });
-    fi++;
-    await sleep(80);
+  // Frames 0-6: expanded state (260px wide widget visible)
+  for (let i = 0; i < 7; i++) {
+    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: expandClip });
+    fi++; await sleep(100);
   }
 
-  // Trigger collapse
+  // Click collapse button
   await page.click('#btn-collapse');
-  // Frame 6-14: collapsing animation (0.45s transition = capture every ~50ms)
-  for (let i = 0; i < 9; i++) {
-    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: { x: 1200, y: 500, width: 340, height: 280 } });
-    fi++;
-    await sleep(50);
-  }
-
-  // Frame 15-24: collapsed state (mini ball with glow)
+  // Frames 7-16: collapsing transition (0.45s, capture every 45ms)
   for (let i = 0; i < 10; i++) {
-    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: { x: 1200, y: 500, width: 340, height: 280 } });
-    fi++;
-    await sleep(100);
+    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: expandClip });
+    fi++; await sleep(45);
   }
 
-  // Trigger expand
-  await page.click('#btn-collapse');
-  // Frame 25-34: expanding animation
+  // Frames 17-27: collapsed state (mini ball with glow)
+  for (let i = 0; i < 11; i++) {
+    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: expandClip });
+    fi++; await sleep(120);
+  }
+
+  // Click expand (mini ball click or collapse button again)
+  await page.click('#lf-mini');
+  // Frames 28-37: expanding transition
   for (let i = 0; i < 10; i++) {
-    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: { x: 1200, y: 500, width: 340, height: 280 } });
-    fi++;
-    await sleep(50);
+    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: expandClip });
+    fi++; await sleep(45);
   }
 
-  // Frame 35-45: expanded state pause
-  for (let i = 0; i < 10; i++) {
-    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: { x: 1200, y: 500, width: 340, height: 280 } });
-    fi++;
-    await sleep(80);
+  // Frames 38-44: expanded state pause
+  for (let i = 0; i < 7; i++) {
+    await page.screenshot({ path: path.join(gifDir, `f_${String(fi).padStart(3, '0')}.png`), clip: expandClip });
+    fi++; await sleep(100);
   }
 
-  console.log(`✓ ${fi} frames captured for collapse-expand GIF`);
+  console.log(`✓ ${fi} frames for collapse-expand GIF`);
 
-  // === Animated GIF: detail panel expand ===
-  // Reset: collapsed (no), detail closed
-  await page.evaluate(() => {
-    const w = document.getElementById('lf-wrapper');
-    w.classList.remove('collapsed');
-    document.getElementById('btn-collapse').classList.remove('collapsed');
-    document.getElementById('lf-mini').classList.remove('visible', 'translated');
-    document.getElementById('lf-detail').classList.remove('open');
-    document.getElementById('btn-chevron').classList.remove('open');
-  });
-  await sleep(500);
-
-  const detailDir = path.join(DIR, 'detail_frames');
-  fs.mkdirSync(detailDir, { recursive: true });
+  // === GIF 2: detail panel open/close ===
+  const detailGifDir = path.join(DIR, 'detail_frames');
+  fs.mkdirSync(detailGifDir, { recursive: true });
   let di = 0;
 
   // Closed state
-  for (let i = 0; i < 5; i++) {
-    await page.screenshot({ path: path.join(detailDir, `d_${String(di).padStart(3, '0')}.png`), clip: { x: 1200, y: 520, width: 340, height: 200 } });
-    di++;
-    await sleep(100);
+  for (let i = 0; i < 6; i++) {
+    await page.screenshot({ path: path.join(detailGifDir, `d_${String(di).padStart(3, '0')}.png`), clip: detailClip });
+    di++; await sleep(120);
   }
 
-  // Open detail
+  // Click chevron to open
   await page.click('#btn-chevron');
-  for (let i = 0; i < 8; i++) {
-    await page.screenshot({ path: path.join(detailDir, `d_${String(di).padStart(3, '0')}.png`), clip: { x: 1200, y: 200, width: 340, height: 500 } });
-    di++;
-    await sleep(50);
+  for (let i = 0; i < 9; i++) {
+    await page.screenshot({ path: path.join(detailGifDir, `d_${String(di).padStart(3, '0')}.png`), clip: detailClip });
+    di++; await sleep(45);
   }
 
   // Open state pause
-  for (let i = 0; i < 10; i++) {
-    await page.screenshot({ path: path.join(detailDir, `d_${String(di).padStart(3, '0')}.png`), clip: { x: 1200, y: 200, width: 340, height: 500 } });
-    di++;
-    await sleep(100);
+  for (let i = 0; i < 12; i++) {
+    await page.screenshot({ path: path.join(detailGifDir, `d_${String(di).padStart(3, '0')}.png`), clip: detailClip });
+    di++; await sleep(120);
   }
 
-  // Close detail
+  // Click chevron to close
   await page.click('#btn-chevron');
-  for (let i = 0; i < 8; i++) {
-    await page.screenshot({ path: path.join(detailDir, `d_${String(di).padStart(3, '0')}.png`), clip: { x: 1200, y: 520, width: 340, height: 200 } });
-    di++;
-    await sleep(50);
+  for (let i = 0; i < 9; i++) {
+    await page.screenshot({ path: path.join(detailGifDir, `d_${String(di).padStart(3, '0')}.png`), clip: detailClip });
+    di++; await sleep(45);
   }
 
   // Closed state pause
-  for (let i = 0; i < 5; i++) {
-    await page.screenshot({ path: path.join(detailDir, `d_${String(di).padStart(3, '0')}.png`), clip: { x: 1200, y: 520, width: 340, height: 200 } });
-    di++;
-    await sleep(80);
+  for (let i = 0; i < 6; i++) {
+    await page.screenshot({ path: path.join(detailGifDir, `d_${String(di).padStart(3, '0')}.png`), clip: detailClip });
+    di++; await sleep(120);
   }
 
-  console.log(`✓ ${di} frames captured for detail-panel GIF`);
+  console.log(`✓ ${di} frames for detail-panel GIF`);
 
   await browser.close();
 
-  // Use Python to create GIFs
-  console.log('Creating GIFs with Python...');
-  execSync(`python -c "
-from PIL import Image
-import os, glob
 
-# Collapse-expand GIF
-frames = []
-for f in sorted(glob.glob('${gifDir.replace(/\\/g, '/')}/f_*.png')):
-    frames.append(Image.open(f).convert('RGBA'))
-frames[0].save('${DIR.replace(/\\/g, '/')}/collapse-expand.gif',
-    save_all=True, append_images=frames[1:], duration=80, loop=0, disposal=2, optimize=True)
-print(f'collapse-expand.gif: {len(frames)} frames')
-
-# Detail-panel GIF
-frames2 = []
-for f in sorted(glob.glob('${detailDir.replace(/\\/g, '/')}/d_*.png')):
-    frames2.append(Image.open(f).convert('RGBA'))
-frames2[0].save('${DIR.replace(/\\/g, '/')}/detail-panel.gif',
-    save_all=True, append_images=frames2[1:], duration=80, loop=0, disposal=2, optimize=True)
-print(f'detail-panel.gif: {len(frames2)} frames')
-"`, { stdio: 'inherit' });
-
-  // Clean up frame dirs
-  fs.rmSync(gifDir, { recursive: true, force: true });
-  fs.rmSync(detailDir, { recursive: true, force: true });
+  console.log('Frames ready. Run: python assets/make-gif.py');
   console.log('Done!');
 })();

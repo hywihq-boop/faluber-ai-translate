@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(180deg,#f0f0f5 0%,#e0e0e8 70%,#d5d5e0 100%);display:flex;justify-content:center;align-items:center;min-height:100vh;width:1560px;overflow:hidden}
+.panel{display:flex;gap:0;background:rgba(15,15,30,0.97);border:1px solid rgba(124,92,252,0.2);border-radius:14px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.55);width:960px}
+.col{flex:1;display:flex;flex-direction:column;min-height:500px}
+.col:first-child{border-right:1px solid rgba(255,255,255,0.1)}
+.col-head{display:flex;align-items:center;padding:10px 14px;gap:8px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.col-head span{font-size:11px;color:#7a7a8e;flex-shrink:0}
+.col-head select{background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#c0c0d0;font-size:11px;padding:4px 20px 4px 6px;outline:none;cursor:pointer;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath d='M1 2l3 3 3-3' stroke='%239090a8' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 6px center}
+.swap{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.2);color:#9061f9;cursor:pointer;font-size:18px;flex-shrink:0;margin:0 -18px;z-index:2;align-self:center}
+.col textarea{flex:1;padding:18px;font-size:15px;font-family:inherit;color:#c0c0d0;background:transparent;border:none;outline:none;resize:none;line-height:1.8;min-height:420px}
+.col textarea::placeholder{color:rgba(255,255,255,0.15)}
+.col-out textarea{color:#4ade80}
+.panel-head{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.05);cursor:move}
+.panel-title{font-size:14px;font-weight:600;color:#e0e0e0;display:flex;align-items:center;gap:8px}
+.panel-actions{display:flex;gap:4px}
+.panel-btn{width:28px;height:28px;display:grid;place-items:center;background:transparent;border:none;color:#7a7a8e;cursor:pointer;border-radius:6px;font-size:14px}
+</style></head><body>
+
+<div class="panel" id="panel">
+  <div class="col" style="flex:1">
+    <div class="panel-head">
+      <span class="panel-title">🌐 翻译面板</span>
+      <div class="panel-actions">
+        <button class="panel-btn">−</button>
+        <button class="panel-btn" style="font-size:16px">✕</button>
+      </div>
+    </div>
+    <div style="display:flex">
+      <div class="col" style="border-right:none">
+        <div class="col-head"><span>输入</span><select><option>English</option></select></div>
+        <textarea id="input" placeholder="输入要翻译的文字..." readonly></textarea>
+      </div>
+      <div class="swap">⇄</div>
+      <div class="col col-out" style="border-right:none">
+        <div class="col-head"><span>输出</span><select><option>简体中文</option></select></div>
+        <textarea id="output" readonly></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const input = document.getElementById('input');
+const output = document.getElementById('output');
+
+const sourceText = `Faluber Translate is an open-source Chrome extension that uses AI to translate entire web pages. It replaces text nodes directly in the DOM — no iframes, no overlays. Just clean, native-feeling translation.
+
+The extension supports 50 target languages and 10 built-in API providers. Its unique Ctrl+Explain feature lets you hover over any word and tap Ctrl for an AI explanation. Press Alt+Q to open the floating translation panel for side-by-side input and output.
+
+All processing stays on your device — your API key is stored locally. No third-party servers involved. MIT open source.`;
+
+const targetText = `Faluber Translate 是一款开源的 Chrome 浏览器扩展，使用 AI 翻译整个网页。它直接在 DOM 中替换文本节点——无需 iframe，无需浮层，只有纯净、原生的翻译体验。
+
+该扩展支持 50 种目标语言和 10 家内置 API 提供商。其独特的 Ctrl+解释功能让你鼠标指向任意词汇并单击 Ctrl 即可弹出 AI 解释。按 Alt+Q 打开浮动翻译面板，实现左右布局的输入与输出。
+
+所有处理都在你设备上完成——API Key 仅存储在本地。不经过第三方服务器。MIT 开源。`;
+
+async function runDemo() {
+  // Type source text character by character
+  input.value = '';
+  output.value = '';
+  for (let i = 0; i < sourceText.length; i++) {
+    input.value += sourceText[i];
+    if (i % 3 === 0) input.scrollTop = input.scrollHeight;
+    await new Promise(r => setTimeout(r, 8));
+  }
+
+  await new Promise(r => setTimeout(r, 500));
+
+  // Show translation appearing
+  for (let i = 0; i < targetText.length; i++) {
+    output.value += targetText[i];
+    if (i % 3 === 0) output.scrollTop = output.scrollHeight;
+    await new Promise(r => setTimeout(r, 12));
+  }
+
+  await new Promise(r => setTimeout(r, 2500));
+
+  // Clear and loop
+  input.value = '';
+  output.value = '';
+  await new Promise(r => setTimeout(r, 500));
+  runDemo();
+}
+runDemo();
+</script></body></html>

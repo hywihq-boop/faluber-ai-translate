@@ -25,20 +25,22 @@
 ## 📸 Скриншоты
 
 <div align="center">
-  <p><em>Перевод всей страницы — клик или <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="Перевод страницы" width="780">
+  <p><em>🎬 Перевод страницы — <kbd>Alt+T</kbd>, английский переводится на китайский</em></p>
+  <img src="assets/translate-demo.gif" alt="Демо перевода" width="780">
   <br><br>
 
-  <p><em>Сворачивание / разворачивание виджета — анимация</em></p>
+  <p><em>🎬 Ctrl + объяснение — наведите на слово, нажмите <kbd>Ctrl</kbd></em></p>
+  <img src="assets/explain-demo.gif" alt="Демо объяснения" width="780">
+  <br><br>
+
+  <p><em>🎬 Панель перевода <kbd>Alt+Q</kbd> — ввод текста, мгновенный перевод</em></p>
+  <img src="assets/panel-demo.gif" alt="Демо панели" width="780">
+  <br><br>
+
+  <p><em>🎬 Сворачивание виджета / панель настроек — анимация</em></p>
   <img src="assets/collapse-expand.gif" alt="Анимация сворачивания" width="360">
-  <br><br>
-
-  <p><em>Панель настроек — развернуть / свернуть — анимация</em></p>
+  &nbsp;
   <img src="assets/detail-panel.gif" alt="Анимация панели" width="360">
-  <br><br>
-
-  <p><em>Настройки & переключение режимов</em></p>
-  <img src="assets/screenshot-settings.png" alt="Настройки" width="400">
 </div>
 
 ---

@@ -25,20 +25,22 @@
 ## 📸 لقطات الشاشة
 
 <div align="center">
-  <p><em>ترجمة الصفحة كاملة — انقر أو اضغط <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="ترجمة الصفحة" width="780">
+  <p><em>🎬 ترجمة الصفحة — اضغط <kbd>Alt+T</kbd>، يتحول النص من الإنجليزية للصينية</em></p>
+  <img src="assets/translate-demo.gif" alt="عرض الترجمة" width="780">
   <br><br>
 
-  <p><em>طي / توسيع الأداة — رسم متحرك</em></p>
-  <img src="assets/collapse-expand.gif" alt="رسوم متحركة للطي" width="360">
+  <p><em>🎬 Ctrl + شرح — مرر فوق كلمة، اضغط <kbd>Ctrl</kbd> للشرح</em></p>
+  <img src="assets/explain-demo.gif" alt="عرض الشرح" width="780">
   <br><br>
 
-  <p><em>توسيع / طي لوحة التفاصيل — رسم متحرك</em></p>
-  <img src="assets/detail-panel.gif" alt="رسوم متحركة للوحة" width="360">
+  <p><em>🎬 لوحة الترجمة <kbd>Alt+Q</kbd> — أدخل نصاً، احصل على ترجمة فورية</em></p>
+  <img src="assets/panel-demo.gif" alt="عرض اللوحة" width="780">
   <br><br>
 
-  <p><em>الإعدادات & تبديل الأوضاع</em></p>
-  <img src="assets/screenshot-settings.png" alt="الإعدادات" width="400">
+  <p><em>🎬 طي الأداة / لوحة التفاصيل — رسوم متحركة</em></p>
+  <img src="assets/collapse-expand.gif" alt="طي" width="360">
+  &nbsp;
+  <img src="assets/detail-panel.gif" alt="تفاصيل" width="360">
 </div>
 
 ---

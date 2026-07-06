@@ -25,20 +25,22 @@
 ## 📸 スクリーンショット
 
 <div align="center">
-  <p><em>全ページ翻訳 — クリックまたは <kbd>Alt+T</kbd></em></p>
-  <img src="assets/screenshot-translate.png" alt="全ページ翻訳" width="780">
+  <p><em>🎬 全ページ翻訳 — <kbd>Alt+T</kbd> で英文が中国語に徐々に翻訳</em></p>
+  <img src="assets/translate-demo.gif" alt="翻訳デモ" width="780">
   <br><br>
 
-  <p><em>ウィジェットの折りたたみ / 展開 — アニメーション</em></p>
-  <img src="assets/collapse-expand.gif" alt="折りたたみアニメ" width="360">
+  <p><em>🎬 Ctrl + スマート説明 — 単語にホバーして <kbd>Ctrl</kbd> で説明を表示</em></p>
+  <img src="assets/explain-demo.gif" alt="Ctrl+説明デモ" width="780">
   <br><br>
 
-  <p><em>詳細パネルの展開 / 折りたたみ — アニメーション</em></p>
-  <img src="assets/detail-panel.gif" alt="詳細パネルアニメ" width="360">
+  <p><em>🎬 翻訳パネル <kbd>Alt+Q</kbd> — テキスト入力で即時翻訳</em></p>
+  <img src="assets/panel-demo.gif" alt="翻訳パネルデモ" width="780">
   <br><br>
 
-  <p><em>設定パネル & モード切替</em></p>
-  <img src="assets/screenshot-settings.png" alt="設定" width="400">
+  <p><em>🎬 ウィジェット折りたたみ / 詳細パネル — アニメーション</em></p>
+  <img src="assets/collapse-expand.gif" alt="折りたたみ" width="360">
+  &nbsp;
+  <img src="assets/detail-panel.gif" alt="詳細パネル" width="360">
 </div>
 
 ---

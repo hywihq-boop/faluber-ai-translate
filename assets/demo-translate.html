@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(180deg,#f0f0f5 0%,#e0e0e8 70%,#d5d5e0 100%);color:#333;line-height:1.9;padding:30px 36px;margin:0;width:1560px;min-height:800px}
+.page{max-width:860px}
+.page h1{color:#1a1a2e;font-size:28px;margin-bottom:16px}
+.page p{font-size:15px;margin-bottom:12px;color:#444;transition:all 0.4s}
+mark{background:rgba(124,92,252,0.22);color:#5a3fcf;padding:0 3px;border-radius:2px;font-weight:500}
+
+/* Real widget CSS (from content.js) — same as demo.html */
+:root{--lf-purple:#7c5cfc;--lf-purple-soft:#9061f9;--lf-cyan:#5ce0fc;--lf-green:#4ade80;--lf-red:#f87171;--lf-bg:rgba(15,15,26,0.94);--lf-border:rgba(255,255,255,0.08);--lf-text:#c0c0d0;--lf-text-strong:#e0e0e0;--lf-text-weak:#7a7a8e}
+#lf-wrapper{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:260px;font-family:system-ui;user-select:none;pointer-events:none;transition:width 0.45s cubic-bezier(0.22,0,0,1);overflow:visible}
+#lf-wrapper>#lf-widget,#lf-wrapper>.lf-collapse-btn-wrap{pointer-events:auto}
+#lf-widget{position:relative;display:flex;flex-direction:column;align-items:stretch;width:260px;gap:6px;margin-left:auto}
+.lf-glass{background:var(--lf-bg);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid var(--lf-border);border-top-color:rgba(255,255,255,0.12);box-shadow:inset 0 1px 0 rgba(255,255,255,0.04),0 8px 32px rgba(0,0,0,0.45),0 2px 6px rgba(0,0,0,0.35)}
+.lf-card{border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.lf-orb{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;min-height:48px}
+.lf-orb-left{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.lf-orb-center{display:flex;align-items:center;gap:3px;margin:0 auto}
+.lf-orb-right{display:flex;align-items:center;flex-shrink:0}
+.lf-orb-label{font-size:11px;color:var(--lf-text-weak);font-weight:500;white-space:nowrap}
+.lf-toggle{width:32px;height:18px;border-radius:999px;background:rgba(255,255,255,0.1);border:none;position:relative;cursor:pointer;padding:0;flex-shrink:0;transition:background 0.3s ease}
+.lf-toggle::after{content:"";position:absolute;top:2.5px;left:2.5px;width:13px;height:13px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:transform 0.3s ease}
+.lf-toggle.active{background:var(--lf-purple)}
+.lf-toggle.active::after{transform:translateX(14px)}
+.lf-pill-btn{height:26px;padding:0 14px;border-radius:13px;background:rgba(124,92,252,0.08);color:var(--lf-purple-soft);border:1px solid rgba(124,92,252,0.18);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s ease;display:flex;align-items:center;gap:4px}
+.lf-pill-btn.translating{background:rgba(124,92,252,0.05);color:#8b5cf6;border-color:rgba(124,92,252,0.1);cursor:default}
+.lf-pill-btn.done{background:rgba(74,222,128,0.1);color:var(--lf-green);border-color:rgba(74,222,128,0.2)}
+.lf-btn-spinner{width:10px;height:10px;border:2px solid rgba(124,92,252,0.2);border-top-color:var(--lf-purple-soft);border-radius:50%;animation:lf-spin 0.8s linear infinite;display:inline-block}
+@keyframes lf-spin{to{transform:rotate(360deg)}}
+.lf-chevron{width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:8px;transition:all 0.3s ease;padding:0}
+.lf-chevron svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lf-token-tail{padding:4px 13px 5px;background:rgba(0,0,0,0.12);display:flex;justify-content:space-between;align-items:center}
+.lf-token-text,.lf-token-hit{font-size:10px;color:var(--lf-text-weak);font-weight:500;font-variant-numeric:tabular-nums}
+.lf-token-num{color:var(--lf-purple);font-weight:600}
+.lf-token-hit{color:var(--lf-green)}
+#lf-progress{margin-bottom:4px}
+#lf-progress.show{display:block}
+.lf-progress-bar{height:3px;background:rgba(255,255,255,0.05);border-radius:999px;overflow:hidden;margin-top:4px}
+.lf-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--lf-purple),var(--lf-cyan));border-radius:999px;transition:width 0.3s ease}
+</style></head><body>
+
+<div class="page">
+  <h1 id="title">Faluber Translate</h1>
+  <p id="p1">Faluber Translate is an open-source Chrome extension that uses AI to translate web pages. It replaces text nodes directly in the DOM without iframes or overlays, delivering a clean, native-feeling translation experience.</p>
+  <p id="p2">The extension supports 50 target languages and features 10 built-in API provider presets including DeepSeek, OpenAI, Groq, Qwen, and more. Its dual translation modes — Standard and Turbo — let you balance speed against API costs.</p>
+  <p id="p3">A unique Ctrl+Explain feature lets you hover over any word and tap Ctrl for an AI-powered explanation bubble. The floating translation panel (Alt+Q) provides side-by-side input and output for quick manual translations.</p>
+  <p id="p4">All processing happens client-side — your API key stays local, and translation requests go directly from your browser to your configured provider. No third-party servers involved.</p>
+</div>
+
+<div id="lf-wrapper">
+  <span class="lf-collapse-btn-wrap">
+    <button class="lf-collapse-btn" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,rgba(35,30,55,0.94),rgba(18,16,36,0.96));border:1px solid rgba(124,92,252,0.35);border-radius:50%;color:rgba(255,255,255,0.6);cursor:pointer;box-shadow:0 2px 14px rgba(0,0,0,0.45),0 0 0 1px rgba(0,0,0,0.3),0 0 20px rgba(124,92,252,0.12);position:absolute;left:-18px;bottom:33px">
+      <svg viewBox="0 0 24 24" width="12" height="12" style="stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;"><polyline points="9 6 15 12 9 18"></polyline></svg>
+    </button>
+  </span>
+  <div id="lf-widget">
+    <div id="lf-progress" class="lf-glass" style="border-radius:12px;padding:12px;display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:11px;color:#e0e0e0;font-weight:500"><span id="prog-label">翻译中…</span> <span id="prog-cur">0</span>/<span id="prog-total">4</span></span>
+        <span style="font-size:11px;color:#7a7a8e;cursor:pointer">✕</span>
+      </div>
+      <div class="lf-progress-bar"><div class="lf-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div class="lf-glass lf-card">
+      <div class="lf-orb">
+        <div class="lf-orb-left"><span class="lf-orb-label">自动</span><button class="lf-toggle active" id="btn-toggle"></button></div>
+        <div class="lf-orb-center"><button class="lf-pill-btn" id="btn-translate">翻译本页</button><span style="font-size:10px;color:rgba(255,255,255,0.35);white-space:nowrap;">Alt+T</span></div>
+        <div class="lf-orb-right"><button class="lf-chevron"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button></div>
+      </div>
+      <div class="lf-token-tail">
+        <span class="lf-token-text">本页token消耗 <span class="lf-token-num" id="token-num">0</span></span>
+        <span class="lf-token-hit" id="token-hit">缓存命中率 0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const chineseTexts = [
+  'Faluber Translate 是一款开源的 Chrome 浏览器扩展，使用 AI 翻译网页。它直接在 DOM 中替换文本节点，无需 iframe 或浮层，提供纯净、原生的翻译体验。',
+  '该扩展支持 50 种目标语言，内置 10 家 API 提供商预设，包括 DeepSeek、OpenAI、Groq、通义千问等。双档翻译模式——标准与极速——让你在速度和 API 成本之间灵活平衡。',
+  '独特的 Ctrl+解释功能让你只需将鼠标指向任意词汇并单击 Ctrl，即可弹出 AI 解释气泡。浮动翻译面板（Alt+Q）提供左右布局的输入输出，方便快速手动翻译。',
+  '所有处理都在客户端完成——你的 API Key 仅存储在本地，翻译请求直接从浏览器发送到你配置的提供商，不经过任何第三方服务器。'
+];
+
+const btn = document.getElementById('btn-translate');
+const prog = document.getElementById('lf-progress');
+const fill = document.getElementById('prog-fill');
+const cur = document.getElementById('prog-cur');
+const tokenNum = document.getElementById('token-num');
+const tokenHit = document.getElementById('token-hit');
+const paras = ['p1','p2','p3','p4'];
+let translated = false;
+
+btn.addEventListener('click', async () => {
+  if (btn.classList.contains('translating')) return;
+  if (btn.classList.contains('done')) return;
+
+  // Start translating
+  btn.classList.add('translating');
+  btn.innerHTML = '<span class="lf-btn-spinner"></span> 翻译中…';
+  prog.style.display = 'block';
+
+  for (let i = 0; i < 4; i++) {
+    cur.textContent = i + 1;
+    fill.style.width = ((i + 1) / 4 * 100) + '%';
+    await new Promise(r => setTimeout(r, 800));
+    document.getElementById(paras[i]).innerHTML = '<mark>' + chineseTexts[i] + '</mark>';
+  }
+
+  // Done
+  btn.classList.remove('translating');
+  btn.classList.add('done');
+  btn.innerHTML = '已翻译';
+  prog.style.display = 'none';
+  tokenNum.textContent = '1.8K';
+  tokenHit.textContent = '缓存命中率 25%';
+  tokenHit.style.color = '#4ade80';
+});
+</script></body></html>
