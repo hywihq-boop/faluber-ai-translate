@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "Faluber Translate",
+  "version": "2.0.10",
+  "description": "基于 AI 的网页翻译插件，支持全球语言互译，一键翻译整页",
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Faluber Translate",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+
+  "host_permissions": [
+    "https://api.deepseek.com/*",
+    "https://api.openai.com/*",
+    "https://api.groq.com/*",
+    "https://api.together.xyz/*",
+    "https://openrouter.ai/*",
+    "https://api.siliconflow.cn/*",
+    "https://api.moonshot.cn/*",
+    "https://open.bigmodel.cn/*",
+    "https://dashscope.aliyuncs.com/*",
+    "http://localhost/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "commands": {
+    "translate-page": {
+      "suggested_key": {
+        "default": "Alt+T",
+        "mac": "Alt+T"
+      },
+      "description": "翻译/还原当前页面"
+    },
+    "translate-panel": {
+      "suggested_key": {
+        "default": "Alt+Q",
+        "mac": "Alt+Q"
+      },
+      "description": "打开翻译面板"
+    }
+  }
+}
