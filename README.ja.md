@@ -25,19 +25,19 @@
 ## 📸 スクリーンショット
 
 <div align="center">
-  <p><em>全ページ翻訳 + フローティングウィジェット — クリックまたは <kbd>Alt+T</kbd></em></p>
+  <p><em>全ページ翻訳 — クリックまたは <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="全ページ翻訳" width="780">
   <br><br>
 
-  <p><em>Ctrl + スマート説明 — 単語にホバー + <kbd>Ctrl</kbd> タップ</em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 説明" width="780">
+  <p><em>ウィジェットの折りたたみ / 展開 — アニメーション</em></p>
+  <img src="assets/collapse-expand.gif" alt="折りたたみアニメ" width="360">
   <br><br>
 
-  <p><em>翻訳パネル <kbd>Alt+Q</kbd> — 左右分割の入出力</em></p>
-  <img src="assets/screenshot-panel.png" alt="翻訳パネル" width="780">
+  <p><em>詳細パネルの展開 / 折りたたみ — アニメーション</em></p>
+  <img src="assets/detail-panel.gif" alt="詳細パネルアニメ" width="360">
   <br><br>
 
-  <p><em>API 設定 & モード切替</em></p>
+  <p><em>設定パネル & モード切替</em></p>
   <img src="assets/screenshot-settings.png" alt="設定" width="400">
 </div>
 

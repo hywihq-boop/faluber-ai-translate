@@ -25,19 +25,19 @@
 ## 📸 Скриншоты
 
 <div align="center">
-  <p><em>Перевод всей страницы + виджет — клик или <kbd>Alt+T</kbd></em></p>
+  <p><em>Перевод всей страницы — клик или <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="Перевод страницы" width="780">
   <br><br>
 
-  <p><em>Ctrl + объяснение — наведите на слово + <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl объяснение" width="780">
+  <p><em>Сворачивание / разворачивание виджета — анимация</em></p>
+  <img src="assets/collapse-expand.gif" alt="Анимация сворачивания" width="360">
   <br><br>
 
-  <p><em>Панель перевода <kbd>Alt+Q</kbd> — ввод/вывод в две колонки</em></p>
-  <img src="assets/screenshot-panel.png" alt="Панель перевода" width="780">
+  <p><em>Панель настроек — развернуть / свернуть — анимация</em></p>
+  <img src="assets/detail-panel.gif" alt="Анимация панели" width="360">
   <br><br>
 
-  <p><em>Настройки API & переключение режимов</em></p>
+  <p><em>Настройки & переключение режимов</em></p>
   <img src="assets/screenshot-settings.png" alt="Настройки" width="400">
 </div>
 

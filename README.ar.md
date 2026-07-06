@@ -25,19 +25,19 @@
 ## 📸 لقطات الشاشة
 
 <div align="center">
-  <p><em>ترجمة الصفحة كاملة + الأداة العائمة — انقر أو اضغط <kbd>Alt+T</kbd></em></p>
+  <p><em>ترجمة الصفحة كاملة — انقر أو اضغط <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="ترجمة الصفحة" width="780">
   <br><br>
 
-  <p><em>Ctrl + شرح ذكي — مرر فوق كلمة + اضغط <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl شرح" width="780">
+  <p><em>طي / توسيع الأداة — رسم متحرك</em></p>
+  <img src="assets/collapse-expand.gif" alt="رسوم متحركة للطي" width="360">
   <br><br>
 
-  <p><em>لوحة الترجمة <kbd>Alt+Q</kbd> — إدخال/إخراج جنباً إلى جنب</em></p>
-  <img src="assets/screenshot-panel.png" alt="لوحة الترجمة" width="780">
+  <p><em>توسيع / طي لوحة التفاصيل — رسم متحرك</em></p>
+  <img src="assets/detail-panel.gif" alt="رسوم متحركة للوحة" width="360">
   <br><br>
 
-  <p><em>إعدادات API وتبديل الأوضاع</em></p>
+  <p><em>الإعدادات & تبديل الأوضاع</em></p>
   <img src="assets/screenshot-settings.png" alt="الإعدادات" width="400">
 </div>
 

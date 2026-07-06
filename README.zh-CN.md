@@ -25,19 +25,19 @@
 ## 📸 效果截图
 
 <div align="center">
-  <p><em>整页翻译 + 悬浮球 — 点击或按 <kbd>Alt+T</kbd></em></p>
+  <p><em>整页翻译 — 点击或按 <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="整页翻译" width="780">
   <br><br>
 
-  <p><em>Ctrl + 智能解释 — 鼠标指向词汇 + 单击 <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 解释" width="780">
+  <p><em>悬浮球收折 / 展开 — 动图演示</em></p>
+  <img src="assets/collapse-expand.gif" alt="收折动画" width="360">
   <br><br>
 
-  <p><em>翻译面板 <kbd>Alt+Q</kbd> — 左右布局输入/输出</em></p>
-  <img src="assets/screenshot-panel.png" alt="翻译面板" width="780">
+  <p><em>详情面板展开 / 收折 — 动图演示</em></p>
+  <img src="assets/detail-panel.gif" alt="详情面板动画" width="360">
   <br><br>
 
-  <p><em>API 设置弹窗 & 模式切换</em></p>
+  <p><em>设置面板 & 模式切换</em></p>
   <img src="assets/screenshot-settings.png" alt="设置" width="400">
 </div>
 

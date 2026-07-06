@@ -25,19 +25,19 @@
 ## 📸 效果截圖
 
 <div align="center">
-  <p><em>整頁翻譯 + 懸浮球 — 點擊或按 <kbd>Alt+T</kbd></em></p>
+  <p><em>整頁翻譯 — 點擊或按 <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="整頁翻譯" width="780">
   <br><br>
 
-  <p><em>Ctrl + 智慧解釋 — 滑鼠指向詞彙 + 單擊 <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 解釋" width="780">
+  <p><em>懸浮球收折 / 展開 — 動圖演示</em></p>
+  <img src="assets/collapse-expand.gif" alt="收折動畫" width="360">
   <br><br>
 
-  <p><em>翻譯面板 <kbd>Alt+Q</kbd> — 左右佈局輸入/輸出</em></p>
-  <img src="assets/screenshot-panel.png" alt="翻譯面板" width="780">
+  <p><em>詳情面板展開 / 收折 — 動圖演示</em></p>
+  <img src="assets/detail-panel.gif" alt="詳情面板動畫" width="360">
   <br><br>
 
-  <p><em>API 設定彈窗 & 模式切換</em></p>
+  <p><em>設定面板 & 模式切換</em></p>
   <img src="assets/screenshot-settings.png" alt="設定" width="400">
 </div>
 

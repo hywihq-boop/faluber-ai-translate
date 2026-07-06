@@ -27,19 +27,19 @@
 ## 📸 Screenshots
 
 <div align="center">
-  <p><em>Full-page translation with floating widget — click or press <kbd>Alt+T</kbd></em></p>
+  <p><em>Full-page translation — click or press <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="Full-page translation" width="780">
   <br><br>
 
-  <p><em>Ctrl + Explain — hover over a word and tap <kbd>Ctrl</kbd></em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl + Explain" width="780">
+  <p><em>Widget collapse / expand — animated</em></p>
+  <img src="assets/collapse-expand.gif" alt="Collapse expand animation" width="360">
   <br><br>
 
-  <p><em>Translation Panel <kbd>Alt+Q</kbd> — side-by-side input/output</em></p>
-  <img src="assets/screenshot-panel.png" alt="Translation Panel" width="780">
+  <p><em>Detail panel expand / collapse — animated</em></p>
+  <img src="assets/detail-panel.gif" alt="Detail panel animation" width="360">
   <br><br>
 
-  <p><em>Settings popup & mode switching</em></p>
+  <p><em>Settings & mode switching</em></p>
   <img src="assets/screenshot-settings.png" alt="Settings" width="400">
 </div>
 

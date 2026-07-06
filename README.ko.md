@@ -25,19 +25,19 @@
 ## 📸 스크린샷
 
 <div align="center">
-  <p><em>전체 페이지 번역 + 플로팅 위젯 — 클릭 또는 <kbd>Alt+T</kbd></em></p>
+  <p><em>전체 페이지 번역 — 클릭 또는 <kbd>Alt+T</kbd></em></p>
   <img src="assets/screenshot-translate.png" alt="전체 페이지 번역" width="780">
   <br><br>
 
-  <p><em>Ctrl + 스마트 설명 — 단어에 호버 + <kbd>Ctrl</kbd> 탭</em></p>
-  <img src="assets/screenshot-explain.png" alt="Ctrl 설명" width="780">
+  <p><em>위젯 접기 / 펼치기 — 애니메이션</em></p>
+  <img src="assets/collapse-expand.gif" alt="접기 애니메이션" width="360">
   <br><br>
 
-  <p><em>번역 패널 <kbd>Alt+Q</kbd> — 좌우 분할 입출력</em></p>
-  <img src="assets/screenshot-panel.png" alt="번역 패널" width="780">
+  <p><em>상세 패널 펼치기 / 접기 — 애니메이션</em></p>
+  <img src="assets/detail-panel.gif" alt="상세 패널 애니메이션" width="360">
   <br><br>
 
-  <p><em>API 설정 & 모드 전환</em></p>
+  <p><em>설정 패널 & 모드 전환</em></p>
   <img src="assets/screenshot-settings.png" alt="설정" width="400">
 </div>
 

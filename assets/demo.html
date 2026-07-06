@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><style>
+/* === 真实内容样式 === */
+body{font-family:system-ui,'PingFang SC','Microsoft YaHei',sans-serif;background:#0a0a1a;color:#9090a8;line-height:1.8;padding:24px 32px;margin:0;width:1560px;min-height:800px}
+.page{max-width:860px}
+.page h1{color:#f0f0f5;font-size:26px;margin-bottom:14px}
+.page h2{color:#e0e0e0;font-size:19px;margin:22px 0 10px}
+.page p{font-size:14px;margin-bottom:10px}
+mark{background:rgba(124,92,252,0.18);color:#c0c0d0;padding:0 3px;border-radius:2px}
+
+/* === 摘自 content.js 的真实 widget CSS === */
+:root{--lf-purple:#7c5cfc;--lf-purple-soft:#9061f9;--lf-cyan:#5ce0fc;--lf-green:#4ade80;--lf-red:#f87171;--lf-yellow:#facc15;--lf-bg:rgba(15,15,26,0.94);--lf-border:rgba(255,255,255,0.08);--lf-text:#c0c0d0;--lf-text-strong:#e0e0e0;--lf-text-weak:#7a7a8e}
+#lf-wrapper{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:260px;font-family:system-ui;user-select:none;pointer-events:none;transition:width 0.45s cubic-bezier(0.22,0,0,1);overflow:visible}
+#lf-wrapper.collapsed{width:56px}
+#lf-wrapper>#lf-widget,#lf-wrapper>.lf-collapse-btn-wrap{pointer-events:auto}
+#lf-widget{position:relative;display:flex;flex-direction:column;align-items:stretch;width:260px;gap:6px;margin-left:auto;transform-origin:center right;transition:opacity 0.28s ease,transform 0.45s cubic-bezier(0.22,0,0,1)}
+#lf-wrapper.collapsed #lf-widget{opacity:0;transform:scale(0.7) translateX(28px);pointer-events:none!important}
+.lf-glass{background:var(--lf-bg);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid var(--lf-border);border-top-color:rgba(255,255,255,0.12);box-shadow:inset 0 1px 0 rgba(255,255,255,0.04),0 8px 32px rgba(0,0,0,0.45),0 2px 6px rgba(0,0,0,0.35)}
+.lf-card{border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.lf-detail{max-height:0;opacity:0;overflow:hidden;transition:max-height 0.35s ease,opacity 0.25s ease}
+.lf-detail.open{max-height:400px;opacity:1}
+.lf-detail-inner{padding:14px;min-width:0}
+.lf-detail-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.lf-detail-title{font-size:12px;font-weight:600;color:var(--lf-text-strong)}
+.lf-detail-grid{display:grid;grid-template-columns:1fr auto;gap:7px 20px;min-width:0}
+.lf-detail-label{font-size:11px;color:var(--lf-text-weak);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lf-detail-value{font-size:11px;font-weight:500;color:var(--lf-text-strong);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lf-clear-btn{background:rgba(248,113,133,0.10);color:var(--lf-red);border:none;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:500;cursor:pointer;font-family:inherit}
+.lf-orb{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;min-height:48px}
+.lf-orb-left{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.lf-orb-center{display:flex;align-items:center;gap:3px;margin:0 auto}
+.lf-orb-right{display:flex;align-items:center;flex-shrink:0}
+.lf-orb-label{font-size:11px;color:var(--lf-text-weak);font-weight:500;white-space:nowrap}
+.lf-toggle{width:32px;height:18px;border-radius:999px;background:rgba(255,255,255,0.1);border:none;position:relative;cursor:pointer;padding:0;flex-shrink:0;transition:background 0.3s ease}
+.lf-toggle::after{content:"";position:absolute;top:2.5px;left:2.5px;width:13px;height:13px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:transform 0.3s ease}
+.lf-toggle.active{background:var(--lf-purple)}
+.lf-toggle.active::after{transform:translateX(14px)}
+.lf-pill-btn{height:26px;padding:0 14px;border-radius:13px;background:rgba(124,92,252,0.08);color:var(--lf-purple-soft);border:1px solid rgba(124,92,252,0.18);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s ease;display:flex;align-items:center;gap:4px}
+.lf-pill-btn.done{background:rgba(74,222,128,0.1);color:var(--lf-green);border-color:rgba(74,222,128,0.2)}
+.lf-chevron{position:relative;z-index:5;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:8px;transition:all 0.3s ease;padding:0}
+.lf-chevron.open{transform:rotate(180deg)}
+.lf-chevron svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lf-collapse-btn-wrap{position:absolute;left:-18px;bottom:33px;z-index:1;transition:bottom 0.35s ease}
+.lf-collapse-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,rgba(35,30,55,0.94),rgba(18,16,36,0.96));backdrop-filter:blur(10px) saturate(1.4);-webkit-backdrop-filter:blur(10px) saturate(1.4);border:1px solid rgba(124,92,252,0.35);box-shadow:0 2px 14px rgba(0,0,0,0.45),0 0 0 1px rgba(0,0,0,0.3),0 0 20px rgba(124,92,252,0.12),inset 0 1px 0 rgba(255,255,255,0.06);border-radius:50%;color:rgba(255,255,255,0.6);cursor:pointer;padding:0;transition:color 0.2s,background 0.2s}
+.lf-collapse-btn.collapsed svg{transform:rotate(180deg)}
+.lf-collapse-btn svg{transition:transform 0.35s ease;display:block}
+#lf-wrapper.collapsed .lf-collapse-btn-wrap{top:auto;bottom:34px;transform:none}
+.lf-mini{position:absolute;right:0;bottom:20px;width:56px;height:56px;border-radius:50%;background:rgba(15,15,26,0.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(124,92,252,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:scale(0.7);transition:opacity 0.28s ease,transform 0.45s cubic-bezier(0.22,0,0,1);pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,0.45)}
+.lf-mini.visible{opacity:1;transform:scale(1);pointer-events:auto}
+.lf-mini.translated{border-color:rgba(74,222,128,0.5);box-shadow:0 0 28px rgba(74,222,128,0.22),0 0 56px rgba(74,222,128,0.1),0 0 84px rgba(74,222,128,0.04),0 4px 20px rgba(0,0,0,0.45)}
+.lf-mini span{font-size:24px;font-weight:700;color:#9061f9;line-height:1;position:relative;z-index:2}
+.lf-mini.translated span{color:#4ade80;text-shadow:0 0 10px rgba(74,222,128,0.6),0 0 22px rgba(74,222,128,0.3)}
+.lf-mini-glow{position:absolute;inset:-4px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity 0.4s ease;z-index:1;border:4px solid transparent;border-top-color:rgba(168,255,200,1);border-right-color:rgba(74,222,128,0.55);border-bottom-color:rgba(74,222,128,0.12);box-shadow:0 -6px 18px rgba(74,222,128,0.55),0 0 30px rgba(74,222,128,0.25),inset 0 0 8px rgba(74,222,128,0.1);animation:lf-spin 2s linear infinite}
+.lf-mini-glow::before{content:'';display:block;position:absolute;inset:5px;border-radius:50%;border:2.5px solid transparent;border-bottom-color:rgba(74,222,128,0.75);border-left-color:rgba(74,222,128,0.25);box-shadow:0 5px 12px rgba(74,222,128,0.4);animation:lf-spin 3.2s linear infinite reverse}
+.lf-mini.translated .lf-mini-glow{opacity:1}
+@keyframes lf-spin{to{transform:rotate(360deg)}}
+.lf-token-tail{padding:4px 13px 5px;background:rgba(0,0,0,0.12);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background 0.2s}
+.lf-token-text,.lf-token-hit{font-size:10px;color:var(--lf-text-weak);font-weight:500;font-variant-numeric:tabular-nums}
+.lf-token-num{color:var(--lf-purple);font-weight:600}
+.lf-token-hit{color:var(--lf-green)}
+.lf-custom-select{position:relative;user-select:none}
+.lf-custom-select-trigger{display:flex;align-items:center;justify-content:space-between;width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 6px;color:var(--lf-text);font-size:11px;font-family:inherit;cursor:pointer;gap:4px}
+.lf-custom-select.open .lf-custom-select-dropdown{display:block}
+.lf-custom-select-dropdown{position:absolute;top:calc(100% + 2px);left:0;right:0;background:rgba(20,20,38,0.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.1);border-radius:6px;overflow:hidden;z-index:100;display:none;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.lf-custom-select-option{padding:6px 8px;font-size:11px;color:var(--lf-text);cursor:pointer}
+.lf-custom-select-option:hover{background:rgba(124,92,252,0.15);color:var(--lf-text-strong)}
+.lf-custom-select-option.selected{color:var(--lf-purple-soft);font-weight:600}
+
+#ctrl-hint{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.85);color:#fff;font-size:16px;padding:10px 24px;border-radius:8px;z-index:9999;pointer-events:none;transition:opacity 0.3s}
+</style></head><body>
+
+<!-- 伪造的网页内容 (模拟 Wikipedia 翻译后) -->
+<div class="page">
+  <h1>Artificial Intelligence</h1>
+  <p><mark>人工智能</mark>（AI）是机器展示的智能。领先的 AI 教科书将这一领域定义为<mark>"智能代理"</mark>的研究：任何能够感知其环境并采取行动以最大化实现其目标机会的系统。</p>
+  <p>AI 应用包括<mark>高级搜索引擎</mark>、<mark>推荐系统</mark>、<mark>语音识别</mark>、<mark>自动驾驶</mark>、<mark>生成式 AI</mark>，以及<mark>战略游戏</mark>中的超人类表现。</p>
+  <h2>History</h2>
+  <p><mark>人造生命</mark>的概念早在古希腊神话中就已出现。这些故事预示了后来关于 AI 及其局限性的讨论。<mark>人工智能研究</mark>正式诞生于 1956 年达特茅斯会议上。</p>
+  <h2>Goals</h2>
+  <p>AI 研究的传统目标包括<mark>推理</mark>、<mark>知识表示</mark>、<mark>规划</mark>、<mark>学习</mark>、<mark>自然语言处理</mark>、<mark>感知</mark>以及<mark>移动和操纵物体</mark>的能力。</p>
+</div>
+
+<!-- === 真实的 widget HTML (摘自 content.js buildUI) === -->
+<div id="lf-wrapper">
+  <span class="lf-collapse-btn-wrap">
+    <button class="lf-collapse-btn" id="btn-collapse" title="收起悬浮球">
+      <svg viewBox="0 0 24 24" width="12" height="12" style="stroke:currentColor;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;"><polyline points="9 6 15 12 9 18"></polyline></svg>
+    </button>
+  </span>
+  <div id="lf-widget">
+    <div id="lf-card" class="lf-glass lf-card">
+      <div id="lf-detail" class="lf-detail">
+        <div class="lf-detail-inner">
+          <div class="lf-detail-header"><span class="lf-detail-title">翻译设置</span><button class="lf-clear-btn">清除缓存</button></div>
+          <div style="margin-bottom:8px;"><div style="font-size:10px;color:var(--lf-text-weak);margin-bottom:3px;">Language</div>
+            <select style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 6px;color:var(--lf-text);font-size:11px;font-family:inherit;outline:none;cursor:pointer;">
+              <option>🇨🇳 简体中文</option><option>🇺🇸 English</option><option>🇯🇵 日本語</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:12px;">
+            <div style="flex:1;"><div style="font-size:10px;color:var(--lf-text-weak);margin-bottom:3px;">源语种</div>
+              <select style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 6px;color:var(--lf-text);font-size:11px;font-family:inherit;outline:none;cursor:pointer;">
+                <option>自动检测</option><option>English</option><option>简体中文</option>
+              </select>
+            </div>
+            <div style="flex:1;"><div style="font-size:10px;color:var(--lf-text-weak);margin-bottom:3px;">目标语种</div>
+              <select style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:4px 6px;color:var(--lf-text);font-size:11px;font-family:inherit;outline:none;cursor:pointer;">
+                <option>简体中文</option><option>English</option><option>日本語</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div style="font-size:10px;color:var(--lf-text-weak);margin-bottom:3px;">翻译模式</div>
+            <div class="lf-custom-select" id="lf-mode-wrap">
+              <div class="lf-custom-select-trigger"><span>⚡ 标准模式</span><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+              <div class="lf-custom-select-dropdown" style="display:none">
+                <div class="lf-custom-select-option selected">⚡ 标准模式 — 3并发，视野优先</div>
+                <div class="lf-custom-select-option">🚀 极速模式 — 8并发，全页翻译</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-bottom:4px"><button style="width:100%;background:rgba(124,92,252,0.08);border:1px solid rgba(124,92,252,0.15);border-radius:6px;padding:5px 8px;color:var(--lf-purple-soft);font-size:10px;font-family:inherit;cursor:pointer;display:flex;justify-content:space-between;align-items:center"><span>🌐 翻译面板</span><span style="color:var(--lf-text-weak);font-size:9px">Alt+Q</span></button></div>
+          <div style="height:1px;background:rgba(255,255,255,0.06);margin-bottom:12px;"></div>
+          <div class="lf-detail-header" style="margin-bottom:10px;"><span class="lf-detail-title">历史token用量</span></div>
+          <div class="lf-detail-grid">
+            <span class="lf-detail-label">输入</span><span class="lf-detail-value">12.5K</span>
+            <span class="lf-detail-label">输出</span><span class="lf-detail-value">3.2K</span>
+            <span class="lf-detail-label">总计</span><span class="lf-detail-value">15.7K</span>
+            <span class="lf-detail-label">预估费用</span><span class="lf-detail-value">¥0.0189</span>
+            <span class="lf-detail-label">缓存条目</span><span class="lf-detail-value">142</span>
+          </div>
+        </div>
+      </div>
+      <div class="lf-orb">
+        <div class="lf-orb-left"><span class="lf-orb-label">自动</span><button class="lf-toggle active" id="btn-toggle"></button></div>
+        <div class="lf-orb-center"><button class="lf-pill-btn done">已翻译</button><span style="font-size:10px;color:rgba(255,255,255,0.35);white-space:nowrap;">Alt+T</span></div>
+        <div class="lf-orb-right"><button class="lf-chevron" id="btn-chevron"><svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"/></svg></button></div>
+      </div>
+      <div class="lf-token-tail">
+        <span class="lf-token-text">本页token消耗 <span class="lf-token-num">2.5K</span></span>
+        <span class="lf-token-hit">缓存命中率 42%</span>
+      </div>
+    </div>
+  </div>
+  <div id="lf-mini" class="lf-mini"><span>译</span><div class="lf-mini-glow"></div></div>
+</div>
+
+<div id="ctrl-hint" style="opacity:0">Ctrl</div>
+
+<script>
+// === 真实的交互逻辑 (摘自 content.js bindEvents) ===
+const wrapper = document.getElementById('lf-wrapper');
+const detail = document.getElementById('lf-detail');
+const btnChevron = document.getElementById('btn-chevron');
+const btnCollapse = document.getElementById('btn-collapse');
+const mini = document.getElementById('lf-mini');
+const toggle = document.getElementById('btn-toggle');
+
+// 详情展开/收起
+let expanded = false;
+btnChevron.addEventListener('click', () => {
+  expanded = !expanded;
+  detail.classList.toggle('open', expanded);
+  btnChevron.classList.toggle('open', expanded);
+});
+
+// 收折 (展开/收起悬浮球 → 显示迷你球)
+let collapsed = false;
+btnCollapse.addEventListener('click', () => {
+  collapsed = !collapsed;
+  btnCollapse.classList.toggle('collapsed', collapsed);
+  wrapper.classList.toggle('collapsed', collapsed);
+  mini.classList.toggle('visible', collapsed);
+  mini.classList.toggle('translated');
+});
+
+// Toggle 开关
+let toggled = true;
+toggle.addEventListener('click', () => {
+  toggled = !toggled;
+  toggle.classList.toggle('active', toggled);
+});
+
+// 迷你球点击展开
+mini.addEventListener('click', () => {
+  if (collapsed) btnCollapse.click();
+});
+
+// 模式下拉
+document.getElementById('lf-mode-wrap').querySelector('.lf-custom-select-trigger').addEventListener('click', function() {
+  this.parentElement.classList.toggle('open');
+});
+</script></body></html>
