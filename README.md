@@ -1,3 +1,5 @@
+[English](README.md) | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Русский](README.ru.md) | [العربية](README.ar.md)
+
 # 🌐 Faluber Translate — AI-Powered Web Page Translation
 
 A Chrome browser extension that translates web pages using AI (OpenAI-compatible APIs like DeepSeek, OpenAI, Qwen, etc.). Built with Manifest V3, it performs text-node-level DOM manipulation for seamless translation across 50 target languages with a 20-language UI.
