@@ -7,7 +7,7 @@
 
   ### AI-Powered Web Page Translation — 50 Languages, 10 API Providers
 
-  ![version](https://img.shields.io/badge/v2.0.10-7c5cfc?style=flat-square)
+  ![version](https://img.shields.io/badge/v2.0.11-7c5cfc?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 

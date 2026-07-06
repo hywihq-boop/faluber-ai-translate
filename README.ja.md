@@ -5,7 +5,7 @@
 
   ### AI 搭載ウェブページ翻訳 — 50 言語、10 API プロバイダー
 
-  ![version](https://img.shields.io/badge/v2.0.10-7c5cfc?style=flat-square)
+  ![version](https://img.shields.io/badge/v2.0.11-7c5cfc?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 

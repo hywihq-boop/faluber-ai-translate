@@ -7,7 +7,7 @@
 
   ### AI 智能网页翻译插件 — 50 种语言，10 家 API 提供商
 
-  ![version](https://img.shields.io/badge/v2.0.10-7c5cfc?style=flat-square)
+  ![version](https://img.shields.io/badge/v2.0.11-7c5cfc?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
