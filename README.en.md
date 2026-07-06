@@ -97,13 +97,28 @@ In-memory + persistent dual-layer cache. Repeated text returns instantly with **
 
 ---
 
-## 📦 Quick Start
+## 📦 Installation
+
+### Method 1: Download Release (Recommended)
+
+1. Go to [Releases](https://github.com/hywihq-boop/faluber-translate/releases)
+2. Download the latest `faluber-translate-vX.X.X.zip`
+3. Unzip to any folder
+4. Open `chrome://extensions`, enable **Developer mode** (top-right)
+5. Click **Load unpacked**, select the unzipped folder
+6. Done!
+
+### Method 2: Download Source ZIP
+
+1. Click the green **Code** button → Download ZIP on the repo homepage
+2. Unzip and follow the same steps above to load
+
+### Configure & Use
 
 | Step | |
 |------|---|
-| **1. Install** | Download zip from [Releases](https://github.com/hywihq-boop/faluber-translate/releases), unzip, load unpacked in `chrome://extensions` |
-| **2. Configure** | Click extension icon → choose provider → enter API Key → test connection → save |
-| **3. Translate** | Open any web page → click floating widget or press <kbd>Alt+T</kbd> |
+| **Configure API** | Click extension icon → choose provider → enter API Key → test connection → save |
+| **Start Translating** | Open any web page → click the widget or press <kbd>Alt+T</kbd> |
 
 ---
 
