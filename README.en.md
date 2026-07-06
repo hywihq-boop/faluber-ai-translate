@@ -20,7 +20,7 @@
 
 <br>
 
-> **Faluber Translate** is a Chrome extension that translates web pages using AI. It replaces text nodes directly in the DOM — no iframes, no overlays. Just clean, native-feeling translation with **50 target languages**, **10 built-in API providers**, and **dual translation modes**.
+> **Faluber Translate** is a Chrome extension that translates web pages using AI. It replaces text nodes directly in the DOM — no iframes, no overlays. Just clean, native-feeling translation with **50 target languages**, **10 built-in API providers**, **dual translation modes**, and **smart dual-layer caching — zero token cost for repeated content**.
 
 ---
 
@@ -88,8 +88,8 @@ Floating side-by-side input/output panel. Real-time translation independent from
 </td>
 <td width="50%">
 
-### 💾 Smart Caching
-In-memory + persistent dual-layer cache. 2,000 entries max, 1-hour TTL. Auto-flush + `beforeunload`. Auto-clears on language change.
+### 💾 Smart Caching — Save API Costs
+In-memory + persistent dual-layer cache. Repeated text returns instantly with **zero token cost**. 2,000 entries max, 1-hour TTL. Auto-saves every 30s, auto-clears on language change. Cache hit rate displayed in real time.
 
 </td>
 </tr>
