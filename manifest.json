@@ -22,11 +22,21 @@
 
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "alarms"
   ],
 
   "host_permissions": [
-    "https://api.deepseek.com/*"
+    "https://api.deepseek.com/*",
+    "https://api.openai.com/*",
+    "https://api.groq.com/*",
+    "https://api.together.xyz/*",
+    "https://openrouter.ai/*",
+    "https://api.siliconflow.cn/*",
+    "https://api.moonshot.cn/*",
+    "https://open.bigmodel.cn/*",
+    "https://dashscope.aliyuncs.com/*",
+    "http://localhost/*"
   ],
 
   "content_scripts": [
