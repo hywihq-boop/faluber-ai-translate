@@ -1,6 +1,6 @@
 /**
- * LinguaFlow — Open Design v2
- * 收折：wrapper 容器 + 迷你球 + 发光 + 绝对定位进度条
+ * Faluber Translate — AI-powered web page translation
+ * Collapsible wrapper + mini ball + glow + absolute progress bar
  */
 (function () {
   'use strict';
@@ -168,7 +168,23 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
 .lf-panel-swap{display:flex;align-items:center;justify-content:center;align-self:center;width:36px;height:36px;border-radius:50%;background:rgba(124,92,252,0.12);border:1px solid rgba(124,92,252,0.2);color:var(--lf-purple-soft);cursor:pointer;font-size:18px;flex-shrink:0;margin:0 -18px;z-index:2;transition:all 0.2s}
 .lf-panel-swap:hover{background:rgba(124,92,252,0.2);border-color:rgba(124,92,252,0.35);transform:rotate(180deg)}
 .lf-panel-char-count{font-size:11px;color:var(--lf-text-weak)}
-@media(max-width:980px){#lf-panel{width:calc(100vw-20px);transform:none;top:20px;left:10px;right:auto}.lf-panel-body{min-height:260px}.lf-panel-text{min-height:200px}}`;
+@media(max-width:980px){#lf-panel{width:calc(100vw-20px);transform:none;top:20px;left:10px;right:auto}.lf-panel-body{min-height:260px}.lf-panel-text{min-height:200px}}
+#lf-donate-overlay{position:fixed;inset:0;z-index:2147483647;background:rgba(0,0,0,0.55);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease}
+#lf-donate-overlay.show{opacity:1;pointer-events:auto}
+#lf-donate{background:rgba(18,16,36,0.97);border:1px solid rgba(124,92,252,0.25);border-radius:18px;padding:24px 28px;text-align:center;max-width:360px;width:90%;box-shadow:0 12px 48px rgba(0,0,0,0.55);color:#c0c0d0;font-family:system-ui}
+#lf-donate h3{font-size:17px;color:#e0e0e0;margin-bottom:6px}
+#lf-donate p{font-size:12px;color:#7a7a8e;margin-bottom:18px;line-height:1.6}
+#lf-donate .lf-donate-qr{display:none;margin-bottom:14px}
+#lf-donate .lf-donate-qr.show{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.lf-donate-qr-item{text-align:center}
+.lf-donate-qr-item img{width:160px;height:160px;border-radius:10px;border:1px solid rgba(255,255,255,0.08)}
+.lf-donate-qr-item span{display:block;font-size:10px;color:#7a7a8e;margin-top:4px}
+.lf-donate-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.lf-donate-btn{padding:8px 22px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none;transition:all 0.2s}
+.lf-donate-later{background:rgba(255,255,255,0.06);color:#7a7a8e;border:1px solid rgba(255,255,255,0.1)}
+.lf-donate-later:hover{background:rgba(255,255,255,0.1);color:#c0c0d0}
+.lf-donate-pay{background:linear-gradient(135deg,#7c5cfc,#9061f9);color:#fff;box-shadow:0 2px 12px rgba(124,92,252,0.35)}
+.lf-donate-pay:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(124,92,252,0.5)}`;
     document.head.appendChild(s);
   }
 
@@ -256,6 +272,18 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
       <div id="lf-mini" class="lf-mini"><span>译</span><div class="lf-mini-glow"></div></div>
     `;
     document.body.appendChild(wrapper);
+    // 打赏弹窗
+    const donateOverlay = document.createElement('div'); donateOverlay.id = 'lf-donate-overlay';
+    donateOverlay.innerHTML = '<div id="lf-donate"><h3>☕ 请作者喝杯咖啡</h3><p>已经帮你翻译了 <b id="lf-donate-count">10</b> 次啦~<br>如果觉得好用，可以赞助一点 token 吗？</p><div class="lf-donate-qr" id="lf-donate-qr"><div class="lf-donate-qr-item"><img src="'+chrome.runtime.getURL('icons/donate-wechat.png')+'" alt="微信"><span>微信</span></div><div class="lf-donate-qr-item"><img src="'+chrome.runtime.getURL('icons/donate-alipay.png')+'" alt="支付宝"><span>支付宝</span></div></div><div class="lf-donate-btns"><button class="lf-donate-btn lf-donate-later" id="lf-donate-later">下次一定</button><button class="lf-donate-btn lf-donate-pay" id="lf-donate-pay">❤️ 赞助token</button></div></div>';
+    document.body.appendChild(donateOverlay);
+    document.getElementById('lf-donate-later').addEventListener('click', () => {
+      donateOverlay.classList.remove('show');
+      document.getElementById('lf-donate-qr').classList.remove('show');
+      chrome.storage.local.set({ lf_donate_dismissed: Date.now() });
+    });
+    document.getElementById('lf-donate-pay').addEventListener('click', () => {
+      document.getElementById('lf-donate-qr').classList.add('show');
+    });
     bindEvents(wrapper);
   }
 
@@ -332,6 +360,8 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
         if (abortController && abortController.signal.aborted) { updateUsageBall(); return; }
         showTranslation = true;
         btnTranslate.classList.remove('translating'); btnTranslate.classList.add('done'); btnTranslate.textContent = t('translated');
+        // 打赏计数
+        try { await checkDonate(); } catch(e) {}
       }
     });
     // 取消
@@ -595,7 +625,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
   let lastMX=0,lastMY=0,ctrlPressTimer=null; document.addEventListener('mousemove',e=>{ lastMX=e.clientX;lastMY=e.clientY; },{ passive:true }); document.addEventListener('keydown',e=>{ if(e.key==='Control'||e.key==='Meta'){ clearTimeout(ctrlPressTimer); ctrlPressTimer=setTimeout(()=>{ const el=document.elementFromPoint(lastMX,lastMY); if(!el||el.closest('[id^="lf-"]')) return; const sel=window.getSelection(); const selText=(sel&&!sel.isCollapsed)?sel.toString().trim():''; if(selText){ handleExplainPoint({ clientX:lastMX||window.innerWidth/2,clientY:lastMY||window.innerHeight/2,ctrlKey:true,metaKey:e.key==='Meta' }); } else { const caret=document.caretRangeFromPoint(lastMX,lastMY); if(caret&&caret.startContainer.nodeType===Node.TEXT_NODE){ const ch=caret.startContainer.textContent[caret.startOffset]; if(ch&&ch.trim()){ handleExplainPoint({ clientX:lastMX,clientY:lastMY,ctrlKey:e.key==='Control',metaKey:e.key==='Meta' }); } } } },250); } if(e.key!=='Control'&&e.key!=='Meta'){ clearTimeout(ctrlPressTimer); } });
 
   // Esc
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(isTranslating&&abortController){ abortController.abort(); return; } hideBubble(); inFlightWords.clear(); } });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(isTranslating&&abortController){ abortController.abort(); return; } hideBubble(); inFlightWords.clear(); } if(e.altKey&&e.code==='KeyQ'){ e.preventDefault(); togglePanel(); } });
 
   // 防御 GitHub 中文化插件
   const langOpts={'zh-CN':'简体中文','zh-TW':'繁體中文',en:'English',ja:'日本語',ko:'한국어',fr:'Français',de:'Deutsch',es:'Español',pt:'Português',ru:'Русский',ar:'العربية',hi:'हिन्दी',th:'ไทย',vi:'Tiếng Việt',it:'Italiano',nl:'Nederlands',pl:'Polski',tr:'Türkçe',id:'Bahasa Indonesia',sv:'Svenska',da:'Dansk',fi:'Suomi',no:'Norsk',cs:'Čeština',ro:'Română',hu:'Magyar',el:'Ελληνικά',he:'עברית',uk:'Українська',ms:'Bahasa Melayu',fil:'Filipino',bn:'বাংলা',ur:'اردو',fa:'فارسی',sw:'Kiswahili',ta:'தமிழ்',te:'తెలుగు',mr:'मराठी',gu:'ગુજરાતી',kn:'ಕನ್ನಡ',ml:'മലയാളം',pa:'ਪੰਜਾਬੀ',bg:'Български',sk:'Slovenčina',lt:'Lietuvių',lv:'Latviešu',et:'Eesti',sl:'Slovenščina',hr:'Hrvatski',sr:'Српски'};
@@ -696,7 +726,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     document.getElementById('lf-panel-translate').addEventListener('click',doPanelTranslate);
     document.getElementById('lf-panel-input').addEventListener('input',()=>{ clearTimeout(panelTimer); if(panelAbort){ panelAbort(); panelAbort=null; } panelTimer=setTimeout(()=>{ doPanelTranslate().then(()=>{panelAbort=null;}); },800); });
   }
-  function togglePanel(){ createPanel(); const p=document.getElementById('lf-panel'); p.classList.toggle('show'); if(p.classList.contains('show')){ chrome.storage.sync.get('targetLang',s=>{ if(s.targetLang) document.getElementById('lf-panel-tgt').value=s.targetLang; }); document.getElementById('lf-panel-input').focus(); } }
+  let _lastToggle=0; function togglePanel(){ if(Date.now()-_lastToggle<300) return; _lastToggle=Date.now(); createPanel(); const p=document.getElementById('lf-panel'); p.classList.toggle('show'); if(p.classList.contains('show')){ chrome.storage.sync.get('targetLang',s=>{ if(s.targetLang) document.getElementById('lf-panel-tgt').value=s.targetLang; }); document.getElementById('lf-panel-input').focus(); } }
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&document.getElementById('lf-panel')?.classList.contains('show')){ const inp=document.activeElement; if(inp&&inp.id==='lf-panel-input') return; document.getElementById('lf-panel').classList.remove('show'); } });
 
   // 先读折叠状态，再构建 UI（防止异步导致闪烁）
@@ -714,6 +744,32 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
       document.getElementById('lf-mini').classList.add('visible');
       document.getElementById('btn-collapse').classList.add('collapsed');
     }
-    updateMiniText(); const stored=await safeStorage.get('uiLang'); if(stored.uiLang&&stored.uiLang!==uiLang){ uiLang=stored.uiLang; updateAllUIText(); const sel=document.getElementById('lf-ui-lang'); if(sel) sel.value=uiLang; } try{ await getTabId(); await loadPersistentCache(); if(await getTabMode()){ switchIntent=true; showTranslation=true; updateUsageBall(); setTimeout(()=>loadAndTranslate({ continuous:true }),800); } }catch{} } catch(e) { if(!e.message?.includes('context invalidated')) console.error('[LF] 初始化失败:',e.message); } })();
+    updateMiniText(); const stored=await safeStorage.get('uiLang'); if(stored.uiLang&&stored.uiLang!==uiLang){ uiLang=stored.uiLang; updateAllUIText(); const sel=document.getElementById('lf-ui-lang'); if(sel) sel.value=uiLang; } try{ await getTabId(); await loadPersistentCache(); if(await getTabMode()){ switchIntent=true; showTranslation=true; updateUsageBall(); setTimeout(()=>loadAndTranslate({ continuous:true }),800); } checkWidgetUpdate(); }catch{} } catch(e) { if(!e.message?.includes('context invalidated')) console.error('[LF] 初始化失败:',e.message); } })();
+  async function checkWidgetUpdate() {
+    const cache = await chrome.storage.local.get('lf_update_cache');
+    if (!cache.lf_update_cache || cache.lf_update_cache.status !== 'hasupdate') return;
+    // 24 小时内不重复提醒
+    const lastShown = (await chrome.storage.local.get('lf_widget_update_shown')).lf_widget_update_shown || 0;
+    if (Date.now() - lastShown < 86400000) return;
+    showToast('success', '🆕 有新版本 v' + cache.lf_update_cache.latest + '！点击下载');
+    await chrome.storage.local.set({ lf_widget_update_shown: Date.now() });
+  }
+
+  async function checkDonate() {
+    const key = 'lf_usage_count';
+    const stored = await chrome.storage.local.get([key, 'lf_donate_dismissed']);
+    const count = (stored[key] || 0) + 1;
+    await chrome.storage.local.set({ [key]: count });
+    if (count < 10) return;
+    const dismissed = stored.lf_donate_dismissed || 0;
+    // 7 天内不重复弹
+    if (Date.now() - dismissed < 7 * 24 * 3600 * 1000) return;
+    const overlay = document.getElementById('lf-donate-overlay');
+    const countEl = document.getElementById('lf-donate-count');
+    if (!overlay) return;
+    if (countEl) countEl.textContent = count;
+    overlay.classList.add('show');
+  }
+
   console.log('🌐 Faluber Translate 已加载');
 })();

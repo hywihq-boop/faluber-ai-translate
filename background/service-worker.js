@@ -252,14 +252,14 @@ chrome.commands.onCommand.addListener(async (command) => {
       }
       if (!apiSettings.apiKey) { chrome.action.openPopup(); return; }
       await chrome.tabs.sendMessage(tab.id, { type:'START_TRANSLATION', settings: { ...apiSettings, sourceLang: stored.sourceLang, targetLang: stored.targetLang } });
-    } catch {}
+    } catch(e) { console.error('[Faluber] translate-page command failed:', e); }
   }
   if (command === 'translate-panel') {
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       if (!tab?.id) return;
       await chrome.tabs.sendMessage(tab.id, { type:'TOGGLE_PANEL' });
-    } catch {}
+    } catch(e) { console.error('[Faluber] translate-panel command failed:', e); }
   }
 });
 
@@ -330,3 +330,29 @@ async function handleFetchModels(msg, sendResponse) {
     sendResponse({ success: false, error: err.message });
   }
 }
+
+// ===== 更新检测 =====
+function compareVersions(a, b) {
+  const pa = a.split('.').map(Number), pb = b.split('.').map(Number);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    if ((pa[i]||0) > (pb[i]||0)) return 1;
+    if ((pa[i]||0) < (pb[i]||0)) return -1;
+  }
+  return 0;
+}
+
+async function checkForUpdate() {
+  try {
+    const currentVer = chrome.runtime.getManifest().version;
+    const resp = await fetch('https://api.github.com/repos/hywihq-boop/faluber-translate/releases/latest');
+    if (!resp.ok) return;
+    const data = await resp.json();
+    const latest = data.tag_name.replace(/^v/, '');
+    await chrome.storage.local.set({ lf_update_cache: { time: Date.now(), status: compareVersions(latest, currentVer) > 0 ? 'hasupdate' : 'uptodate', latest } });
+  } catch(e) { /* 静默失败 */ }
+}
+
+// 每天定时检查（不在 onInstalled/onStartup 同步阻塞 SW）try{chrome.alarms.create('lf-update-check',{periodInMinutes:1440});}catch(e){}
+chrome.alarms.onAlarm.addListener(a=>{if(a.name==='lf-update-check'){setTimeout(()=>checkForUpdate(),5000);}});
+// 延迟 5 秒异步检查，避免阻塞 SW 启动
+setTimeout(() => { checkForUpdate(); }, 10000);
