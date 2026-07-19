@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隐私政策 — Faluber AI翻译</title>
+<style>
+  body{font-family:system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 24px;line-height:1.8;color:#333;background:#fff}
+  h1{font-size:24px;border-bottom:2px solid #7c5cfc;padding-bottom:8px}
+  h2{font-size:18px;margin-top:32px;color:#5a3fc0}
+  p,li{font-size:15px;color:#555}
+  ul{padding-left:20px}
+</style>
+</head>
+<body>
+
+<h1>Faluber AI翻译 隐私政策</h1>
+<p><strong>最后更新：</strong>2026年7月19日</p>
+
+<h2>概述</h2>
+<p>Faluber AI翻译（以下简称"本扩展"）高度重视用户隐私。本隐私政策说明我们如何收集、使用和保护您的信息。</p>
+
+<h2>我们收集的信息</h2>
+<ul>
+  <li><strong>API 配置信息：</strong>您提供的 API Key、API URL、模型名称等配置存储在浏览器的 <code>chrome.storage.sync</code> 中，仅用于调用您指定的 AI 翻译服务。</li>
+  <li><strong>翻译缓存：</strong>翻译结果缓存在 <code>chrome.storage.local</code> 中，用于避免重复翻译相同内容。缓存数据仅存储在本地，不会上传。</li>
+  <li><strong>使用统计：</strong>Token 用量统计（输入/输出 token 数）存储在 <code>chrome.storage.local</code> 中，仅用于在插件内显示用量信息。</li>
+</ul>
+
+<h2>我们不收集的信息</h2>
+<ul>
+  <li><strong>浏览历史</strong> — 本扩展不记录您访问的网页</li>
+  <li><strong>个人信息</strong> — 本扩展不收集您的姓名、邮箱、IP 地址等任何个人信息</li>
+  <li><strong>网页内容</strong> — 您浏览的网页内容仅在翻译时被发送到您指定的 AI API 服务商，本扩展本身不收集或存储网页内容</li>
+  <li><strong>任何分析或追踪数据</strong> — 本扩展不包含任何第三方分析 SDK、埋点或广告追踪</li>
+</ul>
+
+<h2>数据如何存储</h2>
+<p>所有数据（API 配置、翻译缓存、Token 统计）均存储在浏览器本地存储中：</p>
+<ul>
+  <li><code>chrome.storage.sync</code> — API 配置（跨设备同步）</li>
+  <li><code>chrome.storage.local</code> — 翻译缓存和使用统计（仅本机）</li>
+</ul>
+<p>这些数据不会发送到本扩展的开发者服务器。本扩展没有自己的后端服务器。</p>
+
+<h2>数据如何共享</h2>
+<p>翻译时，需要翻译的文本会发送到<strong>您自己指定</strong>的 AI API 服务商（如 DeepSeek、OpenAI 等）。数据的传输和处理受该服务商的隐私政策约束。本扩展开发者无法访问这些数据。</p>
+
+<h2>您的控制权</h2>
+<ul>
+  <li>您可以随时在插件 Popup 中删除或更换 API 配置</li>
+  <li>您可以随时在悬浮球详情面板中清除翻译缓存</li>
+  <li>卸载扩展将自动清除所有本地存储的数据</li>
+</ul>
+
+<h2>第三方服务</h2>
+<p>本扩展通过您配置的 API 服务商进行翻译。请参阅您使用的 API 服务商的隐私政策：</p>
+<ul>
+  <li><a href="https://api-docs.deepseek.com/zh-cn/">DeepSeek</a></li>
+  <li><a href="https://openai.com/policies/privacy-policy">OpenAI</a></li>
+  <li><a href="https://groq.com/privacy-policy/">Groq</a></li>
+</ul>
+
+<h2>联系我们</h2>
+<p>如有隐私相关问题，请在 <a href="https://github.com/hywihq-boop/faluber-ai-translate/issues">GitHub Issues</a> 提交。</p>
+
+<h2>政策更新</h2>
+<p>本隐私政策可能随时更新。更新后的政策将发布在同一页面。</p>
+
+</body>
+</html>
