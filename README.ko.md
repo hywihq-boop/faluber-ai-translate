@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icons/logo.png" width="96" height="96" style="border-radius:18px">
 
-  # 🌐 Faluber Translate
+  # 🌐 Faluber AI翻译
 
   ### AI 기반 웹페이지 번역 — 50개 언어, 10개 API 제공업체
 
@@ -18,7 +18,7 @@
 
 <br>
 
-> **Faluber Translate**는 AI 기반 Chrome 브라우저 번역 확장 프로그램입니다. iframe이나 오버레이 없이 DOM 텍스트 노드를 직접 교체합니다. **50개 대상 언어**, **10개 API 제공업체**, **듀얼 번역 모드**를 지원합니다.
+> **Faluber AI翻译**는 AI 기반 Chrome/Edge 브라우저 번역 확장 프로그램입니다. iframe이나 오버레이 없이 DOM 텍스트 노드를 직접 교체합니다. **50개 대상 언어**, **10개 API 제공업체**, **듀얼 번역 모드**를 지원합니다.
 
 ---
 
@@ -175,7 +175,7 @@
 ## 📂 프로젝트 구조
 
 ```
-faluber translate/
+faluber-ai-translate/
 ├── manifest.json
 ├── background/service-worker.js   # API 호출 및 라우팅
 ├── content/

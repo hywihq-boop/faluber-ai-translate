@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icons/logo.png" width="96" height="96" style="border-radius:18px">
 
-  # 🌐 Faluber Translate
+  # 🌐 Faluber AI翻译
 
   ### AI 搭載ウェブページ翻訳 — 50 言語、10 API プロバイダー
 
@@ -18,7 +18,7 @@
 
 <br>
 
-> **Faluber Translate** は AI を活用した Chrome ブラウザ翻訳拡張機能です。iframe やオーバーレイを使わず、DOM のテキストノードを直接置換。**50 のターゲット言語**、**10 の API プロバイダー**、**デュアル翻訳モード**を搭載。
+> **Faluber AI翻译** は AI を活用した Chrome/Edge ブラウザ翻訳拡張機能です。iframe やオーバーレイを使わず、DOM のテキストノードを直接置換。**50 のターゲット言語**、**10 の API プロバイダー**、**デュアル翻訳モード**を搭載。
 
 ---
 
@@ -175,7 +175,7 @@
 ## 📂 プロジェクト構成
 
 ```
-faluber translate/
+faluber-ai-translate/
 ├── manifest.json
 ├── background/service-worker.js   # API 呼出とルーティング
 ├── content/

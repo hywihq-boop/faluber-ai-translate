@@ -1,4 +1,4 @@
-# Contributing to Faluber Translate
+# Contributing to Faluber AI翻译
 
 Thanks for your interest in contributing! This document outlines how to get started.
 
@@ -28,7 +28,7 @@ Three runtime environments:
 ### Debugging
 
 - **Content script logs**: Open page DevTools (F12) → Console → filter `[LF`
-- **Service Worker logs**: `chrome://extensions` → Faluber Translate → "Service Worker" link
+- **Service Worker logs**: `chrome://extensions` → Faluber AI翻译 → "Service Worker" link
 - **API logs**:
   ```js
   chrome.storage.local.get('lf_api_log', d => console.table(d.lf_api_log || []))
@@ -49,7 +49,7 @@ Three runtime environments:
 
 ## Reporting Bugs
 
-Use the [Bug Report](https://github.com/your-username/faluber-translate/issues/new?template=bug_report.md) template. Include:
+Use the [Bug Report](https://github.com/hywihq-boop/faluber-Ai-Translate/issues/new?template=bug_report.md) template. Include:
 - Chrome version
 - Extension version
 - Steps to reproduce
@@ -57,4 +57,4 @@ Use the [Bug Report](https://github.com/your-username/faluber-translate/issues/n
 
 ## Feature Requests
 
-Use the [Feature Request](https://github.com/your-username/faluber-translate/issues/new?template=feature_request.md) template.
+Use the [Feature Request](https://github.com/hywihq-boop/faluber-Ai-Translate/issues/new?template=feature_request.md) template.

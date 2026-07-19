@@ -3,7 +3,7 @@
 <div align="center">
   <img src="icons/logo.png" width="96" height="96" style="border-radius:18px">
 
-  # 🌐 Faluber Translate
+  # 🌐 Faluber AI翻译
 
   ### AI-Powered Web Page Translation — 50 Languages, 10 API Providers
 
@@ -20,7 +20,7 @@
 
 <br>
 
-> **Faluber Translate** is a Chrome extension that translates web pages using AI. It replaces text nodes directly in the DOM — no iframes, no overlays. Just clean, native-feeling translation with **50 target languages**, **10 built-in API providers**, **dual translation modes**, and **smart dual-layer caching — zero token cost for repeated content**.
+> **Faluber AI翻译** is a Chrome/Edge extension that translates web pages using AI. It replaces text nodes directly in the DOM — no iframes, no overlays. Just clean, native-feeling translation with **50 target languages**, **10 built-in API providers**, **dual translation modes**, and **smart dual-layer caching — zero token cost for repeated content**.
 
 ---
 
@@ -177,7 +177,7 @@ User triggers translation
 ## 📂 Structure
 
 ```
-faluber translate/
+faluber-ai-translate/
 ├── manifest.json
 ├── background/service-worker.js   # API calls & routing
 ├── content/

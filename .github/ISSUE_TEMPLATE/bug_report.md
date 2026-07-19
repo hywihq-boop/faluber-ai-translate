@@ -23,7 +23,7 @@ If applicable, add screenshots to help explain.
 
 **Environment:**
  - Chrome version: [e.g. 120.0]
- - Extension version: [e.g. 2.0.10]
+ - Extension version: [e.g. 0.1.1]
  - OS: [e.g. Windows 11, macOS 14]
  - API provider: [e.g. DeepSeek, OpenAI]
 

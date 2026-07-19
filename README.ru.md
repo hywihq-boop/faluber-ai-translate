@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icons/logo.png" width="96" height="96" style="border-radius:18px">
 
-  # 🌐 Faluber Translate
+  # 🌐 Faluber AI翻译
 
   ### ИИ-переводчик веб-страниц — 50 языков, 10 API-провайдеров
 
@@ -18,7 +18,7 @@
 
 <br>
 
-> **Faluber Translate** — расширение Chrome для перевода веб-страниц с помощью ИИ. Замена текстовых узлов напрямую в DOM — без iframe и оверлеев. **50 языков**, **10 встроенных API-провайдеров**, **два режима перевода**.
+> **Faluber AI翻译** — расширение Chrome/Edge для перевода веб-страниц с помощью ИИ. Замена текстовых узлов напрямую в DOM — без iframe и оверлеев. **50 языков**, **10 встроенных API-провайдеров**, **два режима перевода**.
 
 ---
 
@@ -175,7 +175,7 @@
 ## 📂 Структура
 
 ```
-faluber translate/
+faluber-ai-translate/
 ├── manifest.json
 ├── background/service-worker.js   # Вызовы API и маршрутизация
 ├── content/

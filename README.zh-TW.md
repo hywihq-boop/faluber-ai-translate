@@ -1,7 +1,7 @@
 <div align="center">
   <img src="icons/logo.png" width="96" height="96" style="border-radius:18px">
 
-  # 🌐 Faluber Translate
+  # 🌐 Faluber AI翻译
 
   ### AI 智慧網頁翻譯外掛 — 50 種語言，10 家 API 提供商
 
@@ -18,7 +18,7 @@
 
 <br>
 
-> **Faluber Translate** 是一款基於 AI 的 Chrome 瀏覽器翻譯外掛。直接在 DOM 中替換文字節點——不用 iframe，不用浮層。純淨的翻譯體驗，支援 **50 種目標語言**、**10 家內建 API 提供商**、**雙檔翻譯模式**。
+> **Faluber AI翻译** 是一款基於 AI 的 Chrome/Edge 瀏覽器翻譯外掛。直接在 DOM 中替換文字節點——不用 iframe，不用浮層。純淨的翻譯體驗，支援 **50 種目標語言**、**10 家內建 API 提供商**、**雙檔翻譯模式**。
 
 ---
 
@@ -175,7 +175,7 @@
 ## 📂 專案結構
 
 ```
-faluber translate/
+faluber-ai-translate/
 ├── manifest.json
 ├── background/service-worker.js   # API 呼叫與訊息路由
 ├── content/

@@ -3,7 +3,7 @@
 <div align="center">
   <img src="icons/logo.png" width="96" height="96" style="border-radius:18px">
 
-  # 🌐 Faluber Translate
+  # 🌐 Faluber AI翻译
 
   ### AI 智能网页翻译插件 — 50 种语言，10 家 API 提供商
 
@@ -20,7 +20,7 @@
 
 <br>
 
-> **Faluber Translate** 是一款基于 AI 的 Chrome 浏览器翻译插件。直接在 DOM 中替换文本节点——不用 iframe，不用浮层。纯净的翻译体验，支持 **50 种目标语言**、**10 家内置 API 提供商**、**双档翻译模式**、**智能双层缓存 — 重复内容零 token 消耗**。
+> **Faluber AI翻译** 是一款基于 AI 的 Chrome/Edge 浏览器翻译插件。直接在 DOM 中替换文本节点——不用 iframe，不用浮层。纯净的翻译体验，支持 **50 种目标语言**、**10 家内置 API 提供商**、**双档翻译模式**、**智能双层缓存 — 重复内容零 token 消耗**。
 
 ---
 
@@ -177,7 +177,7 @@
 ## 📂 项目结构
 
 ```
-faluber translate/
+faluber-ai-translate/
 ├── manifest.json
 ├── background/service-worker.js   # API 调用与消息路由
 ├── content/

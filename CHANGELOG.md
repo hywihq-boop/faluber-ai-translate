@@ -1,6 +1,16 @@
 # Changelog
 
-All notable changes to Faluber Translate.
+All notable changes to Faluber AI翻译.
+
+## [0.1.1] - 2026-07-19
+- 修复圆形 mini 球无法拖拽的 bug
+- 修复 Alt+T 第二次按不会还原原文的 bug（START_TRANSLATION 改为三段切换）
+- 修复删除打赏 CSS 后模板字符串未闭合导致插件不加载的 bug
+
+## [0.1.0] - 2026-07-19
+- 插件更名为 **Faluber AI翻译**（Edge 商店上架准备）
+- 移除打赏功能（CSS/弹窗/计数逻辑/二维码图标）
+- 版本号重置为 0.1.0（测试版）
 
 ## [2.0.10] - 2025-07-07
 - Auto-hide floating widget when video enters fullscreen

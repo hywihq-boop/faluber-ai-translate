@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-**Faluber Translate** — Chrome/Edge 浏览器 AI 翻译插件（Manifest V3），基于 OpenAI 兼容 API（DeepSeek 等），文本节点级别 DOM 替换实现页面翻译。支持 50 种目标语言、20 种 UI 语言、10 家内置 API 提供商。
+**Faluber AI翻译** — Chrome/Edge 浏览器 AI 翻译插件（Manifest V3），基于 OpenAI 兼容 API（DeepSeek 等），文本节点级别 DOM 替换实现页面翻译。支持 50 种目标语言、20 种 UI 语言、10 家内置 API 提供商。
 
 - 仓库: `hywihq-boop/faluber-Ai-Translate`
 - 扩展 ID: `mdiodonkindbjkehkmoheglkedodkofa`（通过 `manifest.json` 中 `key` 字段固化）
@@ -194,5 +194,5 @@ gh release create vX.X.X faluber-Ai-Translate-vX.X.X.zip --title "vX.X.X — 简
   chrome.storage.local.get('lf_api_log', d => console.table(d.lf_api_log || []))
   ```
 - **查看内容脚本日志**（F12 → Console → 筛选 `[LF` 或 `Faluber`）
-- **查看 Service Worker 日志**: `chrome://extensions` → Faluber Translate → Service Worker 链接
+- **查看 Service Worker 日志**: `chrome://extensions` → Faluber AI翻译 → Service Worker 链接
 - **查看快捷键注册状态**: `chrome://extensions/shortcuts`
