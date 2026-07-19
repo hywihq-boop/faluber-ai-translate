@@ -47,8 +47,7 @@
     if (document.getElementById('lf-styles')) return;
     const s = document.createElement('style'); s.id = 'lf-styles';
     s.textContent = `:root{--lf-purple:#7c5cfc;--lf-purple-soft:#9061f9;--lf-cyan:#5ce0fc;--lf-green:#4ade80;--lf-red:#f87171;--lf-yellow:#facc15;--lf-bg:rgba(15,15,26,0.94);--lf-border:rgba(255,255,255,0.08);--lf-text:#c0c0d0;--lf-text-strong:#e0e0e0;--lf-text-weak:#7a7a8e}
-#lf-wrapper,#lf-wrapper *{box-sizing:border-box!important}
-#lf-wrapper{position:fixed!important;right:16px!important;bottom:16px!important;z-index:2147483646;width:260px;font-family:system-ui;user-select:none;pointer-events:none;transition:width 0.45s cubic-bezier(0.22,0,0,1);overflow:visible}
+#lf-wrapper{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:260px;font-family:system-ui;user-select:none;pointer-events:none;transition:width 0.45s cubic-bezier(0.22,0,0,1);overflow:visible}
 #lf-wrapper.lf-fullscreen-hidden{display:none!important}
 #lf-wrapper.collapsed{width:56px}
 #lf-wrapper>#lf-widget,#lf-wrapper>.lf-collapse-btn-wrap{pointer-events:auto}
@@ -75,23 +74,23 @@
 .lf-detail-value{font-size:11px;font-weight:500;color:var(--lf-text-strong);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px}
 .lf-clear-btn{background:rgba(248,113,133,0.10);color:var(--lf-red);border:none;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s}
 .lf-clear-btn:hover{background:rgba(248,113,133,0.18)}
-.lf-orb{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:10px 13px!important;cursor:grab;min-height:48px!important;max-height:52px!important}
+.lf-orb{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:grab;min-height:48px}
 .lf-orb:active{cursor:grabbing}
-.lf-orb-left{display:flex!important;align-items:center!important;gap:8px!important;flex-shrink:0!important;min-width:0!important;overflow:hidden!important}
-.lf-orb-center{display:flex!important;align-items:center!important;gap:3px!important;margin:0 auto!important;flex-shrink:1!important;min-width:0!important}
-.lf-orb-right{display:flex!important;align-items:center!important;flex-shrink:0!important}
+.lf-orb-left{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.lf-orb-center{display:flex;align-items:center;gap:3px;margin:0 auto}
+.lf-orb-right{display:flex;align-items:center;flex-shrink:0}
 .lf-orb-label{font-size:11px;color:var(--lf-text-weak);font-weight:500;white-space:nowrap}
 .lf-toggle{width:32px!important;height:18px!important;min-width:32px!important;max-width:32px!important;min-height:18px!important;max-height:18px!important;border-radius:999px;background:rgba(255,255,255,0.1);border:none;position:relative;cursor:pointer;padding:0!important;flex-shrink:0;transition:background 0.3s ease}
 .lf-toggle::after{content:"";position:absolute;top:2.5px;left:2.5px;width:13px;height:13px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:transform 0.3s ease}
 .lf-toggle.active{background:var(--lf-purple)}
 .lf-toggle.active::after{transform:translateX(14px)}
-.lf-pill-btn{height:26px;padding:0 14px;border-radius:13px;background:rgba(124,92,252,0.08);color:var(--lf-purple-soft);border:1px solid rgba(124,92,252,0.18);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s ease;display:flex;align-items:center;gap:4px}
+.lf-pill-btn{height:26px!important;width:auto!important;min-width:0!important;max-width:none!important;padding:0 14px!important;border-radius:13px;background:rgba(124,92,252,0.08);color:var(--lf-purple-soft);border:1px solid rgba(124,92,252,0.18);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s ease;display:inline-flex!important;align-items:center;gap:4px;flex-shrink:0!important}
 .lf-pill-btn:hover{background:rgba(124,92,252,0.14);border-color:rgba(124,92,252,0.3)}
 .lf-pill-btn.translating{background:rgba(124,92,252,0.05);color:#8b5cf6;border-color:rgba(124,92,252,0.1);cursor:default}
 .lf-pill-btn.done{background:rgba(74,222,128,0.1);color:var(--lf-green);border-color:rgba(74,222,128,0.2)}
 .lf-btn-spinner{width:10px;height:10px;border:2px solid rgba(124,92,252,0.2);border-top-color:var(--lf-purple-soft);border-radius:50%;animation:lf-spin 0.8s linear infinite;display:inline-block}
 @keyframes lf-spin{to{transform:rotate(360deg)}}
-.lf-chevron{position:relative;z-index:5;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:8px;transition:all 0.3s ease;padding:0}
+.lf-chevron{position:relative;z-index:5;width:36px!important;height:36px!important;min-width:36px!important;max-width:36px!important;display:inline-flex!important;align-items:center;justify-content:center;background:transparent;border:none;color:var(--lf-text-weak);cursor:pointer;border-radius:8px;transition:all 0.3s ease;padding:0!important;flex-shrink:0!important}
 .lf-chevron:hover{color:var(--lf-text);background:rgba(255,255,255,0.06)}
 .lf-chevron.open{transform:rotate(180deg)}
 .lf-chevron svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
