@@ -75,13 +75,13 @@
 .lf-detail-value{font-size:11px;font-weight:500;color:var(--lf-text-strong);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px}
 .lf-clear-btn{background:rgba(248,113,133,0.10);color:var(--lf-red);border:none;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:500;cursor:pointer;font-family:inherit;transition:background 0.2s}
 .lf-clear-btn:hover{background:rgba(248,113,133,0.18)}
-.lf-orb{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;cursor:grab;min-height:48px}
+.lf-orb{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:10px 13px!important;cursor:grab;min-height:48px!important;max-height:52px!important}
 .lf-orb:active{cursor:grabbing}
-.lf-orb-left{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.lf-orb-center{display:flex;align-items:center;gap:3px;margin:0 auto}
-.lf-orb-right{display:flex;align-items:center;flex-shrink:0}
+.lf-orb-left{display:flex!important;align-items:center!important;gap:8px!important;flex-shrink:0!important;min-width:0!important;overflow:hidden!important}
+.lf-orb-center{display:flex!important;align-items:center!important;gap:3px!important;margin:0 auto!important;flex-shrink:1!important;min-width:0!important}
+.lf-orb-right{display:flex!important;align-items:center!important;flex-shrink:0!important}
 .lf-orb-label{font-size:11px;color:var(--lf-text-weak);font-weight:500;white-space:nowrap}
-.lf-toggle{width:32px;height:18px;border-radius:999px;background:rgba(255,255,255,0.1);border:none;position:relative;cursor:pointer;padding:0;flex-shrink:0;transition:background 0.3s ease}
+.lf-toggle{width:32px!important;height:18px!important;min-width:32px!important;max-width:32px!important;min-height:18px!important;max-height:18px!important;border-radius:999px;background:rgba(255,255,255,0.1);border:none;position:relative;cursor:pointer;padding:0!important;flex-shrink:0;transition:background 0.3s ease}
 .lf-toggle::after{content:"";position:absolute;top:2.5px;left:2.5px;width:13px;height:13px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.3);transition:transform 0.3s ease}
 .lf-toggle.active{background:var(--lf-purple)}
 .lf-toggle.active::after{transform:translateX(14px)}
