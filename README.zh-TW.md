@@ -5,15 +5,15 @@
 
   ### AI 智慧網頁翻譯外掛 — 50 種語言，10 家 API 提供商
 
-  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-Ai-Translate?style=flat-square)
+  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-ai-translate?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
   <br>
 
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases"><img src="https://img.shields.io/badge/⬇_下載最新版-7c5cfc?style=for-the-badge" alt="下載"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases"><img src="https://img.shields.io/badge/⬇_下載最新版-7c5cfc?style=for-the-badge" alt="下載"></a>
   &nbsp;
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
 </div>
 
 <br>
@@ -99,8 +99,8 @@
 
 ### 方法一：下載 Release 壓縮包（推薦）
 
-1. 打開 [Releases](https://github.com/hywihq-boop/faluber-Ai-Translate/releases) 頁面
-2. 下載最新版 `faluber-Ai-Translate-vX.X.X.zip`
+1. 打開 [Releases](https://github.com/hywihq-boop/faluber-ai-translate/releases) 頁面
+2. 下載最新版 `faluber-ai-translate-vX.X.X.zip`
 3. 打開 `chrome://extensions`，開啟右上角**開發者模式**
 4. 將下載的 zip 檔案**直接拖入**瀏覽器視窗
 5. 完成！
@@ -202,8 +202,8 @@ faluber-ai-translate/
 
 <div align="center">
   <br>
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate">⭐ Star</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases">📦 下載</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/issues">🐛 回報 Bug</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate">⭐ Star</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases">📦 下載</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/issues">🐛 回報 Bug</a> ·
   <a href="LICENSE">📝 MIT</a>
 </div>

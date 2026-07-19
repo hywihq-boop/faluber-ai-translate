@@ -5,15 +5,15 @@
 
   ### AI 기반 웹페이지 번역 — 50개 언어, 10개 API 제공업체
 
-  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-Ai-Translate?style=flat-square)
+  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-ai-translate?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
   <br>
 
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases"><img src="https://img.shields.io/badge/⬇_다운로드-7c5cfc?style=for-the-badge" alt="다운로드"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases"><img src="https://img.shields.io/badge/⬇_다운로드-7c5cfc?style=for-the-badge" alt="다운로드"></a>
   &nbsp;
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
 </div>
 
 <br>
@@ -99,8 +99,8 @@
 
 ### 방법 1: Release 다운로드 (추천)
 
-1. [Releases](https://github.com/hywihq-boop/faluber-Ai-Translate/releases) 페이지 열기
-2. 최신 `faluber-Ai-Translate-vX.X.X.zip` 다운로드
+1. [Releases](https://github.com/hywihq-boop/faluber-ai-translate/releases) 페이지 열기
+2. 최신 `faluber-ai-translate-vX.X.X.zip` 다운로드
 3. `chrome://extensions` 열기, **개발자 모드** 켜기
 4. 다운로드한 zip 파일을 **직접 드래그**하여 브라우저 창에 놓기
 5. 완료!
@@ -202,8 +202,8 @@ faluber-ai-translate/
 
 <div align="center">
   <br>
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate">⭐ Star</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases">📦 릴리스</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/issues">🐛 버그 신고</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate">⭐ Star</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases">📦 릴리스</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/issues">🐛 버그 신고</a> ·
   <a href="LICENSE">📝 MIT</a>
 </div>

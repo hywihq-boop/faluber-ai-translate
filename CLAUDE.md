@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Faluber AI翻译** — Chrome/Edge 浏览器 AI 翻译插件（Manifest V3），基于 OpenAI 兼容 API（DeepSeek 等），文本节点级别 DOM 替换实现页面翻译。支持 50 种目标语言、20 种 UI 语言、10 家内置 API 提供商。
 
-- 仓库: `hywihq-boop/faluber-Ai-Translate`
+- 仓库: `hywihq-boop/faluber-ai-translate`
 - 扩展 ID: `mdiodonkindbjkehkmoheglkedodkofa`（通过 `manifest.json` 中 `key` 字段固化）
-- GitHub Pages: `https://hywihq-boop.github.io/faluber-Ai-Translate/`
+- GitHub Pages: `https://hywihq-boop.github.io/faluber-ai-translate/`
 - 私钥: `faluber-key.pem`（CRX 打包用，已加入 `.gitignore`）
 
 ## 架构 — 三个运行时
@@ -175,16 +175,16 @@ const files = [
   ['icons/icon128.png', 'icons/icon128.png'],
   ['icons/logo.png', 'icons/logo.png'],
 ];
-createZip(files, 'faluber-Ai-Translate-vX.X.X.zip');
+createZip(files, 'faluber-ai-translate-vX.X.X.zip');
 console.log('Done:', files.length, 'files');
 "
 ```
 
-输出 `faluber-Ai-Translate-vX.X.X.zip`，解压后 `chrome://extensions` → 加载已解压的扩展程序。**不要用 PowerShell Compress-Archive**（路径用反斜杠会导致加载失败）。
+输出 `faluber-ai-translate-vX.X.X.zip`，解压后 `chrome://extensions` → 加载已解压的扩展程序。**不要用 PowerShell Compress-Archive**（路径用反斜杠会导致加载失败）。
 
 发布 Release：
 ```bash
-gh release create vX.X.X faluber-Ai-Translate-vX.X.X.zip --title "vX.X.X — 简短描述" --notes '发布说明'
+gh release create vX.X.X faluber-ai-translate-vX.X.X.zip --title "vX.X.X — 简短描述" --notes '发布说明'
 ```
 
 ## 调试

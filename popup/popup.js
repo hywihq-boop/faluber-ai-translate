@@ -384,7 +384,7 @@ async function saveCurrentApiSilent() {
     status.className = 'checking';
     status.textContent = '⏳';
     try {
-      const resp = await fetch('https://api.github.com/repos/hywihq-boop/faluber-Ai-Translate/releases/latest');
+      const resp = await fetch('https://api.github.com/repos/hywihq-boop/faluber-ai-translate/releases/latest');
       if (!resp.ok) throw new Error('API error');
       const data = await resp.json();
       const latest = data.tag_name.replace(/^v/, '');
@@ -412,7 +412,7 @@ async function saveCurrentApiSilent() {
       el.className = 'hasupdate';
       el.textContent = '🆕 v' + latest;
       el.title = '有新版本! 点击下载';
-      el.onclick = () => chrome.tabs.create({ url: 'https://github.com/hywihq-boop/faluber-Ai-Translate/releases/latest' });
+      el.onclick = () => chrome.tabs.create({ url: 'https://github.com/hywihq-boop/faluber-ai-translate/releases/latest' });
     }
   }
 

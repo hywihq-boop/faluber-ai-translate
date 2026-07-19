@@ -5,15 +5,15 @@
 
   ### ИИ-переводчик веб-страниц — 50 языков, 10 API-провайдеров
 
-  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-Ai-Translate?style=flat-square)
+  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-ai-translate?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
   <br>
 
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases"><img src="https://img.shields.io/badge/⬇_Скачать-7c5cfc?style=for-the-badge" alt="Скачать"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases"><img src="https://img.shields.io/badge/⬇_Скачать-7c5cfc?style=for-the-badge" alt="Скачать"></a>
   &nbsp;
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
 </div>
 
 <br>
@@ -99,8 +99,8 @@
 
 ### Способ 1: Скачать Release (рекомендуется)
 
-1. Откройте [Releases](https://github.com/hywihq-boop/faluber-Ai-Translate/releases)
-2. Скачайте последний `faluber-Ai-Translate-vX.X.X.zip`
+1. Откройте [Releases](https://github.com/hywihq-boop/faluber-ai-translate/releases)
+2. Скачайте последний `faluber-ai-translate-vX.X.X.zip`
 3. Откройте `chrome://extensions`, включите **Режим разработчика**
 4. **Перетащите zip-файл** прямо в окно браузера
 5. Готово!
@@ -202,8 +202,8 @@ faluber-ai-translate/
 
 <div align="center">
   <br>
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate">⭐ Star</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases">📦 Релизы</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/issues">🐛 Баг-репорт</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate">⭐ Star</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases">📦 Релизы</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/issues">🐛 Баг-репорт</a> ·
   <a href="LICENSE">📝 MIT</a>
 </div>

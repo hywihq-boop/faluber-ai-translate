@@ -7,15 +7,15 @@
 
   ### AI-Powered Web Page Translation — 50 Languages, 10 API Providers
 
-  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-Ai-Translate?style=flat-square)
+  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-ai-translate?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
   <br>
 
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases"><img src="https://img.shields.io/badge/⬇_Download_Latest-7c5cfc?style=for-the-badge" alt="Download"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases"><img src="https://img.shields.io/badge/⬇_Download_Latest-7c5cfc?style=for-the-badge" alt="Download"></a>
   &nbsp;
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
 </div>
 
 <br>
@@ -101,8 +101,8 @@ In-memory + persistent dual-layer cache. Repeated text returns instantly with **
 
 ### Method 1: Download Release (Recommended)
 
-1. Go to [Releases](https://github.com/hywihq-boop/faluber-Ai-Translate/releases)
-2. Download the latest `faluber-Ai-Translate-vX.X.X.zip`
+1. Go to [Releases](https://github.com/hywihq-boop/faluber-ai-translate/releases)
+2. Download the latest `faluber-ai-translate-vX.X.X.zip`
 3. Open `chrome://extensions`, enable **Developer mode** (top-right)
 4. **Drag the zip file directly** into the browser window
 5. Done!
@@ -204,8 +204,8 @@ faluber-ai-translate/
 
 <div align="center">
   <br>
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate">⭐ Star</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases">📦 Releases</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/issues">🐛 Bug Report</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate">⭐ Star</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases">📦 Releases</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/issues">🐛 Bug Report</a> ·
   <a href="LICENSE">📝 MIT</a>
 </div>

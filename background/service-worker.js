@@ -344,7 +344,7 @@ function compareVersions(a, b) {
 async function checkForUpdate() {
   try {
     const currentVer = chrome.runtime.getManifest().version;
-    const resp = await fetch('https://api.github.com/repos/hywihq-boop/faluber-Ai-Translate/releases/latest');
+    const resp = await fetch('https://api.github.com/repos/hywihq-boop/faluber-ai-translate/releases/latest');
     if (!resp.ok) return;
     const data = await resp.json();
     const latest = data.tag_name.replace(/^v/, '');

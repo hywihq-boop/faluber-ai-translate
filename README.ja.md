@@ -5,15 +5,15 @@
 
   ### AI 搭載ウェブページ翻訳 — 50 言語、10 API プロバイダー
 
-  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-Ai-Translate?style=flat-square)
+  ![version](https://img.shields.io/github/v/release/hywihq-boop/faluber-ai-translate?style=flat-square)
   ![manifest](https://img.shields.io/badge/MV3-blue?style=flat-square)
   ![license](https://img.shields.io/badge/MIT-green?style=flat-square)
 
   <br>
 
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases"><img src="https://img.shields.io/badge/⬇_ダウンロード-7c5cfc?style=for-the-badge" alt="ダウンロード"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases"><img src="https://img.shields.io/badge/⬇_ダウンロード-7c5cfc?style=for-the-badge" alt="ダウンロード"></a>
   &nbsp;
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate"><img src="https://img.shields.io/badge/⭐_Star-222?style=for-the-badge" alt="Star"></a>
 </div>
 
 <br>
@@ -99,8 +99,8 @@
 
 ### 方法 1：Release をダウンロード（推奨）
 
-1. [Releases](https://github.com/hywihq-boop/faluber-Ai-Translate/releases) を開く
-2. 最新の `faluber-Ai-Translate-vX.X.X.zip` をダウンロード
+1. [Releases](https://github.com/hywihq-boop/faluber-ai-translate/releases) を開く
+2. 最新の `faluber-ai-translate-vX.X.X.zip` をダウンロード
 3. `chrome://extensions` を開き、**デベロッパーモード**を有効にする
 4. ダウンロードした zip を**直接ドラッグ＆ドロップ**
 5. 完了！
@@ -202,8 +202,8 @@ faluber-ai-translate/
 
 <div align="center">
   <br>
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate">⭐ Star</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/releases">📦 リリース</a> ·
-  <a href="https://github.com/hywihq-boop/faluber-Ai-Translate/issues">🐛 バグ報告</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate">⭐ Star</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/releases">📦 リリース</a> ·
+  <a href="https://github.com/hywihq-boop/faluber-ai-translate/issues">🐛 バグ報告</a> ·
   <a href="LICENSE">📝 MIT</a>
 </div>

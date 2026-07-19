@@ -49,7 +49,7 @@ Three runtime environments:
 
 ## Reporting Bugs
 
-Use the [Bug Report](https://github.com/hywihq-boop/faluber-Ai-Translate/issues/new?template=bug_report.md) template. Include:
+Use the [Bug Report](https://github.com/hywihq-boop/faluber-ai-translate/issues/new?template=bug_report.md) template. Include:
 - Chrome version
 - Extension version
 - Steps to reproduce
@@ -57,4 +57,4 @@ Use the [Bug Report](https://github.com/hywihq-boop/faluber-Ai-Translate/issues/
 
 ## Feature Requests
 
-Use the [Feature Request](https://github.com/hywihq-boop/faluber-Ai-Translate/issues/new?template=feature_request.md) template.
+Use the [Feature Request](https://github.com/hywihq-boop/faluber-ai-translate/issues/new?template=feature_request.md) template.
