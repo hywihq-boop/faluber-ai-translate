@@ -1,5 +1,5 @@
 /**
- * Icon generator — generates simple PNG icons for Faluber Translate
+ * Icon generator — generates simple PNG icons for Faluber AI翻译
  * 纯 Node.js，无外部依赖
  */
 
