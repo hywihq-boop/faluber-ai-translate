@@ -226,16 +226,10 @@ function updateTokenDisplay() {
     let total = 0, input = 0, output = 0;
     for (const k of Object.keys(data)) if (k.startsWith('tokens_')) { total += data[k].total||0; input += data[k].input||0; output += data[k].output||0; }
     const fmt = n => n>=1000?`${(n/1000).toFixed(1)}K`:String(n);
-    const cost = estimateCost(input, output);
-    $('#token-usage').innerHTML = `📊 ${fmt(total)} tokens${cost>0?` · ≈ ¥${cost.toFixed(4)}`:''}`;
+    $('#token-usage').innerHTML = `📊 ${fmt(total)} tokens`;
   });
 }
 
-function estimateCost(input, output) {
-  const model = $('#model').value;
-  const p = { 'deepseek-chat':[1,2], 'deepseek-reasoner':[4,16] }[model] || [1,2];
-  return (input/1e6)*p[0] + (output/1e6)*p[1];
-}
 
 // ===== 事件绑定 =====
 function bindEvents() {

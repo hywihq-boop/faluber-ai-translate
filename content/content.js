@@ -237,7 +237,6 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
                 <span class="lf-detail-label" id="dl-input">${t('input')}</span><span class="lf-detail-value" id="dv-input">0</span>
                 <span class="lf-detail-label" id="dl-output">${t('output')}</span><span class="lf-detail-value" id="dv-output">0</span>
                 <span class="lf-detail-label" id="dl-total">${t('total')}</span><span class="lf-detail-value" id="dv-total">0</span>
-                <span class="lf-detail-label" id="dl-cost">${t('estCost')}</span><span class="lf-detail-value" id="dv-cost">--</span>
                 <span class="lf-detail-label" id="dl-cache">${t('cacheEntries')}</span><span class="lf-detail-value" id="dv-cache">0</span>
               </div>
             </div>
@@ -431,7 +430,7 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
     Object.entries(labelMap).forEach(([id, key]) => { const el = document.getElementById(id); if (el) el.textContent = t(key); });
     ['dl-source','dl-target'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = t(id.replace('dl-','')); });
     const optA = document.getElementById('opt-auto'); if (optA) optA.textContent = t('autoDetect');
-    chrome.storage.local.get(null, data => { let gi=0,go=0,gt=0; for (const k of Object.keys(data)) if (k.startsWith('tokens_')) { gi+=data[k].input||0; go+=data[k].output||0; gt+=data[k].total||0; } const cost=estimateCost(gi,go), fmt=n=>n>=1000?`${(n/1000).toFixed(1)}K`:String(n); const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;}; set('dv-input',fmt(gi)); set('dv-output',fmt(go)); set('dv-total',fmt(gt)); set('dv-cost',cost>0?`¥${cost.toFixed(4)}`:'--'); set('dv-cache',String(translationCache.size)); });
+    chrome.storage.local.get(null, data => { let gi=0,go=0,gt=0; for (const k of Object.keys(data)) if (k.startsWith('tokens_')) { gi+=data[k].input||0; go+=data[k].output||0; gt+=data[k].total||0; } const fmt=n=>n>=1000?`${(n/1000).toFixed(1)}K`:String(n); const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;}; set('dv-input',fmt(gi)); set('dv-output',fmt(go)); set('dv-total',fmt(gt)); set('dv-cache',String(translationCache.size)); });
   }
 
   function updateUsageBall() {
@@ -483,7 +482,6 @@ button:focus-visible{outline:2px solid rgba(124,92,252,0.5);outline-offset:2px}
   async function saveTabMode(on) { const id=await getTabId(); await chrome.storage.local.set({ [`tmode_${id}`]:on }); }
   async function getTabMode() { const id=await getTabId(); const r=await chrome.storage.local.get(`tmode_${id}`); return r[`tmode_${id}`]||false; }
   async function loadAndTranslate(opts={}) { try { const apiSettings=await readApiSettings(); if (!apiSettings.apiKey) { showToast('error','⚠️ '+t('noKey')); return; } if (apiSettings.supportsConcurrency===false) { showApiError('此 API 不支持并发，请在 Popup 中更换 API 或开启"支持并发"选项'); return; } const s=await chrome.storage.sync.get({ sourceLang:'auto',targetLang:'zh-CN',hoverOriginal:true,showProgress:true,mode:null }); if (s.mode) { mode=s.mode; } settings={ ...apiSettings, ...s }; abortController=new AbortController(); try { await startTranslation(settings,opts); } catch(e) { console.error(e); updateUsageBall(); } } catch(e) { if(!e.message?.includes('context invalidated')) console.error(e); } }
-  function estimateCost(input,output) { const p={ 'deepseek-chat':[1,2],'deepseek-reasoner':[4,16] }[settings.model]||[1,2]; return (input/1e6)*p[0]+(output/1e6)*p[1]; }
   function addPageTokens(u) { if (!u) return; pageTokens.input+=u.prompt_tokens||0; pageTokens.output+=u.completion_tokens||0; pageTokens.total+=u.total_tokens||0; pageTokens.apiCalls++; updateUsageBall(); }
 
   // ===== Ctrl解释 — 气泡弹窗 =====
